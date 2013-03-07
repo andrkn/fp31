@@ -76,6 +76,9 @@ public class Event {
 	}
 	
 	public void addAttender(HaveCalendar haveCalendar){
+		if (attenders == null){
+			attenders = new ArrayList<HaveCalendar>();
+		}
 		attenders.add(haveCalendar); 
 	}
 	
