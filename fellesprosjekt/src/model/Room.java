@@ -6,6 +6,11 @@ public class Room implements Comparable<Room>{
 	private int capacity; 
 	
 	public Room(String roomNr, int capacity){
+		if (roomNr.equals(null)){
+			throw new IllegalArgumentException("roomNr can not be null");
+		}else if (capacity<1){
+			throw new IllegalArgumentException("capacity must be a positive integer");
+		}
 		this.roomNr = roomNr; 
 		this.capacity = capacity;
 	}
@@ -21,6 +26,10 @@ public class Room implements Comparable<Room>{
 	@Override
 	public int compareTo(Room room) {
 		return Integer.compare(this.capacity, room.capacity);
+	}
+	
+	public String toString(){
+		return "Room " + roomNr + " - Capacity " + capacity;
 	}
 
 }
