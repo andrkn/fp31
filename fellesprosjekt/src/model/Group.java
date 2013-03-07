@@ -2,7 +2,7 @@ package model;
 
 import java.util.ArrayList;
 
-public class Gruop implements HaveCalendar {
+public class Group implements HaveCalendar {
 	
 	String name;
 	ArrayList<Person> members;
