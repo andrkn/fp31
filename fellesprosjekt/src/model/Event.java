@@ -90,9 +90,5 @@ public class Event {
 		return attenders.size();
 	}
 
-	public Event() {
-		
-	}
-	
 	
 }
