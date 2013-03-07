@@ -1,6 +1,7 @@
 package model;
 
 import java.sql.Time;
+import java.util.ArrayList;
 
 public class Event {
 	
@@ -8,6 +9,7 @@ public class Event {
 	private Room room;
 	private Time time;
 	private Boolean isActive;
+	private ArrayList<HaveCalendar> attenders;
 	
 	public String getEventId() {
 		return eventId;
@@ -63,6 +65,26 @@ public class Event {
 
 	public void setIsActive(Boolean isActive) {
 		this.isActive = isActive;
+	}
+	
+	public void setAttenders(ArrayList<HaveCalendar> attenders){
+		this.attenders = attenders;
+	}
+	
+	public ArrayList<HaveCalendar> getAttenders(){
+		return attenders;
+	}
+	
+	public void addAttender(HaveCalendar haveCalendar){
+		attenders.add(haveCalendar); 
+	}
+	
+	public void removeAttender(HaveCalendar haveCalendar){
+		attenders.remove(haveCalendar); 
+	}
+	
+	public int getNumberOfAttenders(){
+		return attenders.size();
 	}
 
 	public Event() {
