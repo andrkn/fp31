@@ -26,15 +26,15 @@ public class Server {
 		try 
 		{	
 			//Start listening on the ports and adress provided in the constructor
-			ServerSocket serverSocket = new ServerSocket(this.port,50,InetAddress.getByName(this.serverAdress));
-			System.out.println("WAITING FOR CONNECTIONS ON "+this.serverAdress+":"+this.port);
+			ServerSocket serverSocket = new ServerSocket(this.port, 50, InetAddress.getByName(this.serverAdress));
+			System.out.println("WAITING FOR CONNECTIONS ON " + this.serverAdress + ":" + this.port);
 			
 			//Get a new fresh socket for communicating with the client, we dont use the serversocket
 			Socket clientSocket = serverSocket.accept();
 			
 			//Print out the adress and socket of the client socket. You will see that the port is different, this is because the serversocket uses the 7899
 			//port, so the client is assigned an unused port
-			System.out.println("CONNECTED TO CLIENT ON "+clientSocket.getRemoteSocketAddress());
+			System.out.println("CONNECTED TO CLIENT ON " + clientSocket.getRemoteSocketAddress());
 			
 			//This is commented in the HelloWorldClient class
 			InputStream clientInputStream = clientSocket.getInputStream();
@@ -46,8 +46,8 @@ public class Server {
 			while (true)
 			{
 				String fromClient = StringFromClient.readLine();
-				System.out.println("MESSAGE FROM CLIENT: "+fromClient);
-				outToClient.println("MESSAGE RECEIVED ON SERVER: "+fromClient);
+				System.out.println("MESSAGE FROM CLIENT: " + fromClient);
+				outToClient.println("MESSAGE RECEIVED ON SERVER: " + fromClient);
 				System.out.println(clientSocket.getLocalSocketAddress());
 			}
 		} 

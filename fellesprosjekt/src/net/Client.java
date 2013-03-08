@@ -28,7 +28,9 @@ public class Client {
 			{	
 				//Establish connection to server
 				Socket serverConnection = new Socket(InetAddress.getByName(this.serverAdress),this.serverPort);
-				System.out.println("CONNECTED TO SERVER");
+				if (serverConnection.isConnected() == true) {
+					System.out.println("CONNECTED TO SERVER");					
+				}
 				
 				//Get a reference to the inputstream of the socket, in order to get the data from the other end (this is esentially a stream of bytes)
 				InputStream serverInputStream = serverConnection.getInputStream();
