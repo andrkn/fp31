@@ -2,9 +2,5 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-<<<<<<< HEAD
-	<classpathentry kind="lib" path="lib/mysql-connector-java-5.1.22-bin.jar"/>
-=======
->>>>>>> PackageReceiver works on multiple receivs, servertest loops.
 	<classpathentry kind="output" path="bin"/>
 </classpath>
