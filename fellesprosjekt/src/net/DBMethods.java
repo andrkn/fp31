@@ -1,11 +1,14 @@
 package net;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Time;
+import java.util.Properties;
 
 public class DBMethods {
 	
@@ -53,18 +56,13 @@ public class DBMethods {
     	return hash;
     }
     
-    public static void main(String[] args) throws SQLException {
-    	String url = "jdbc:mysql://mysql.stud.ntnu.no/gardmf_Calendar";
-    	String user = "gardmf_fellespro";
-    	String password = "gruppe31";
-    	DBConnection db = new DBConnection(url, user, password);
+    public static void main(String[] args) throws SQLException, IOException {
+    	Properties prop = new Properties();
+        InputStream in = DBMethods.class.getResourceAsStream("Properties.properties");
+        prop.load(in);
+    	DBConnection db = new DBConnection(prop);
     	db.connect();
-    	
     	connection = db.getConnection();
-    	
-    	String s = createEvent("gard",new Time(12,0,0), new Time(14,0,0), "meeting", "just a meeting", "jobben", 
-				"per paal petter", "14 15 20 45", "H415");
-    	
-    	System.out.println(s);
+    	createEvent("gard", new Time(8,0,0), new Time(10,0,0), "toille", "ska bare toill", "hjem", "henrik andre", "", ""); 
 	}
 }
