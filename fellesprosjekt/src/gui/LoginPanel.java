@@ -18,8 +18,9 @@ import datapackage.LoginPackage;
 public class LoginPanel extends JPanel {
 	private JTextField username, password;
 	private JButton login;
+	private PackageSender sender;
 	
-	public LoginPanel(){
+	public LoginPanel() throws IOException{
 		username = new JTextField();
 		username.setName("username");
 		username.setColumns(30);
@@ -35,6 +36,8 @@ public class LoginPanel extends JPanel {
 		login.setText("Login");
 		login.addActionListener(new loginAction());
 		add(login);
+		
+		sender = new PackageSender();
 	}
 	
 	public class loginAction implements ActionListener{
@@ -48,14 +51,7 @@ public class LoginPanel extends JPanel {
 				JOptionPane.showMessageDialog(null, "Password may not be blank");			}
 			else{
 				LoginPackage loginPack = new LoginPackage(username.getText(), password.getText());
-				PackageSender sender;
-				try {
-					sender = new PackageSender();
-					sender.sendPackage(loginPack);
-				} catch (IOException e1) {
-					System.out.println("Could not send loginPackage to server");
-					e1.printStackTrace();
-				}
+				sender.sendPackage(loginPack);
 			}
 			
 		}

@@ -16,6 +16,7 @@ public class PackageSender {
 	
 	private int serverPort;
 	private String serverAdress;
+	private ObjectOutputStream oos;
 
 	public PackageSender() throws IOException{
 		
@@ -26,13 +27,13 @@ public class PackageSender {
         this.serverPort = Integer.parseInt((String) prop.get("serverPort"));
         this.serverAdress = (String)(prop.get("serverAdress"));
 		
+        Socket serverConnection = new Socket(InetAddress.getByName(this.serverAdress),this.serverPort);
+        OutputStream serverOutputStream = serverConnection.getOutputStream();
+        oos = new ObjectOutputStream(serverOutputStream);
 	}
 	
 	public void sendPackage(DataPackage pack){
 		try {
-			Socket serverConnection = new Socket(InetAddress.getByName(this.serverAdress),this.serverPort);
-			OutputStream serverOutputStream = serverConnection.getOutputStream();
-			ObjectOutputStream oos = new ObjectOutputStream(serverOutputStream);
 			oos.writeObject(pack);
 		} catch (UnknownHostException e) {
 			// TODO Auto-generated catch block
