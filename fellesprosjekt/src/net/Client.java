@@ -26,7 +26,7 @@ public class Client {
 		{
 			try 
 			{	
-				//Establish connection to server
+				//Establish connection to the server
 				Socket serverConnection = new Socket(InetAddress.getByName(this.serverAdress),this.serverPort);
 				if (serverConnection.isConnected() == true) {
 					System.out.println("CONNECTED TO SERVER");					

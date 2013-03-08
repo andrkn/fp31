@@ -25,7 +25,7 @@ public class Server {
 	{
 		try 
 		{	
-			//Start listening on the ports and adress provided in the constructor
+			//Start listening on the ports and adress provided in constructor
 			ServerSocket serverSocket = new ServerSocket(this.port, 50, InetAddress.getByName(this.serverAdress));
 			System.out.println("WAITING FOR CONNECTIONS ON " + this.serverAdress + ":" + this.port);
 			
