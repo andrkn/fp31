@@ -22,5 +22,6 @@ public class RoomListModel extends DefaultListModel<Room>{
 
 	public void setRoom(Room room){
 		event.setRoom(room);
+		throw new IllegalArgumentException();
 	}
 }
