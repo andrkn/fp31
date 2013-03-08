@@ -8,6 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Time;
+import java.util.HashMap;
 import java.util.Properties;
 
 public class DBMethods {
@@ -32,8 +33,24 @@ public class DBMethods {
 				+ "', '" + startTime + "', '" + endTime + "', '" + eventName + "', '" + description + "', '" +
 						place + "', '" + invitedPersons + "', '" + invitedGroups + "', '" + roomNr + "')";
 		statement.executeUpdate(sql);
+		if (!invitedPersons.equals("")){
+			String sql2 = "SELECT * FROM Event WHERE createdBy_username = '" + createdBy + "' AND startTime = '" + startTime + "'";
+			ResultSet rs = statement.executeQuery(sql2);	
+			rs.beforeFirst();
+			rs.next();
+			int eventId = rs.getInt(1);
+			for (String person : invitedPersons.split(" ")){
+				updateInvited(person, eventId);
+			}
+			
+		}
 		return sql;
-		
+	}
+	
+	public static void updateInvited(String username, int eventId) throws SQLException{
+		statement = connection.createStatement();
+		String sql = "INSERT INTO Invited (username, eventId) VALUES ('" + username + "', " + eventId + ")" ;
+		statement.executeUpdate(sql);
 	}
 	
     public void createUser (String username, String email, String name,
@@ -62,7 +79,9 @@ public class DBMethods {
         prop.load(in);
     	DBConnection db = new DBConnection(prop);
     	db.connect();
+    	
     	connection = db.getConnection();
-    	createEvent("gard", new Time(8,0,0), new Time(10,0,0), "toille", "ska bare toill", "hjem", "henrik andre", "", ""); 
+    	String s = createEvent("gard", new Time(8,0,0), new Time(10,0,0), "møte", "husk notater", "kontoret", "henrik andre", "", ""); 
+    	System.out.println(s);
 	}
 }
