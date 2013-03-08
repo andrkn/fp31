@@ -1,6 +1,10 @@
 package net;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.sql.*;
+import java.util.Properties;
+
 
 public class DBConnection {
 
@@ -9,13 +13,17 @@ public class DBConnection {
 	
 	private String url, user, password;
 	
-	public DBConnection(String url, String user, String password){
-		//skal fikse med properties fil
-		this.url = url;
-		this.user = user;
-		this.password = password;
-		statement = null;
-		connection = null;
+	public DBConnection(Properties properties) throws IOException{
+		
+		Properties prop = new Properties();
+        InputStream in = DBConnection.class.getResourceAsStream("Properties.properties");
+        prop.load(in);
+        url = (String) prop.get("url");
+        user = (String)prop.get("user");
+        password = (String)prop.get("password");
+        
+        statement = null;
+        connection = null;
 	}
 	
 	public boolean connect (){
