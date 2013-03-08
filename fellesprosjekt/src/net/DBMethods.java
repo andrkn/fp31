@@ -36,9 +36,10 @@ public class DBMethods {
 		if (!invitedPersons.equals("")){
 			String sql2 = "SELECT * FROM Event WHERE createdBy_username = '" + createdBy + "' AND startTime = '" + startTime + "'";
 			ResultSet rs = statement.executeQuery(sql2);	
-			rs.beforeFirst();
-			rs.next();
+			//rs.beforeFirst();
+			//rs.next();
 			int eventId = rs.getInt(1);
+			
 			for (String person : invitedPersons.split(" ")){
 				updateInvited(person, eventId);
 			}
