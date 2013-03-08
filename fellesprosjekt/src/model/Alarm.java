@@ -8,7 +8,10 @@ public class Alarm {
 		
 	}
 	
-	public void  
+	public void getAlarm(int alarmID) {
+		
+		
+	}
 	
 	
 }
