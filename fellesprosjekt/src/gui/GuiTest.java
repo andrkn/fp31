@@ -20,11 +20,11 @@ public class GuiTest {
 			frame.getContentPane().add(new LoginPanel());
 			frame.pack();
 			frame.setVisible(true);
-			
+				
 //			PackageReceiver rec = new PackageReceiver();
 //			DataPackage pack = rec.receivePackage();
 //			LoginPackage logpack = (LoginPackage)pack;
 //			System.out.println(logpack.getPassword());
-			
+				
 	}
 }
