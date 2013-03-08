@@ -15,6 +15,9 @@ public class PackageReceiver {
 	
 	private int port;
 	private String serverAdress;
+	private ServerSocket serverSocket;
+	private Socket clientSocket;
+	private ObjectInputStream ois;
 
 	public PackageReceiver() throws IOException{
 		Properties prop = new Properties();
@@ -23,16 +26,17 @@ public class PackageReceiver {
         
         this.port = Integer.parseInt((String) prop.get("serverPort"));
         this.serverAdress = (String)(prop.get("serverAdress"));
+        
+        serverSocket = new ServerSocket(this.port,50,InetAddress.getByName(this.serverAdress));
+		clientSocket = serverSocket.accept();
+		
+		InputStream clientInputStream = clientSocket.getInputStream();
+		ois = new ObjectInputStream(clientInputStream);
 	}
 	
 	public DataPackage receivePackage(){
-		ServerSocket serverSocket;
+		
 		try {
-			serverSocket = new ServerSocket(this.port,50,InetAddress.getByName(this.serverAdress));
-			Socket clientSocket = serverSocket.accept();
-			InputStream clientInputStream = clientSocket.getInputStream();
-			ObjectInputStream ois = new ObjectInputStream(clientInputStream);
-			
 			DataPackage pack = (DataPackage)ois.readObject();
 			
 			//Pack now contains the package that was received.
