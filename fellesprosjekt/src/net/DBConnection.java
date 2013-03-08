@@ -13,15 +13,10 @@ public class DBConnection {
 	
 	private String url, user, password;
 	
-	public DBConnection(Properties properties) throws IOException{
-		
-		Properties prop = new Properties();
-        InputStream in = DBConnection.class.getResourceAsStream("Properties.properties");
-        prop.load(in);
+	public DBConnection(Properties prop) throws IOException{
         url = (String) prop.get("url");
         user = (String)prop.get("user");
-        password = (String)prop.get("password");
-        
+        password = (String)prop.get("password"); 
         statement = null;
         connection = null;
 	}
@@ -47,12 +42,4 @@ public class DBConnection {
 		return statement;
 	}
 	
-	public static void main(String[] args) {
-		String url = "jdbc:mysql://mysql.stud.ntnu.no/gardmf_Calendar";
-    	String user = "gardmf_fellespro";
-    	String password = "gruppe31";
-    	DBConnection db = new DBConnection(url, user, password);
-    	db.connect();
-    	
-	}
 }

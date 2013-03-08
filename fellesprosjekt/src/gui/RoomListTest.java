@@ -11,6 +11,7 @@ import model.HaveCalendar;
 import model.Person;
 import model.Room;
 import model.RoomListModel;
+import gui.RoomPanel;
 
 public class RoomListTest {
 	
@@ -18,10 +19,13 @@ public class RoomListTest {
 	RoomListModel rlm; 
 	
 	public static void main(String[] args) {
+		System.out.println("HEI");
+		System.out.println("hhei");
 		(new RoomListTest()).test();
 	}
 	
 	private void test(){
+		System.out.println("Hallo");
 		JFrame frame = new JFrame();
 		JPanel panel = new JPanel(); 
 		
@@ -43,10 +47,10 @@ public class RoomListTest {
 		
 		
 		
-		
-		RoomList roomList = new RoomList(rlm);
-		
-		panel.add(roomList);
+		System.out.println("1");
+		RoomPanel roomPanel = new RoomPanel(rlm);
+		System.out.println("2");
+		panel.add(roomPanel);
 		
 		frame.setContentPane(panel);
 		frame.setSize(400, 900);

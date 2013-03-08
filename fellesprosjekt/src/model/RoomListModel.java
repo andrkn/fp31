@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import javax.swing.DefaultListModel;
 
-public class RoomListModel extends DefaultListModel<Room>{
+public class RoomListModel extends DefaultListModel{
 	
 	private Event event;
 	
@@ -22,5 +22,6 @@ public class RoomListModel extends DefaultListModel<Room>{
 
 	public void setRoom(Room room){
 		event.setRoom(room);
+		throw new IllegalArgumentException();
 	}
 }
