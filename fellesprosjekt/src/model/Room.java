@@ -25,7 +25,7 @@ public class Room implements Comparable<Room>{
 
 	@Override
 	public int compareTo(Room room) {
-		return Integer.compare(this.capacity, room.capacity);
+		return (room.capacity-this.capacity);
 	}
 	
 	public String toString(){
