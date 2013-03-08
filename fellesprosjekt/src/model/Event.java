@@ -2,6 +2,8 @@ package model;
 
 import java.sql.Time;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Hashtable;
 
 public class Event {
 	
@@ -11,6 +13,7 @@ public class Event {
 	private Time time;
 	private Boolean isActive;
 	private ArrayList<HaveCalendar> attenders;
+	private HashMap<Person, Integer> alarms;
 	
 	public int getEventId() {
 		return eventId;
@@ -90,6 +93,16 @@ public class Event {
 	public int getNumberOfAttenders(){
 		return attenders.size();
 	}
+
+	public void setAlarms(Person person, int eventId) {
+		alarms.put(person, eventId);
+	}
+
+	public HashMap<Person, Integer> getAlarms() {
+		return alarms;
+	}
+
+	
 
 	
 }
