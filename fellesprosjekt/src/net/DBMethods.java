@@ -74,7 +74,7 @@ public class DBMethods {
     	return hash;
     }
     
-    public static void main(String[] args) throws SQLException, IOException {
+    public static void main(String [] args) throws SQLException, IOException {
     	Properties prop = new Properties();
         InputStream in = DBMethods.class.getResourceAsStream("Properties.properties");
         prop.load(in);
