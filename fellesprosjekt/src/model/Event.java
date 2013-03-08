@@ -5,6 +5,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Hashtable;
 
+import model.HaveCalendar;
+import model.Person;
+import model.Room;
+
 public class Event {
 	
 	private String name, description, place;
