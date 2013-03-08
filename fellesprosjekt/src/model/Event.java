@@ -2,20 +2,28 @@ package model;
 
 import java.sql.Time;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Hashtable;
+
+import model.HaveCalendar;
+import model.Person;
+import model.Room;
 
 public class Event {
 	
-	private String eventId, name, description, place;
+	private String name, description, place;
+	private int eventId;
 	private Room room;
 	private Time time;
 	private Boolean isActive;
 	private ArrayList<HaveCalendar> attenders;
+	private HashMap<Person, Integer> alarms;
 	
-	public String getEventId() {
+	public int getEventId() {
 		return eventId;
 	}
 
-	public void setEventId(String eventId) {
+	public void setEventId(int eventId) {
 		this.eventId = eventId;
 	}
 
@@ -89,6 +97,16 @@ public class Event {
 	public int getNumberOfAttenders(){
 		return attenders.size();
 	}
+
+	public void setAlarms(Person person, int eventId) {
+		alarms.put(person, eventId);
+	}
+
+	public HashMap<Person, Integer> getAlarms() {
+		return alarms;
+	}
+
+	
 
 	
 }
