@@ -3,27 +3,34 @@ package net;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Time;
 
 public class DBMethods {
 	
-	private Connection connection = null;
-	private Statement statement = null;
+	private static Connection connection = null;
+	private static Statement statement = null;
 	
-	public void setConnection(Connection connection){
-		this.connection = connection;
+	public void setConnection(Connection con){
+		connection = con;
 	}
 	
-	public void setStatement(Statement statement){
-		this.statement = statement;
+	public void setStatement(Statement statm){
+		statement = statm;
 	}
 	
-	public void createEvent(String createdBy, Time startTime, Time endTime, String eventName, 
-			String description, String place, String invitedPersons, String invitedGroups, String roomNr){
+	public static String createEvent(String createdBy, Time startTime, Time endTime, String eventName, 
+			String description, String place, String invitedPersons, String invitedGroups, String roomNr) throws SQLException{
 		
-		String sql = "INSERT INTO Event (createdBy_username, startTime, endTime) VALUES ('"+ createdBy 
-				+ "', '" + startTime + "', '" + endTime + "')";
+		statement = connection.createStatement();
+		String sql = "INSERT INTO Event (createdBy_username, startTime, endTime, eventName, " +
+				"description, place, invitedPersons, invitedGroups, roomNr) VALUES ('"+ createdBy 
+				+ "', '" + startTime + "', '" + endTime + "', '" + eventName + "', '" + description + "', '" +
+						place + "', '" + invitedPersons + "', '" + invitedGroups + "', '" + roomNr + "')";
+		statement.executeUpdate(sql);
+		return sql;
+		
 	}
 	
     public void createUser (String username, String email, String name,
@@ -45,4 +52,19 @@ public class DBMethods {
     	byte[] hash = resultSet.getBytes(collumnName);
     	return hash;
     }
+    
+    public static void main(String[] args) throws SQLException {
+    	String url = "jdbc:mysql://mysql.stud.ntnu.no/gardmf_Calendar";
+    	String user = "gardmf_fellespro";
+    	String password = "gruppe31";
+    	DBConnection db = new DBConnection(url, user, password);
+    	db.connect();
+    	
+    	connection = db.getConnection();
+    	
+    	String s = createEvent("gard",new Time(12,0,0), new Time(14,0,0), "meeting", "just a meeting", "jobben", 
+				"per paal petter", "14 15 20 45", "H415");
+    	
+    	System.out.println(s);
+	}
 }

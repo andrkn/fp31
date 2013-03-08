@@ -33,9 +33,18 @@ public class DBConnection {
 	}
 	
 	public Connection getConnection(){
-		return this.connection;
+		return connection;
 	}
 	public Statement getStatement(){
-		return this.statement;
+		return statement;
+	}
+	
+	public static void main(String[] args) {
+		String url = "jdbc:mysql://mysql.stud.ntnu.no/gardmf_Calendar";
+    	String user = "gardmf_fellespro";
+    	String password = "gruppe31";
+    	DBConnection db = new DBConnection(url, user, password);
+    	db.connect();
+    	
 	}
 }
