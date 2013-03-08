@@ -1,5 +1,5 @@
 package datapackage;
 
-public interface DataPackage {
+public interface DataPackage extends java.io.Serializable {
 
 }
