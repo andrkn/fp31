@@ -14,12 +14,12 @@ public class Event {
 	private String createdBy, name, description, place;
 	private int eventId;
 	private Room room;
-	private Time startTime, endTime;
+	private Date startTime, endTime;
 	private Boolean isActive;
 	private ArrayList<HaveCalendar> attenders;
 	private HashMap<Person, Integer> alarms;
 	
-	public Event(int eventId, String createdBy, Time startTime, Time endTime, String name, 
+	public Event(int eventId, String createdBy, Date startTime, Date endTime, String name, 
 	String description, String place, String invitedPersons, String invitedGroups, String roomNr){
 		this.createdBy = createdBy;
 		this.startTime = startTime;
@@ -77,17 +77,17 @@ public class Event {
 		this.room = room;
 	}
 
-	public Time getStartTime() {
+	public Date getStartTime() {
 		return startTime;
 	}
 
-	public void setStartTime(Time time) {
+	public void setStartTime(Date time) {
 		this.startTime = time;
 	}
-	public Time getEndTime(){
+	public Date getEndTime(){
 		return endTime;
 	}
-	public void setEndTime(Time time){
+	public void setEndTime(Date time){
 		this.endTime = time;
 	}
 
