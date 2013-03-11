@@ -10,37 +10,31 @@ import java.util.Properties;
 import datapackage.*;
 import encryption.PasswordEncryption;
 
+/*
+ * Takes a DataPackage as argument, and returns the Package that should be sent to the client.
+ **/
 
 public class ServerPackageHandler {
 	DataPackage pack;
 	
-	
-	public void HandlePackage(DataPackage pack){
+	public DataPackage HandlePackage(DataPackage pack){
+		DataPackage returnPackage = null;
 		if (this.pack instanceof LoginPackage){
 			try {
 				if (HandleLoginPackage(pack)){
 					ErrorPackage errorPack = new ErrorPackage(ErrorType.OK,"All is well, user may pass");
-					try {
-						SendResponsePackage(errorPack);
-					} catch (IOException e) {
-						// Could not send response, client may have disconnected
-						e.printStackTrace();
-					}
+					returnPackage = errorPack;
 				}
 				else{
 					ErrorPackage errorPack = new ErrorPackage(ErrorType.WRONG_PASSWORD,"The user SHALL NOT PASS");
-					try {
-						SendResponsePackage(errorPack);
-					} catch (IOException e) {
-						// Could not send response, client may have disconnected
-						e.printStackTrace();
-					}
+					returnPackage = errorPack;
 				}
 			} catch (IOException e) {
 				// Good God, it crashed!
 				e.printStackTrace();
 			}
 		}
+		return returnPackage;
 	}
 
 

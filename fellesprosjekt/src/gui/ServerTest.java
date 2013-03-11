@@ -3,7 +3,9 @@ package gui;
 import java.io.IOException;
 
 import net.PackageReceiver;
+import net.ServerPackageHandler;
 import datapackage.DataPackage;
+import datapackage.ErrorPackage;
 import datapackage.LoginPackage;
 
 public class ServerTest {
@@ -16,8 +18,11 @@ public class ServerTest {
 		PackageReceiver rec = new PackageReceiver();
 		while (true){
 		DataPackage pack = rec.receivePackage();
-		LoginPackage logpack = (LoginPackage)pack;
-		System.out.println(logpack.getPassword());
+		ServerPackageHandler handler = new ServerPackageHandler();
+		DataPackage responsePack = handler.HandlePackage(pack);
+		ErrorPackage responsePack2 = (ErrorPackage)responsePack;
+		System.out.println(responsePack2.getErrorType());
+		System.out.println(responsePack2.getDescription());
 		}
 
 	}
