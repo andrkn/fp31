@@ -60,9 +60,12 @@ public class LoginPanel extends JPanel {
 			else{
 				try {
 					if (validLogin(username.getText(), password.getText())){
-						//Login approved - Move to calender-view
-						//.removeAll()
 						JOptionPane.showMessageDialog(null, "YOU CAN LOGIN! GANDALF WILL LET YOU PASS!");
+						//Login approved - Move to calender-view
+						//.removeAll() or similar
+					}
+					else{
+						JOptionPane.showMessageDialog(null, "You may not login. Incorrect username/password-combo");
 					}
 				} catch (IOException e1) {
 					// Could not receive answer from server, alert user
@@ -75,10 +78,10 @@ public class LoginPanel extends JPanel {
 		}
 		
 		public boolean validLogin(String username, String password) throws IOException{
-			PackageReceiver receiver = new PackageReceiver();
+			//PackageReceiver receiver = new PackageReceiver();
 			LoginPackage loginPack = new LoginPackage(username, password);
 			sender.sendPackage(loginPack);
-			DataPackage responsePack = receiver.receivePackage();
+			DataPackage responsePack = sender.receivePackage();
 			if (responsePack instanceof ErrorPackage){
 				ErrorPackage loginResponse = (ErrorPackage)responsePack;
 				if (loginResponse.getErrorType() == ErrorType.OK){

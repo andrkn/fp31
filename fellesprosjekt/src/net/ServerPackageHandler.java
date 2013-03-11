@@ -15,22 +15,27 @@ import encryption.PasswordEncryption;
  **/
 
 public class ServerPackageHandler {
-	DataPackage pack;
+	//DataPackage pack;
 	
 	public DataPackage HandlePackage(DataPackage pack){
 		DataPackage returnPackage = null;
-		if (this.pack instanceof LoginPackage){
+		System.out.println("Debugpoint #1");
+		if (pack instanceof LoginPackage){
+			System.out.println("Debugpoint #2");
 			try {
 				if (HandleLoginPackage(pack)){
+					System.out.println("Debugpoint #3");
 					ErrorPackage errorPack = new ErrorPackage(ErrorType.OK,"All is well, user may pass");
 					returnPackage = errorPack;
 				}
 				else{
+					System.out.println("Debugpoint #4");
 					ErrorPackage errorPack = new ErrorPackage(ErrorType.WRONG_PASSWORD,"The user SHALL NOT PASS");
 					returnPackage = errorPack;
 				}
 			} catch (IOException e) {
-				// Good God, it crashed!
+				System.out.println("Debugpoint #5");
+				System.out.println("Good God, it crashed!");
 				e.printStackTrace();
 			}
 		}
@@ -40,6 +45,7 @@ public class ServerPackageHandler {
 
 	private boolean HandleLoginPackage(DataPackage pack) throws IOException {
 		//load properties
+		System.out.println("Debugpoint #6");
 		Properties prop = new Properties();
         InputStream in = PackageSender.class.getResourceAsStream("Properties.properties");
         prop.load(in);
@@ -54,19 +60,32 @@ public class ServerPackageHandler {
 		
 		//store pack as LoginPackage, must be checked before method is called
 		LoginPackage loginpack = (LoginPackage)pack;
-		//exec logincheck
 		byte[] hash = null;
 		byte[] salt = null;
-		try{
-			hash = method.getStoredHash(loginpack.getUsername(), "password");
-			salt = method.getStoredHash(loginpack.getUsername(), "salt");
-		}
-		catch (SQLException e){
-			//Something went horribly wrong in the DB
+		//exec logincheck
+		String username = loginpack.getUsername();
+		//Check to see if user exists
+		try {
+			if (method.isExcistingUser(username)){
+				try{
+					hash = method.getStoredHash(loginpack.getUsername(), "password");
+					salt = method.getStoredHash(loginpack.getUsername(), "salt");
+				}
+				catch (SQLException e){
+					System.out.println("Something went horribly wrong in the DB");
+					e.printStackTrace();
+					return false;
+				}
+			}
+			else{
+				return false;
+			}
+		} catch (SQLException e) {
 			e.printStackTrace();
+			return false;
 		}
 		
-		if (PasswordEncryption.checkPassword(loginpack.getPassword(), hash, salt)){
+		if (PasswordEncryption.checkPassword(loginpack.getPassword(), salt, hash)){
 			return true;
 		}
 		else{
@@ -75,6 +94,7 @@ public class ServerPackageHandler {
 		
 	}
 	
+	//Should probably not be used, will cause massive connection problems...
 	private void SendResponsePackage(DataPackage pack) throws IOException{
 		PackageSender sender = new PackageSender();
 		sender.sendPackage(pack);

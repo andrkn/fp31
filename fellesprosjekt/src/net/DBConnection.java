@@ -1,5 +1,7 @@
 package net;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.*;
@@ -11,20 +13,30 @@ public class DBConnection {
 	private Connection connection;;
 	private Statement statement;
 	
-	private String url, user, password;
+	private String url, jdbcDriver;
+	private Properties properties;
 	
 	public DBConnection(Properties prop) throws IOException{
-        url = (String) prop.get("url");
-        user = (String)prop.get("user");
-        password = (String)prop.get("password"); 
+        properties = prop;
+		url = properties.getProperty("url");
+		jdbcDriver = properties.getProperty("jdbcDriver");
         statement = null;
         connection = null;
 	}
 	
+	public DBConnection(String propertiesFilename) throws IOException,
+	ClassNotFoundException, SQLException {
+		File f = new File(propertiesFilename);
+		properties = new Properties();
+		properties.load(new FileInputStream(f));
+		jdbcDriver = properties.getProperty("jdbcDriver");
+		url = properties.getProperty("url");
+	}
+	
 	public boolean connect (){
 		try{
-			Class.forName("com.mysql.jdbc.Driver").newInstance();
-			connection = DriverManager.getConnection(url, user, password);
+			Class.forName(jdbcDriver).newInstance();
+			connection = DriverManager.getConnection(url, properties.getProperty("user"), properties.getProperty("password"));
 			statement = connection.createStatement();
 			if(connection != null){
 				return true;
@@ -40,6 +52,9 @@ public class DBConnection {
 	}
 	public Statement getStatement(){
 		return statement;
+	}
+	public void close() throws SQLException {
+		connection.close();
 	}
 	
 }

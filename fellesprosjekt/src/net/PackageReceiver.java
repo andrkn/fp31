@@ -3,6 +3,8 @@ package net;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.OutputStream;
 import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -18,6 +20,7 @@ public class PackageReceiver {
 	private ServerSocket serverSocket;
 	private Socket clientSocket;
 	private ObjectInputStream ois;
+	private ObjectOutputStream oos;
 
 	public PackageReceiver() throws IOException{
 		Properties prop = new Properties();
@@ -30,8 +33,13 @@ public class PackageReceiver {
         serverSocket = new ServerSocket(this.port,50,InetAddress.getByName(this.serverAdress));
 		clientSocket = serverSocket.accept();
 		
+		//Create inputstream for reading of packages
 		InputStream clientInputStream = clientSocket.getInputStream();
 		ois = new ObjectInputStream(clientInputStream);
+		
+		//Create outputstream for sending of packages
+		OutputStream serverOutputStream = clientSocket.getOutputStream();
+        oos = new ObjectOutputStream(serverOutputStream);
 	}
 	
 	public DataPackage receivePackage(){
@@ -53,5 +61,19 @@ public class PackageReceiver {
 			e.printStackTrace();
 		}
 		return null;
+	}
+	
+	public void sendPackage(DataPackage pack){
+		try {
+			oos.writeObject(pack);
+		}
+		catch (UnknownHostException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			}
+		catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }
