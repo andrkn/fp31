@@ -1,4 +1,4 @@
-	package net;
+package net;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -11,10 +11,12 @@ import java.sql.Time;
 import java.util.HashMap;
 import java.util.Properties;
 
+import model.Event;
+
 public class DBMethods {
 	
-	private static Connection connection = null;
-	private static Statement statement = null;
+	private Connection connection = null;
+	private Statement statement = null;
 	
 	public void setConnection(Connection con){
 		connection = con;
@@ -24,7 +26,7 @@ public class DBMethods {
 		statement = statm;
 	}
 	
-	public static String createEvent(String createdBy, Time startTime, Time endTime, String eventName, 
+	public Event createEvent(String createdBy, Time startTime, Time endTime, String eventName, 
 			String description, String place, String invitedPersons, String invitedGroups, String roomNr) throws SQLException{
 		
 		statement = connection.createStatement();
@@ -32,23 +34,40 @@ public class DBMethods {
 				"description, place, invitedPersons, invitedGroups, roomNr) VALUES ('"+ createdBy 
 				+ "', '" + startTime + "', '" + endTime + "', '" + eventName + "', '" + description + "', '" +
 						place + "', '" + invitedPersons + "', '" + invitedGroups + "', '" + roomNr + "')";
-		statement.executeUpdate(sql);
+		statement.executeUpdate(sql, Statement.RETURN_GENERATED_KEYS);
+		ResultSet resultSet = statement.getGeneratedKeys();
+		resultSet.beforeFirst();
+		resultSet.next();
+		int eventId = resultSet.getInt(1);
 		if (!invitedPersons.equals("")){
-			String sql2 = "SELECT * FROM Event WHERE createdBy_username = '" + createdBy + "' AND startTime = '" + startTime + "'";
-			ResultSet rs = statement.executeQuery(sql2);	
-			//rs.beforeFirst();
-			//rs.next();
-			int eventId = rs.getInt(1);
-			
 			for (String person : invitedPersons.split(" ")){
 				updateInvited(person, eventId);
-			}
-			
+			}			
 		}
-		return sql;
+		if(!invitedGroups.equals("")){
+			for (String g : invitedGroups.split(" ")){
+				String persons = getPersonsFromGroup(Integer.parseInt(g));
+				for (String p : persons.split(" ")){
+					updateInvited(p,eventId);
+				}
+			}
+		}
+		return new Event();
 	}
 	
-	public static void updateInvited(String username, int eventId) throws SQLException{
+	public String getPersonsFromGroup(int groupNr) throws SQLException{
+		statement = connection.createStatement();
+		String sql = "SELECT persons FROM `Group` WHERE groupID = " + groupNr; 
+		ResultSet resultSet = statement.executeQuery(sql);
+		String persons = "";
+		resultSet.beforeFirst();
+		while(resultSet.next()){
+			persons += resultSet.getString("persons") + " ";
+		}	
+		return persons;
+	}
+	
+	public void updateInvited(String username, int eventId) throws SQLException{
 		statement = connection.createStatement();
 		String sql = "INSERT INTO Invited (username, eventId) VALUES ('" + username + "', " + eventId + ")" ;
 		statement.executeUpdate(sql);
@@ -74,15 +93,13 @@ public class DBMethods {
     	return hash;
     }
     
-    public static void main(String [] args) throws SQLException, IOException {
-    	Properties prop = new Properties();
-        InputStream in = DBMethods.class.getResourceAsStream("Properties.properties");
-        prop.load(in);
-    	DBConnection db = new DBConnection(prop);
-    	db.connect();
+    public Event getEvent(int eventId) throws SQLException{
+    	Event event = new Event();
+    	String sql = "SELECT * FROM Event WHERE eventId = " + eventId;
+    	ResultSet rs = statement.executeQuery(sql);
     	
-    	connection = db.getConnection();
-    	String s = createEvent("gard", new Time(8,0,0), new Time(10,0,0), "møte", "husk notater", "kontoret", "henrik andre", "", ""); 
-    	System.out.println(s);
-	}
+    	return event;
+    }
+    
+
 }
