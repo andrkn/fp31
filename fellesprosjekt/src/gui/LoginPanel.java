@@ -75,24 +75,24 @@ public class LoginPanel extends JPanel {
 		}
 		
 		public boolean validLogin(String username, String password) throws IOException{
-			PackageReceiver receiver = new PackageReceiver();
+			//PackageReceiver receiver = new PackageReceiver();
 			LoginPackage loginPack = new LoginPackage(username, password);
 			sender.sendPackage(loginPack);
-			DataPackage responsePack = receiver.receivePackage();
-			if (responsePack instanceof ErrorPackage){
-				ErrorPackage loginResponse = (ErrorPackage)responsePack;
-				if (loginResponse.getErrorType() == ErrorType.OK){
-						return true;
-					}
-					else if (loginResponse.getErrorType() == ErrorType.WRONG_PASSWORD){
-						return false;
-
-					}
-					else{
-						JOptionPane.showMessageDialog(null, "The servers response was not of an expected type. Try again.");
-						return false;
-					}
-			}
+//			DataPackage responsePack = receiver.receivePackage();
+//			if (responsePack instanceof ErrorPackage){
+//				ErrorPackage loginResponse = (ErrorPackage)responsePack;
+//				if (loginResponse.getErrorType() == ErrorType.OK){
+//						return true;
+//					}
+//					else if (loginResponse.getErrorType() == ErrorType.WRONG_PASSWORD){
+//						return false;
+//
+//					}
+//					else{
+//						JOptionPane.showMessageDialog(null, "The servers response was not of an expected type. Try again.");
+//						return false;
+//					}
+//			}
 			return false;
 			
 		}

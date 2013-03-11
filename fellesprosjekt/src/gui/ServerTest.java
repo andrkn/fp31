@@ -18,9 +18,14 @@ public class ServerTest {
 		PackageReceiver rec = new PackageReceiver();
 		while (true){
 		DataPackage pack = rec.receivePackage();
+		LoginPackage loginpack = (LoginPackage)pack;
+		System.out.println(loginpack.getUsername());
+		System.out.println(loginpack.getPassword());
 		ServerPackageHandler handler = new ServerPackageHandler();
-		DataPackage responsePack = handler.HandlePackage(pack);
+		DataPackage responsePack = handler.HandlePackage(loginpack);
+		System.out.println(responsePack);
 		ErrorPackage responsePack2 = (ErrorPackage)responsePack;
+		System.out.println(responsePack2);
 		System.out.println(responsePack2.getErrorType());
 		System.out.println(responsePack2.getDescription());
 		}
