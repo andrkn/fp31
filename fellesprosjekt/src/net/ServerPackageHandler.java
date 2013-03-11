@@ -82,6 +82,7 @@ public class ServerPackageHandler {
 		
 	}
 	
+	//Should probably not be used, will cause massive connection problems...
 	private void SendResponsePackage(DataPackage pack) throws IOException{
 		PackageSender sender = new PackageSender();
 		sender.sendPackage(pack);
