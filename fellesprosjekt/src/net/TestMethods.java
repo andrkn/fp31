@@ -22,7 +22,7 @@ public class TestMethods {
     	dbm.setConnection(db.getConnection());
     	
     	
-    	dbm.answerInvite("per", 33, 2);
+    	dbm.setAlarm(22, "hanskhe", new Time(12,0,0));
     	    
     	//dbm.createEvent("per", new Time(8,0,0), new Time(10,0,0), "møte", "husk notater", "kontoret", "", "2", ""); 
 	}

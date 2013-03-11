@@ -133,5 +133,11 @@ public class DBMethods {
     	return resultSet.getInt(1) == 0 ? false : true;
     }
     
+    public void setAlarm(int eventId, String username, Time time) throws SQLException{
+    	statement = connection.createStatement();
+    	String sql = "INSERT INTO Alarm (time, eventId, username) VALUES ('" + time + "', " + eventId + ", '" + username + "')";
+    	statement.executeUpdate(sql);
+    }
+    
 }
 

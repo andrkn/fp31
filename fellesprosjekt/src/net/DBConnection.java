@@ -53,5 +53,8 @@ public class DBConnection {
 	public Statement getStatement(){
 		return statement;
 	}
+	public void close() throws SQLException {
+		connection.close();
+	}
 	
 }
