@@ -2,6 +2,6 @@ package datapackage;
 
 public enum ErrorType {
 	
-	USERNAME_NOT_FOUND, WRONG_PASSWORD
+	USERNAME_NOT_FOUND, WRONG_PASSWORD, OK
 
 }
