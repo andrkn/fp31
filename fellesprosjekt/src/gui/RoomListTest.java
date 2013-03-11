@@ -19,13 +19,10 @@ public class RoomListTest {
 	RoomListModel rlm; 
 	
 	public static void main(String[] args) {
-		System.out.println("HEI");
-		System.out.println("hhei");
 		(new RoomListTest()).test();
 	}
 	
 	private void test(){
-		System.out.println("Hallo");
 		JFrame frame = new JFrame();
 		JPanel panel = new JPanel(); 
 		
@@ -34,7 +31,7 @@ public class RoomListTest {
 		roomArray.add(new Room("110",19));
 		roomArray.add(new Room("101",5));
 		
-		Event event = new Event();
+		Event event = new Event(0, null, null, null, null, null, null, null, null, null);
 		event.addAttender(new Person());
 		event.addAttender(new Person());
 		event.addAttender(new Person());
@@ -47,9 +44,7 @@ public class RoomListTest {
 		
 		
 		
-		System.out.println("1");
 		RoomPanel roomPanel = new RoomPanel(rlm);
-		System.out.println("2");
 		panel.add(roomPanel);
 		
 		frame.setContentPane(panel);
