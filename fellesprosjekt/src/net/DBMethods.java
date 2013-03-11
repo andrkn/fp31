@@ -1,7 +1,5 @@
 package net;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -9,8 +7,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Time;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Properties;
+
 
 import model.Event;
 import model.HaveCalendar;
@@ -28,7 +25,6 @@ public class DBMethods {
 		statement = statm;
 	}
 	
-
 	public Event createEvent(String createdBy, Time startTime, Time endTime, String eventName, 
 			String description, String place, String invitedPersons, String invitedGroups, String roomNr) throws SQLException{
 		
@@ -120,6 +116,21 @@ public class DBMethods {
     	for  (HaveCalendar p : persons){
     		updateInvited(p.getName(), eventId);
     	}
+    }
+    
+    public void answerInvite(String username, int eventId, int isGoing) throws SQLException{
+    	statement = connection.createStatement();
+    	String sql = "UPDATE Invited SET isGoing =" + isGoing + " WHERE username = '" + username + "' "
+    			+ "AND eventID = " + eventId;
+    	statement.executeUpdate(sql);
+    }
+    
+    public boolean isExcistingUser(String username) throws SQLException{
+    	statement = connection.createStatement();
+    	String sql = "SELECT COUNT(*) FROM Person WHERE username = '" + username + "'";
+    	ResultSet resultSet = statement.executeQuery(sql);
+    	resultSet.next();
+    	return resultSet.getInt(1) == 0 ? false : true;
     }
     
 }
