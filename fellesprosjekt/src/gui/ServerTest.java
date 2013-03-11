@@ -28,6 +28,7 @@ public class ServerTest {
 		System.out.println(responsePack2);
 		System.out.println(responsePack2.getErrorType());
 		System.out.println(responsePack2.getDescription());
+		rec.sendPackage(responsePack);
 		}
 
 	}
