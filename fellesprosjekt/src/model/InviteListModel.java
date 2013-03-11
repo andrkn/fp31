@@ -4,15 +4,21 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 
+import net.DBMethods;
+
 public class InviteListModel {
 
 	private ArrayList<HaveCalendar> InviteList;
 	private PropertyChangeSupport pcs;
+	private int eventId;
 	
-	public void sendInvite() {
-		for (HaveCalendar ob : InviteList) {
-			
-		}
+	public InviteListModel() {
+		
+	}
+	
+	public void sendInvite(int eventId, ArrayList<HaveCalendar> list) {
+		DBMethods invite = new DBMethods();
+		invite.invite(eventId, list);
 	}
 	
 	public void addPropertyChangeListener(PropertyChangeListener listener) {
