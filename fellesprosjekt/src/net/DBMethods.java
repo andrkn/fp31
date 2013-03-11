@@ -26,7 +26,11 @@ public class DBMethods {
 		statement = statm;
 	}
 	
+<<<<<<< HEAD
 	public Event createEvent(String createdBy, Time startTime, Time endTime, String eventName, 
+=======
+	public String createEvent(String createdBy, Time startTime, Time endTime, String eventName, 
+>>>>>>> Added ServerPackageHandler, improved LoginPanel, and added an errortype
 			String description, String place, String invitedPersons, String invitedGroups, String roomNr) throws SQLException{
 		
 		statement = connection.createStatement();
@@ -85,7 +89,7 @@ public class DBMethods {
     	System.out.println("User created...");
     }
     
-    public byte[] getStoredHash(String username, String collumnName) throws Exception{
+    public byte[] getStoredHash(String username, String collumnName) throws SQLException{
     	String sql = "SELECT * FROM Person WHERE username = '" + username +"'";
     	ResultSet resultSet = statement.executeQuery(sql);
     	resultSet.next();
@@ -93,6 +97,7 @@ public class DBMethods {
     	return hash;
     }
     
+<<<<<<< HEAD
     public Event getEvent(int eventId) throws SQLException{
     	Event event = new Event();
     	String sql = "SELECT * FROM Event WHERE eventId = " + eventId;
@@ -102,4 +107,20 @@ public class DBMethods {
     }
     
 
+=======
+<<<<<<< HEAD
+    public static void main(String [] args) throws SQLException, IOException {
+    	Properties prop = new Properties();
+        InputStream in = DBMethods.class.getResourceAsStream("Properties.properties");
+        prop.load(in);
+    	DBConnection db = new DBConnection(prop);
+    	db.connect();
+    	
+    	connection = db.getConnection();
+    	String s = createEvent("gard", new Time(8,0,0), new Time(10,0,0), "møte", "husk notater", "kontoret", "henrik andre", "", ""); 
+    	System.out.println(s);
+	}
+=======
+>>>>>>> Added ServerPackageHandler, improved LoginPanel, and added an errortype "OK"
+>>>>>>> Added ServerPackageHandler, improved LoginPanel, and added an errortype
 }
