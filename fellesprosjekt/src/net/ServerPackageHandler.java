@@ -60,15 +60,27 @@ public class ServerPackageHandler {
 		
 		//store pack as LoginPackage, must be checked before method is called
 		LoginPackage loginpack = (LoginPackage)pack;
-		//exec logincheck
 		byte[] hash = null;
 		byte[] salt = null;
-		try{
-			hash = method.getStoredHash(loginpack.getUsername(), "password");
-			salt = method.getStoredHash(loginpack.getUsername(), "salt");
-		}
-		catch (SQLException e){
-			System.out.println("Something went horribly wrong in the DB");
+		//exec logincheck
+		String username = loginpack.getUsername();
+		//Check to see if user exists
+		try {
+			if (method.isExcistingUser(username)){
+				try{
+					hash = method.getStoredHash(loginpack.getUsername(), "password");
+					salt = method.getStoredHash(loginpack.getUsername(), "salt");
+				}
+				catch (SQLException e){
+					System.out.println("Something went horribly wrong in the DB");
+					e.printStackTrace();
+					return false;
+				}
+			}
+			else{
+				return false;
+			}
+		} catch (SQLException e) {
 			e.printStackTrace();
 			return false;
 		}
