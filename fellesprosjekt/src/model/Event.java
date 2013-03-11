@@ -11,13 +11,31 @@ import model.Room;
 
 public class Event {
 	
-	private String name, description, place;
+	private String createdBy, name, description, place;
 	private int eventId;
 	private Room room;
-	private Time time;
+	private Time startTime, endTime;
 	private Boolean isActive;
 	private ArrayList<HaveCalendar> attenders;
 	private HashMap<Person, Integer> alarms;
+	
+	public Event(int eventId, String createdBy, Time startTime, Time endTime, String name, 
+	String description, String place, String invitedPersons, String invitedGroups, String roomNr){
+		this.createdBy = createdBy;
+		this.startTime = startTime;
+		this.endTime = endTime;
+		this.name = name;
+		this.description = description;
+		this.place = place;
+
+	}
+	
+	public void setCreatedBy(String createdBy){
+		this.createdBy = createdBy;
+	}
+	public String getCreatedBy(){
+		return createdBy;
+	}
 	
 	public int getEventId() {
 		return eventId;
@@ -59,12 +77,18 @@ public class Event {
 		this.room = room;
 	}
 
-	public Time getTime() {
-		return time;
+	public Time getStartTime() {
+		return startTime;
 	}
 
-	public void setTime(Time time) {
-		this.time = time;
+	public void setStartTime(Time time) {
+		this.startTime = time;
+	}
+	public Time getEndTime(){
+		return endTime;
+	}
+	public void setEndTime(Time time){
+		this.endTime = time;
 	}
 
 	public Boolean getIsActive() {

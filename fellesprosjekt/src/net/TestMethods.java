@@ -6,6 +6,8 @@ import java.sql.SQLException;
 import java.sql.Time;
 import java.util.Properties;
 
+import model.Event;
+
 public class TestMethods {
 
     public static void main(String [] args) throws SQLException, IOException {
@@ -17,6 +19,9 @@ public class TestMethods {
     	DBMethods dbm = new DBMethods();
     	dbm.setConnection(db.getConnection());
     	
-    	dbm.createEvent("per", new Time(8,0,0), new Time(10,0,0), "møte", "husk notater", "kontoret", "", "1 2", ""); 
+    	//Event e = dbm.getEvent(21);
+    	
+    	//System.out.println(e.getCreatedBy());
+    	dbm.createEvent("per", new Time(8,0,0), new Time(10,0,0), "møte", "husk notater", "kontoret", "", "2", ""); 
 	}
 }

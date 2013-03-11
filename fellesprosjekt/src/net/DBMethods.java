@@ -8,10 +8,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Time;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Properties;
 
 import model.Event;
+import model.HaveCalendar;
 
 public class DBMethods {
 	
@@ -53,7 +55,7 @@ public class DBMethods {
 				}
 			}
 		}
-		return new Event();
+		return new Event(eventId, createdBy,startTime,endTime,eventName, description,place,invitedPersons,invitedGroups,roomNr);
 	}
 	
 	public String getPersonsFromGroup(int groupNr) throws SQLException{
@@ -96,11 +98,34 @@ public class DBMethods {
     
 
     public Event getEvent(int eventId) throws SQLException{
-    	Event event = new Event();
-    	String sql = "SELECT * FROM Event WHERE eventId = " + eventId;
-    	ResultSet rs = statement.executeQuery(sql);
-    	
-    	return event;
+    	statement = connection.createStatement();
+    	String sql = "SELECT * FROM Event WHERE eventID = " + eventId;
+    	ResultSet resultSet = statement.executeQuery(sql);
+    	resultSet.beforeFirst();
+    	resultSet.next();
+    	int id = resultSet.getInt(1);
+    	String createdBy = resultSet.getString(2);
+    	Time start = resultSet.getTime(3);
+    	Time end = resultSet.getTime(4);
+    	String eventName = resultSet.getString(5);
+    	String description = resultSet.getString(6);
+    	String place = resultSet.getString(7); 
+    	String invitedPersons = resultSet.getString(8);
+    	String invitedGroups = resultSet.getString(9);
+    	String roomNr = resultSet.getString(10);
+    	return new Event(id, createdBy, start, end, eventName, description, place, invitedPersons, invitedGroups, roomNr);
     }
+<<<<<<< HEAD
+=======
+    
+    public void invite(int eventId, ArrayList<HaveCalendar> persons){
+    	for  (HaveCalendar p : persons){
+    		updateInvited(p.getName(), eventId);
+    	}
+    }
+    
+
+
+>>>>>>> ...
 }
 
