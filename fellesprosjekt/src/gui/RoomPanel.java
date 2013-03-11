@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
+import model.Room;
 import model.RoomListModel;
 
 public class RoomPanel extends JPanel{
@@ -20,13 +21,13 @@ public class RoomPanel extends JPanel{
 		super(new GridBagLayout());
 		grid = new GridBagConstraints(); 
 		
-		System.out.println("HALLO");
+		this.rlm = rlm;
+		
 		addRoomList(rlm); 
 		addButton();
 	}
 
 	private void addButton() {
-		System.out.println("hallo");
 		grid.gridy = 0;
 		grid.gridx = 1; 
 		JButton pickRoom = new JButton("OK");
@@ -35,7 +36,8 @@ public class RoomPanel extends JPanel{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				rlm.setRoom(roomList.getSelectedValue());
+//				System.out.println(roomList.getSelectedValue().getClass());
+				rlm.setRoom((Room)roomList.getSelectedValue());
 			}
 		});
 		pickRoom.setVisible(true);
