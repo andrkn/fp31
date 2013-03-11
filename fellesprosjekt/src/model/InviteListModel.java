@@ -9,7 +9,7 @@ import net.DBMethods;
 
 public class InviteListModel {
 	//Her har jeg tenkt at vi handterer grupper og personer pa samme mate, men det er mulig dette børe løses på en annen måte.
-	//Dette gjelder da spesifikt sendInvite().
+	//Dette gjelder da spesifikt sendInvite().	
 	
 	private ArrayList<HaveCalendar> InviteList;
 	private PropertyChangeSupport pcs;
