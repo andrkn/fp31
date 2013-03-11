@@ -1,9 +1,8 @@
 package model;
 
-import java.sql.Time;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
-import java.util.Hashtable;
 
 import model.HaveCalendar;
 import model.Person;
@@ -11,7 +10,8 @@ import model.Room;
 
 public class Event {
 	
-	private String createdBy, name, description, place;
+	private String name, description, place;
+	private Person createdBy;
 	private int eventId;
 	private Room room;
 	private Date startTime, endTime;
@@ -19,7 +19,7 @@ public class Event {
 	private ArrayList<HaveCalendar> attenders;
 	private HashMap<Person, Integer> alarms;
 	
-	public Event(int eventId, String createdBy, Date startTime, Date endTime, String name, 
+	public Event(int eventId, Person createdBy, Date startTime, Date endTime, String name, 
 	String description, String place, String invitedPersons, String invitedGroups, String roomNr){
 		this.createdBy = createdBy;
 		this.startTime = startTime;
@@ -30,10 +30,10 @@ public class Event {
 
 	}
 	
-	public void setCreatedBy(String createdBy){
+	public void setCreatedBy(Person createdBy){
 		this.createdBy = createdBy;
 	}
-	public String getCreatedBy(){
+	public Person getCreatedBy(){
 		return createdBy;
 	}
 	
