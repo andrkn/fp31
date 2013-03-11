@@ -115,17 +115,12 @@ public class DBMethods {
     	String roomNr = resultSet.getString(10);
     	return new Event(id, createdBy, start, end, eventName, description, place, invitedPersons, invitedGroups, roomNr);
     }
-<<<<<<< HEAD
-=======
     
-    public void invite(int eventId, ArrayList<HaveCalendar> persons){
+    public void invite(int eventId, ArrayList<HaveCalendar> persons) throws SQLException{
     	for  (HaveCalendar p : persons){
     		updateInvited(p.getName(), eventId);
     	}
     }
     
-
-
->>>>>>> ...
 }
 
