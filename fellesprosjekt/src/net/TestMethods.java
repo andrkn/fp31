@@ -2,6 +2,7 @@ package net;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.sql.Date;
 import java.sql.SQLException;
 import java.sql.Time;
 import java.util.Properties;
@@ -21,9 +22,14 @@ public class TestMethods {
     	DBMethods dbm = new DBMethods();
     	dbm.setConnection(db.getConnection());
     	
+    	for(Event e : dbm.loadEvents("hanskhe")){
+    		System.out.println(e.getEventId());
+    	}
     	
-    	dbm.setAlarm(22, "hanskhe", new Time(12,0,0));
-    	    
+    	//Date date = Date.valueOf("2013-03-12");
+    	//dbm.createEvent("hanskhe", new Time(14,0,0), new Time(17,0,0), date, "lunsjdate", "zomg", "downtown", "", "2", "");
+    	//dbm.setAlarm(23, "hanskhe", new Time(12,0,0));
+    	   
     	//dbm.createEvent("per", new Time(8,0,0), new Time(10,0,0), "møte", "husk notater", "kontoret", "", "2", ""); 
 	}
 }

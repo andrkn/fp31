@@ -1,6 +1,7 @@
 package net;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -25,13 +26,13 @@ public class DBMethods {
 		statement = statm;
 	}
 	
-	public Event createEvent(String createdBy, Time startTime, Time endTime, String eventName, 
+	public Event createEvent(String createdBy, Time startTime, Time endTime, Date date, String eventName, 
 			String description, String place, String invitedPersons, String invitedGroups, String roomNr) throws SQLException{
 		
 		statement = connection.createStatement();
-		String sql = "INSERT INTO Event (createdBy_username, startTime, endTime, eventName, " +
+		String sql = "INSERT INTO Event (createdBy_username, startTime, endTime, date, eventName, " +
 				"description, place, invitedPersons, invitedGroups, roomNr) VALUES ('"+ createdBy 
-				+ "', '" + startTime + "', '" + endTime + "', '" + eventName + "', '" + description + "', '" +
+				+ "', '" + startTime + "', '" + endTime + "', '" + date + "', '"+ eventName + "', '" + description + "', '" +
 						place + "', '" + invitedPersons + "', '" + invitedGroups + "', '" + roomNr + "')";
 		statement.executeUpdate(sql, Statement.RETURN_GENERATED_KEYS);
 		ResultSet resultSet = statement.getGeneratedKeys();
@@ -51,7 +52,7 @@ public class DBMethods {
 				}
 			}
 		}
-		return new Event(eventId, createdBy,startTime,endTime,eventName, description,place,invitedPersons,invitedGroups,roomNr);
+		return new Event(eventId, createdBy,startTime,endTime, date, eventName, description,place,invitedPersons,invitedGroups,roomNr);
 	}
 	
 	public String getPersonsFromGroup(int groupNr) throws SQLException{
@@ -103,13 +104,14 @@ public class DBMethods {
     	String createdBy = resultSet.getString(2);
     	Time start = resultSet.getTime(3);
     	Time end = resultSet.getTime(4);
-    	String eventName = resultSet.getString(5);
-    	String description = resultSet.getString(6);
-    	String place = resultSet.getString(7); 
-    	String invitedPersons = resultSet.getString(8);
-    	String invitedGroups = resultSet.getString(9);
-    	String roomNr = resultSet.getString(10);
-    	return new Event(id, createdBy, start, end, eventName, description, place, invitedPersons, invitedGroups, roomNr);
+    	Date date = resultSet.getDate(5);
+    	String eventName = resultSet.getString(6);
+    	String description = resultSet.getString(7);
+    	String place = resultSet.getString(8); 
+    	String invitedPersons = resultSet.getString(9);
+    	String invitedGroups = resultSet.getString(10);
+    	String roomNr = resultSet.getString(11);
+    	return new Event(id, createdBy, start, end, date, eventName, description, place, invitedPersons, invitedGroups, roomNr);
     }
     
     public void invite(int eventId, ArrayList<HaveCalendar> persons) throws SQLException{
@@ -131,12 +133,42 @@ public class DBMethods {
     	ResultSet resultSet = statement.executeQuery(sql);
     	resultSet.next();
     	return resultSet.getInt(1) == 0 ? false : true;
+		
     }
     
     public void setAlarm(int eventId, String username, Time time) throws SQLException{
     	statement = connection.createStatement();
     	String sql = "INSERT INTO Alarm (time, eventId, username) VALUES ('" + time + "', " + eventId + ", '" + username + "')";
-    	statement.executeUpdate(sql);
+    	statement.executeUpdate(sql, Statement.RETURN_GENERATED_KEYS);
+    	ResultSet resultSet = statement.getGeneratedKeys();
+    	resultSet.beforeFirst();
+		resultSet.next();
+    	int alarmId = resultSet.getInt(1);
+    	//String sql2 = "UPDATE Invited SET alarmId = " + alarmId + " WHERE username = '" + username + "' AND eventId = " + eventId;
+    	//statement.executeUpdate(sql2);
+    }
+    
+    public ArrayList<Event> loadEvents(String username) throws SQLException{
+    	statement  = connection.createStatement();
+    	String sql = "SELECT * FROM Event WHERE createdBy_username = '" + username + "'";
+    	ResultSet resultSet = statement.executeQuery(sql);
+    	ArrayList<Event> events = new ArrayList<Event>();
+    	while(resultSet.next()){
+    		int eventId = resultSet.getInt(1);
+    		String createdBy = resultSet.getString(2);
+    		Time startTime = resultSet.getTime(3);
+    		Time endTime = resultSet.getTime(4);
+    		Date date = resultSet.getDate(5);
+    		String eventName = resultSet.getString(6);
+    		String description = resultSet.getString(7);
+    		String place = resultSet.getString(8);
+    		String invitedPersons = resultSet.getString(9);
+    		String invitedGroups = resultSet.getString(10);
+    		String roomNr = resultSet.getString(11);
+    		events.add(new Event(eventId,createdBy,startTime,endTime,date,eventName,
+    				description,place,invitedPersons,invitedGroups,roomNr));
+    	}
+    	return events;
     }
     
 }
