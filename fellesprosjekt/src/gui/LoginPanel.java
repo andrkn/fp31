@@ -10,6 +10,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import com.mysql.jdbc.NotUpdatable;
+
 import net.PackageReceiver;
 import net.PackageSender;
 
@@ -23,8 +25,10 @@ public class LoginPanel extends JPanel {
 	private JTextField username, password;
 	private JButton login;
 	private PackageSender sender;
+	private Boolean isLoggedIn = false;
 	
 	
+
 	public LoginPanel() throws IOException{
 		username = new JTextField();
 		username.setName("username");
@@ -43,8 +47,15 @@ public class LoginPanel extends JPanel {
 		add(login);
 		
 		sender = new PackageSender();
-		
-		
+				
+	}
+	
+	public Boolean isLoggedIn() {
+		return isLoggedIn;
+	}
+
+	public void setIsLoggedIn(Boolean isLoggedIn) {
+		this.isLoggedIn = isLoggedIn;
 	}
 	
 	public class loginAction implements ActionListener
@@ -60,6 +71,7 @@ public class LoginPanel extends JPanel {
 			else{
 				try {
 					if (validLogin(username.getText(), password.getText())){
+						setIsLoggedIn(true);
 						JOptionPane.showMessageDialog(null, "YOU CAN LOGIN! GANDALF WILL LET YOU PASS!");
 						//Login approved - Move to calender-view
 						//.removeAll() or similar
