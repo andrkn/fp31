@@ -1,8 +1,10 @@
 package model;
 
+import java.sql.Date;
+import java.sql.Time;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
+import java.util.Hashtable;
 
 import model.HaveCalendar;
 import model.Person;
@@ -10,30 +12,32 @@ import model.Room;
 
 public class Event {
 	
-	private String name, description, place;
-	private Person createdBy;
+	private String createdBy, name, description, place;
 	private int eventId;
 	private Room room;
-	private Date startTime, endTime;
+	private Time startTime, endTime;
 	private Boolean isActive;
 	private ArrayList<HaveCalendar> attenders;
 	private HashMap<Person, Integer> alarms;
+	private Date date;
 	
-	public Event(int eventId, Person createdBy, Date startTime, Date endTime, String name, 
+	public Event(int eventId, String createdBy, Time startTime, Time endTime, Date date, String name, 
 	String description, String place, String invitedPersons, String invitedGroups, String roomNr){
+		this.eventId = eventId;
 		this.createdBy = createdBy;
 		this.startTime = startTime;
 		this.endTime = endTime;
+		this.date = date;
 		this.name = name;
 		this.description = description;
 		this.place = place;
 
 	}
 	
-	public void setCreatedBy(Person createdBy){
+	public void setCreatedBy(String createdBy){
 		this.createdBy = createdBy;
 	}
-	public Person getCreatedBy(){
+	public String getCreatedBy(){
 		return createdBy;
 	}
 	
@@ -77,17 +81,17 @@ public class Event {
 		this.room = room;
 	}
 
-	public Date getStartTime() {
+	public Time getStartTime() {
 		return startTime;
 	}
 
-	public void setStartTime(Date time) {
+	public void setStartTime(Time time) {
 		this.startTime = time;
 	}
-	public Date getEndTime(){
+	public Time getEndTime(){
 		return endTime;
 	}
-	public void setEndTime(Date time){
+	public void setEndTime(Time time){
 		this.endTime = time;
 	}
 
@@ -129,8 +133,6 @@ public class Event {
 	public HashMap<Person, Integer> getAlarms() {
 		return alarms;
 	}
-
-	
-
 	
 }
+
