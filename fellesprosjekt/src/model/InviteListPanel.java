@@ -38,7 +38,7 @@ public class InviteListPanel extends JPanel{
 		grid = new GridBagConstraints();
 		grid.gridx = 0;
 		grid.gridy = 0; 
-		grid.insets = new Insets(5, 5, 5, 5);
+		grid.insets = new Insets(0, 0, 5, 0);
 		grid.fill = GridBagConstraints.BOTH;
 		
 		this.add(list, grid); 

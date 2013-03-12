@@ -1,7 +1,9 @@
 package model;
 
+import java.util.concurrent.Callable;
 
-public class Person implements HaveCalendar {
+
+public class Person implements HaveCalendar, Comparable<Person>{
 	
 	String name, email;
 	CalendarModel model;
@@ -34,6 +36,11 @@ public class Person implements HaveCalendar {
 	
 	public String toString(){
 		return name;
+	}
+
+	@Override
+	public int compareTo(Person other) {
+		return this.getName().compareTo(other.getName());
 	}
 
 }

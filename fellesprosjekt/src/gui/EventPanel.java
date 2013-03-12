@@ -1,41 +1,59 @@
 package gui;
 
+import java.awt.Component;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.util.ArrayList;
+import java.util.Collections;
 
+import javax.swing.DefaultListModel;
+import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
-import javax.swing.border.LineBorder;
 
 import model.EventModel;
+import model.InviteListPanel;
+import model.Person;
 
-public class EventPanel extends JPanel {
+public class EventPanel extends JPanel implements PropertyChangeListener{
 	
-	GridBagConstraints grid;
-	EventModel model;
+	private GridBagConstraints grid;
+	private EventModel model;
 	
-	JTextField nameField; 
-	JTextField startTimeField; 
-	JTextField endTimeField;
-	JTextField placeField; 
-	JTextField descriptionField;
-	JTextField alarmField;
+	private JTextField nameField; 
+	private JTextField startTimeField; 
+	private JTextField endTimeField;
+	private JTextField placeField; 
+	private JTextField descriptionField;
+	private JTextField alarmField;
+	private int[] attendersGridConstants = new int[2];
 	
 	public EventPanel(EventModel model){
 		
 		this.model = model;
-		grid = new GridBagConstraints();
+		
 		this.setLayout(new GridBagLayout());
 		
 		addLabels(); 
 		addTextFields();
-		setTittel();
+		addTittel();
+		addButtons();
+		
+		setEditeble();
 		
 	}
 	
+	private void addButtons() {
+		// TODO Auto-generated method stub
+		
+	}
+
 	public void setEditeble(){
 		boolean editeble = model.getEditable(); 
 		if (editeble == false){
@@ -56,6 +74,9 @@ public class EventPanel extends JPanel {
 			
 			alarmField.setEditable(false); 
 			alarmField.setBorder(javax.swing.BorderFactory.createEmptyBorder());
+			
+			fixAttendersEditeble(true);
+			
 		}else{
 			Border border = (new JTextField()).getBorder();
 			
@@ -76,10 +97,50 @@ public class EventPanel extends JPanel {
 			
 			alarmField.setEditable(true); 
 			alarmField.setBorder(border);
+			
+			fixAttendersEditeble(true);
 		}
 	}
 
-	private void setTittel() {
+	private void fixAttendersEditeble(boolean editeble) {
+		for (Component comp : this.getComponents()){
+			if(comp.getName() == null){
+				continue;
+				
+			}else if (comp.getName().equals("AttendersList")){
+				setupGridForComponents(); 
+				this.remove(comp); 
+				
+				grid.gridx = attendersGridConstants[0]; 
+				grid.gridy = attendersGridConstants[1]; 
+				
+				this.add(new InviteListPanel(model),grid);
+				System.out.println("Added InviteListPanel");
+				break;
+				
+			}else if(comp.getName().equals("InviteListPanel")){
+				
+				
+				setupGridForComponents(); 
+				this.remove(comp);
+				
+				grid.gridx = attendersGridConstants[0]; 
+				grid.gridy = attendersGridConstants[1]; 
+				
+				this.add(getAttenders(), grid);
+				System.out.println("Added attendersList");
+				
+				break; 
+			}else {
+				System.out.println("lol");
+			}
+		}
+		this.validate();
+		this.repaint();
+	}
+
+	private void addTittel() {
+		grid = new GridBagConstraints();
 		grid.gridx = 0; 
 		grid.gridy = 0; 
 		grid.gridwidth = 2; 
@@ -96,11 +157,7 @@ public class EventPanel extends JPanel {
 
 	private void addTextFields() {
 		//Setup of grid
-		grid.gridx = 1;
-		grid.gridy = 1; 
-		grid.gridwidth = 1;
-		grid.insets = new Insets(5,5,5,0);
-		grid.anchor = GridBagConstraints.EAST;
+		setupGridForComponents();
 		
 		startTimeField = new JTextField(); 
 		startTimeField.setText(model.getStartTime());
@@ -127,6 +184,14 @@ public class EventPanel extends JPanel {
 		
 		//Vise deltagere, ikke implimentert 
 		grid.gridy += 1; 
+		JList attendersJList = getAttenders();
+//		JPanel invitePanel = new InviteListPanel(model, model.getInviteList());
+		int height = attendersJList.getHeight()+(new JButton()).getHeight();
+		this.add(attendersJList,grid);
+		attendersGridConstants[0] = grid.gridx;
+		attendersGridConstants[1] = grid.gridy;
+		grid.ipady = 0;
+		
 
 		grid.gridy += 1;
 		alarmField = new JTextField(); 
@@ -134,15 +199,44 @@ public class EventPanel extends JPanel {
 //		alarmField.setEditable(model.getEditable()); 
 		this.add(alarmField, grid);
 		
+		
 	}
 
+	private void setupGridForComponents() {
+		grid = new GridBagConstraints();
+		grid.gridx = 1;
+		grid.gridy = 1; 
+		grid.gridwidth = 1;
+		grid.insets = new Insets(5,5,5,0);
+		grid.anchor = GridBagConstraints.LINE_START;
+		grid.fill = GridBagConstraints.BOTH;
+	}
+
+	private JList getAttenders() {
+		JList attendersList = new JList();
+		DefaultListModel listModel = new DefaultListModel(); 
+		attendersList.setModel(listModel);
+
+		ArrayList<Person> attendersArray = model.getAttenders();
+		Collections.sort(attendersArray);
+		for(Person person : attendersArray){
+			listModel.addElement(person); 
+		}
+		
+		attendersList.setName("AttendersList");
+		
+		return attendersList;
+	}
+
+	
 	private void addLabels() {
 		//Setup of grid
+		grid = new GridBagConstraints();
 		grid.gridx = 0;
 		grid.gridy = 1; 
 		grid.gridwidth = 1;
 		grid.insets = new Insets(5,0,5,5);
-		grid.anchor = GridBagConstraints.WEST;
+		grid.anchor = GridBagConstraints.FIRST_LINE_START;
 		
 		
 		//Add labels
@@ -168,6 +262,12 @@ public class EventPanel extends JPanel {
 		grid.gridy += 1; 
 		JLabel alarmLabel = new JLabel("Alarm: "); 
 		this.add(alarmLabel, grid); 
+	}
+
+	
+	@Override
+	public void propertyChange(PropertyChangeEvent evt) {
+		
 	}
 
 }

@@ -1,5 +1,9 @@
 package model;
 
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
+import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Date;
 
 public class EventModel {
@@ -7,43 +11,22 @@ public class EventModel {
 	private Event event; 
 	private Person user;
 	private boolean editable;
+	private PropertyChangeSupport pcs; 
 	
 	public EventModel(Event event, Person user){
 		this.event = event;
 		this.user = user;
+		editable = false;
+		pcs = new PropertyChangeSupport(this); 
 	}
 
 	
 	public String getStartTime(){
-		String startTimeString = "";
-		Date startTime = event.getStartTime();
-		
-		if (startTime == null){
-			return ""; 
-		}
-		
-		startTimeString += startTime.getHours()+":";
-		startTimeString += startTime.getMinutes()+" ";
-		startTimeString += startTime.getDate()+".";
-		startTimeString += (startTime.getMonth()+1)+".";
-		startTimeString += startTime.getYear();
-		return startTimeString; 
+		return getTimeString(event.getStartTime()); 
 	}
 	
 	public String getEndTime(){
-		String endTimeString = "";
-		Date endTime = event.getEndTime();
-
-		if (endTime == null){
-			return ""; 
-		}
-		
-		endTimeString += endTime.getHours()+":";
-		endTimeString += endTime.getMinutes()+" ";
-		endTimeString += endTime.getDate()+".";
-		endTimeString += (endTime.getMonth()+1)+".";
-		endTimeString += endTime.getYear();
-		return endTimeString; 
+		return getTimeString(event.getEndTime()); 
 	}
 	
 	public String getPlace(){
@@ -66,14 +49,71 @@ public class EventModel {
 		int alarm = event.getAlarms().get(user);
 		return Integer.toString(alarm);
 	}
-	
+
+
+	public ArrayList<Person> getInviteList(){
+		ArrayList<Person> test = new ArrayList<Person>();
+		Person p1 = new Person(); 
+		p1.setName("Torstein"); 
+		
+		Person p2 = new Person(); 
+		p2.setName("Adam");
+		
+		test.add(p1);
+		test.add(p2);
+		return test;
+	}
+
+
+	public ArrayList<Person> getAttenders(){
+		ArrayList<Person> test = new ArrayList<Person>();
+		Person p1 = new Person(); 
+		p1.setName("Torstein"); 
+		
+		Person p2 = new Person(); 
+		p2.setName("Adam");
+		
+		test.add(p1);
+		test.add(p2);
+		return test;
+	}
+
+
 	public boolean getEditable(){
 		return editable;
 	}
 	
 	public void setEditeble(boolean editeble){
-		if (this.user.equals(event.getCreatedBy())){
-			this.editable = editeble;
+		if (this.editable == editeble){
+			return;
 		}
+		this.editable = editeble;
+		pcs.firePropertyChange("editeble", !editeble, editeble);
+	}
+
+
+	private String getTimeString(Timestamp date){
+		if (date == null){
+			return ""; 
+		}
+
+		String dateString = "";
+		
+		dateString += date.getHours()+":";
+		dateString += date.getMinutes()+" ";
+		dateString += date.getDate()+".";
+		dateString += (date.getMonth()+1)+".";
+		dateString += (date.getYear()+1900);
+		return dateString;
+	}
+	
+	public void addAttender(Person person){
+		
+	}
+	public void addPropertyChangeListener(PropertyChangeListener listener){
+		pcs.addPropertyChangeListener(listener); 
+	}
+	public void removePropertyChangeListener(PropertyChangeListener listener){
+		pcs.removePropertyChangeListener(listener); 
 	}
 }

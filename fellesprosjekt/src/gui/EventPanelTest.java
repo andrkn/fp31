@@ -1,5 +1,7 @@
 package gui;
 
+import java.sql.Timestamp;
+import java.util.Calendar;
 import java.util.Date;
 
 import javax.swing.JFrame;
@@ -11,17 +13,33 @@ import model.Person;
 public class EventPanelTest {
 
 	@SuppressWarnings("deprecation")
-	public static void main(String[] args) {
+	public static void main(String[] args) throws InterruptedException {
 		
 		JFrame frame = new JFrame();
-		frame.setContentPane(new EventPanel(new EventModel(new Event(99, new Person(), new Date(2013,0,1), new Date(2013,0,2), "Name", "Decription", "Place", null, null, null), new Person())));
+		
+		EventModel model = new EventModel(
+				new Event(99, new Person(), new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()), 
+						"Name", "Decription", "Place", null, null,null), new Person());
+		EventPanel panel = new EventPanel(model);
+		frame.setContentPane(panel);
 		frame.setSize(500,350); 
 		frame.setVisible(true); 
 		frame.setDefaultCloseOperation(frame.EXIT_ON_CLOSE); 
 		
-		Date date = new Date(92,9,25); 
-		System.out.println(date);
 		
+//		model.setEditeble(true); 
+//		panel.setEditeble();
+		
+		
+		
+		
+		while (true){
+			
+			model.setEditeble(!model.getEditable());
+			panel.setEditeble(); 
+			
+			Thread.sleep(5000); 
+			
+		}
 	}
-
 }
