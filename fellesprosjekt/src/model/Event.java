@@ -133,9 +133,6 @@ public class Event {
 	public HashMap<Person, Integer> getAlarms() {
 		return alarms;
 	}
-
-	
-
 	
 }
 

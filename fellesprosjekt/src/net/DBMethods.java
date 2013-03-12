@@ -114,6 +114,7 @@ public class DBMethods {
     	return new Event(id, createdBy, start, end, date, eventName, description, place, invitedPersons, invitedGroups, roomNr);
     }
     
+    //Not implemented
     public void invite(int eventId, ArrayList<HaveCalendar> persons) throws SQLException{
     	for  (HaveCalendar p : persons){
     		updateInvited(p.getName(), eventId);
@@ -139,13 +140,7 @@ public class DBMethods {
     public void setAlarm(int eventId, String username, Time time) throws SQLException{
     	statement = connection.createStatement();
     	String sql = "INSERT INTO Alarm (time, eventId, username) VALUES ('" + time + "', " + eventId + ", '" + username + "')";
-    	statement.executeUpdate(sql, Statement.RETURN_GENERATED_KEYS);
-    	ResultSet resultSet = statement.getGeneratedKeys();
-    	resultSet.beforeFirst();
-		resultSet.next();
-    	int alarmId = resultSet.getInt(1);
-    	//String sql2 = "UPDATE Invited SET alarmId = " + alarmId + " WHERE username = '" + username + "' AND eventId = " + eventId;
-    	//statement.executeUpdate(sql2);
+    	statement.executeUpdate(sql); 
     }
     
     public ArrayList<Event> loadEvents(String username) throws SQLException{
@@ -168,8 +163,20 @@ public class DBMethods {
     		events.add(new Event(eventId,createdBy,startTime,endTime,date,eventName,
     				description,place,invitedPersons,invitedGroups,roomNr));
     	}
+    	String sql2 = "SELECT * FROM Invited WHERE username = '" + username + "'";
+    	resultSet = statement.executeQuery(sql2);
+    	while(resultSet.next()){
+    		int eventId = resultSet.getInt("eventID");
+    		events.add(getEvent(eventId));
+    	}
     	return events;
     }
     
+    
+    public void deleteEvent(int eventId) throws SQLException{
+    	statement = connection.createStatement();
+    	String sql = "DELETE FROM Event WHERE eventID = " + eventId;
+    	statement.executeUpdate(sql);
+    }
 }
 
