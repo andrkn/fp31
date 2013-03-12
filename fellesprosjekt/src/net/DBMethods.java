@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Time;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 
 
@@ -26,13 +27,13 @@ public class DBMethods {
 		statement = statm;
 	}
 	
-	public Event createEvent(String createdBy, Time startTime, Time endTime, Date date, String eventName, 
+	public Event createEvent(String createdBy, Timestamp startTime, Timestamp endTime, String eventName, 
 			String description, String place, String invitedPersons, String invitedGroups, String roomNr) throws SQLException{
 		
 		statement = connection.createStatement();
-		String sql = "INSERT INTO Event (createdBy_username, startTime, endTime, date, eventName, " +
+		String sql = "INSERT INTO Event (createdBy_username, startTime, endTime, eventName, " +
 				"description, place, invitedPersons, invitedGroups, roomNr) VALUES ('"+ createdBy 
-				+ "', '" + startTime + "', '" + endTime + "', '" + date + "', '"+ eventName + "', '" + description + "', '" +
+				+ "', '" + startTime + "', '" + endTime + "', '" + eventName + "', '" + description + "', '" +
 						place + "', '" + invitedPersons + "', '" + invitedGroups + "', '" + roomNr + "')";
 		statement.executeUpdate(sql, Statement.RETURN_GENERATED_KEYS);
 		ResultSet resultSet = statement.getGeneratedKeys();
@@ -52,7 +53,7 @@ public class DBMethods {
 				}
 			}
 		}
-		return new Event(eventId, createdBy,startTime,endTime, date, eventName, description,place,invitedPersons,invitedGroups,roomNr);
+		return new Event(eventId, createdBy,startTime,endTime, eventName, description,place,invitedPersons,invitedGroups,roomNr);
 	}
 	
 	public String getPersonsFromGroup(int groupNr) throws SQLException{
@@ -102,16 +103,15 @@ public class DBMethods {
     	resultSet.next();
     	int id = resultSet.getInt(1);
     	String createdBy = resultSet.getString(2);
-    	Time start = resultSet.getTime(3);
-    	Time end = resultSet.getTime(4);
-    	Date date = resultSet.getDate(5);
-    	String eventName = resultSet.getString(6);
-    	String description = resultSet.getString(7);
-    	String place = resultSet.getString(8); 
-    	String invitedPersons = resultSet.getString(9);
-    	String invitedGroups = resultSet.getString(10);
-    	String roomNr = resultSet.getString(11);
-    	return new Event(id, createdBy, start, end, date, eventName, description, place, invitedPersons, invitedGroups, roomNr);
+    	Timestamp start = resultSet.getTimestamp(3);
+    	Timestamp end = resultSet.getTimestamp(4);
+    	String eventName = resultSet.getString(5);
+    	String description = resultSet.getString(6);
+    	String place = resultSet.getString(7); 
+    	String invitedPersons = resultSet.getString(8);
+    	String invitedGroups = resultSet.getString(9);
+    	String roomNr = resultSet.getString(10);
+    	return new Event(id, createdBy, start, end, eventName, description, place, invitedPersons, invitedGroups, roomNr);
     }
     
     //Not implemented
@@ -152,16 +152,15 @@ public class DBMethods {
     	while(resultSet.next()){
     		int eventId = resultSet.getInt(1);
     		String createdBy = resultSet.getString(2);
-    		Time startTime = resultSet.getTime(3);
-    		Time endTime = resultSet.getTime(4);
-    		Date date = resultSet.getDate(5);
-    		String eventName = resultSet.getString(6);
-    		String description = resultSet.getString(7);
-    		String place = resultSet.getString(8);
-    		String invitedPersons = resultSet.getString(9);
-    		String invitedGroups = resultSet.getString(10);
-    		String roomNr = resultSet.getString(11);
-    		events.add(new Event(eventId,createdBy,startTime,endTime,date,eventName,
+    		Timestamp startTime = resultSet.getTimestamp(3);
+    		Timestamp endTime = resultSet.getTimestamp(4);
+    		String eventName = resultSet.getString(5);
+    		String description = resultSet.getString(6);
+    		String place = resultSet.getString(7);
+    		String invitedPersons = resultSet.getString(8);
+    		String invitedGroups = resultSet.getString(9);
+    		String roomNr = resultSet.getString(10);
+    		events.add(new Event(eventId,createdBy,startTime,endTime,eventName,
     				description,place,invitedPersons,invitedGroups,roomNr));
     	}
     	String sql2 = "SELECT * FROM Invited WHERE username = '" + username + "'";
@@ -172,7 +171,6 @@ public class DBMethods {
     	}
     	return events;
     }
-    
     
     public void deleteEvent(int eventId) throws SQLException{
     	statement = connection.createStatement();

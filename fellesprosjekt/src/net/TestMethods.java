@@ -1,33 +1,29 @@
 package net;
 
-import java.io.IOException;
 import java.io.InputStream;
-import java.sql.Date;
-import java.sql.SQLException;
-import java.sql.Time;
+import java.sql.Timestamp;
 import java.util.Properties;
-
-import encryption.PasswordEncryption;
 
 import model.Event;
 
+
 public class TestMethods {
 
-    public static void main(String [] args) throws Exception {
-    	Properties prop = new Properties();
-        InputStream in = DBMethods.class.getResourceAsStream("Properties.properties");
-        prop.load(in);
-    	DBConnection db = new DBConnection(prop);
+    @SuppressWarnings("deprecation")
+	public static void main(String [] args) throws Exception {
+    	
+    	DBConnection db = new DBConnection("Properties.properties");
     	db.connect();
     	DBMethods dbm = new DBMethods();
     	dbm.setConnection(db.getConnection());
     	
-    	Date date = Date.valueOf("2013-03-13");
+    	for (Event e : dbm.loadEvents("garmdf")){
+    		System.out.println(e.getEventId());
+    	}
     	
-    	dbm.setAlarm(34, "gardmf", new Time(9,0,0), date);
-    	//dbm.createEvent("garmdf", new Time(10,0,0), new Time(16,0,0), date, "prosjekt", "jobbe med prosjektet", "", "helle hanskhe", "1", "");
-    	//Date date = Date.valueOf("2013-03-14");
-    	//dbm.createEvent("andre", new Time(12,0,0), new Time(14,0,0), date, "lol", "putekrig", "til helle", "hanskhe", "", "");
+    	dbm.createEvent("garmdf", new Timestamp(113,11,3,15,0,0,0), new Timestamp(113,11,3,17,0,0,0), "prosjekt", "jobbe med prosjektet", "", "helle hanskhe", "1", "");
+
+    	
     	
 //    	for(Event e : dbm.loadEvents("hanskhe")){
 //    		System.out.println(e.getEventId());
@@ -37,6 +33,6 @@ public class TestMethods {
     	//dbm.createEvent("hanskhe", new Time(14,0,0), new Time(17,0,0), date, "lunsjdate", "zomg", "downtown", "", "2", "");
     	//dbm.setAlarm(23, "hanskhe", new Time(12,0,0));
     	   
-    	//dbm.createEvent("per", new Time(8,0,0), new Time(10,0,0), "møte", "husk notater", "kontoret", "", "2", ""); 
+     
 	}
 }
