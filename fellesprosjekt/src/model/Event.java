@@ -22,7 +22,7 @@ public class Event {
 	private Date date;
 	
 	public Event(int eventId, String createdBy, Time startTime, Time endTime, Date date, String name, 
-	String description, String place, String invitedPersons, String invitedGroups, String roomNr){
+	String description, String place, String invitedPersons, String invitedGroups, String room){
 		this.eventId = eventId;
 		this.createdBy = createdBy;
 		this.startTime = startTime;
@@ -31,7 +31,7 @@ public class Event {
 		this.name = name;
 		this.description = description;
 		this.place = place;
-
+		
 	}
 	
 	public void setCreatedBy(String createdBy){

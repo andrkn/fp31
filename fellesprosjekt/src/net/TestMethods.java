@@ -22,9 +22,10 @@ public class TestMethods {
     	DBMethods dbm = new DBMethods();
     	dbm.setConnection(db.getConnection());
     	
-    	//Date date = Date.valueOf("2013-03-13");
-    	dbm.deleteEvent(31);
-    	//dbm.createEvent("garmdf", new Time(10,0,0), new Time(16,0,0), new Date(2013, 3, 12), "prosjekt", "jobbe med prosjektet", "", "helle hanskhe", "1", "");
+    	Date date = Date.valueOf("2013-03-13");
+    	
+    	dbm.setAlarm(34, "gardmf", new Time(9,0,0), date);
+    	//dbm.createEvent("garmdf", new Time(10,0,0), new Time(16,0,0), date, "prosjekt", "jobbe med prosjektet", "", "helle hanskhe", "1", "");
     	//Date date = Date.valueOf("2013-03-14");
     	//dbm.createEvent("andre", new Time(12,0,0), new Time(14,0,0), date, "lol", "putekrig", "til helle", "hanskhe", "", "");
     	

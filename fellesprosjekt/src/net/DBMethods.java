@@ -137,11 +137,12 @@ public class DBMethods {
 		
     }
     
-    public void setAlarm(int eventId, String username, Time time) throws SQLException{
+    public void setAlarm(int eventId, String username, Time time, Date date) throws SQLException{
     	statement = connection.createStatement();
-    	String sql = "INSERT INTO Alarm (time, eventId, username) VALUES ('" + time + "', " + eventId + ", '" + username + "')";
+    	String sql = "INSERT INTO Alarm (time, date, eventId, username) VALUES ('" + time + "', '" + date + "', " + eventId + ", '" + username + "')";
     	statement.executeUpdate(sql); 
     }
+    
     
     public ArrayList<Event> loadEvents(String username) throws SQLException{
     	statement  = connection.createStatement();
