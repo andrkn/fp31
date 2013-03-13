@@ -1,12 +1,10 @@
 package net;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 
@@ -49,6 +47,12 @@ public class DBMethods {
 		for (String person : invitedPersons.split(" ")){
 			updateInvited(person, eventId);
 		}
+	}
+	
+	public void setSubGroup(int yourGroup, int subGroup) throws SQLException{
+		statement = connection.createStatement();
+		String sql = "UPDATE `Group` SET subGroups =" + subGroup + " WHERE groupID = " + yourGroup;
+		statement.executeUpdate(sql);
 	}
 	
 	public ArrayList<HaveCalendar> getInvitedToEvent(int eventId) throws SQLException{

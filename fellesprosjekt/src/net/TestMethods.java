@@ -17,9 +17,11 @@ public class TestMethods {
     	DBMethods dbm = new DBMethods();
     	dbm.setConnection(db.getConnection());
     	
+    	
+    	dbm.setSubGroup(1, 2);
     	//dbm.invitePersons(38, "gardmf");
     	//dbm.answerInvite("gardmf", 38, 1);
-    	dbm.setAlarm(38, "gardmf", new Timestamp(113, 2, 14, 15, 0, 0, 0));
+    	//dbm.setAlarm(38, "gardmf", new Timestamp(113, 2, 14, 15, 0, 0, 0));
     	//for (Event e : dbm.loadEvents("garmdf")){
     	//	System.out.println(e.getEventId());
     	//}
