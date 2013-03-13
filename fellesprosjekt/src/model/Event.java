@@ -31,6 +31,11 @@ public class Event {
 		this.room = room;
 		this.attenders = attenders;
 
+		this.attenders = attenders;
+	}
+	
+	public Event(){
+		
 	}
 	
 	public void setCreatedBy(Person createdBy){
@@ -128,7 +133,6 @@ public class Event {
 	public void setAlarm(Person person, int alarm) {
 		alarms.put(person, alarm);
 	}
-
 	public HashMap<Person, Integer> getAlarms() {
 		return alarms;
 	}

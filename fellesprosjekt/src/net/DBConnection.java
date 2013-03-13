@@ -26,9 +26,9 @@ public class DBConnection {
 	
 	public DBConnection(String propertiesFilename) throws IOException,
 	ClassNotFoundException, SQLException {
-		File f = new File(propertiesFilename);
 		properties = new Properties();
-		properties.load(new FileInputStream(f));
+		InputStream in = DBMethods.class.getResourceAsStream(propertiesFilename);
+		properties.load(in);
 		jdbcDriver = properties.getProperty("jdbcDriver");
 		url = properties.getProperty("url");
 	}
