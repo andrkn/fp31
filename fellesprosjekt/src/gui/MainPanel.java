@@ -17,13 +17,16 @@ public class MainPanel {
 	public static void main(String args[]) {
 		frame = new JFrame("Calendar");
 		frame.setAlwaysOnTop(true);
+		//Centering the frame on the screen
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		Point middle = new Point(screenSize.width / 2, screenSize.height / 2);
 		Point newLocation = new Point(middle.x - (400 / 2), middle.y - (115 / 2));
 		frame.setLocation(newLocation);
+		//Exit on close
 		frame.setDefaultCloseOperation(frame.EXIT_ON_CLOSE);
 		MainPanel mainPanel = new MainPanel();
 		
+		//Starting the login-process
 		try {
 			startLogIn(frame, mainPanel);
 		} 
