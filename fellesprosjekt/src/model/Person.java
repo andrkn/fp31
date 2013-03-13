@@ -3,7 +3,7 @@ package model;
 import java.util.concurrent.Callable;
 
 
-public class Person implements HaveCalendar, Comparable<Person>{
+public class Person implements HaveCalendar{
 	
 	String name, email;
 	CalendarModel model;
@@ -39,7 +39,7 @@ public class Person implements HaveCalendar, Comparable<Person>{
 	}
 
 	@Override
-	public int compareTo(Person other) {
+	public int compareTo(HaveCalendar other) {
 		return this.getName().compareTo(other.getName());
 	}
 

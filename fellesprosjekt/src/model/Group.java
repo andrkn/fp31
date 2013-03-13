@@ -29,4 +29,9 @@ public class Group implements HaveCalendar {
 		return null;
 	}
 
+	@Override
+	public int compareTo(HaveCalendar other) {
+		return this.getName().compareTo(other.getName());
+	}
+
 }

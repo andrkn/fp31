@@ -1,6 +1,6 @@
 package model;
 
-public interface HaveCalendar {
+public interface HaveCalendar extends Comparable<HaveCalendar>{
 
 	CalendarModel getCalendar();
 	String getName();
