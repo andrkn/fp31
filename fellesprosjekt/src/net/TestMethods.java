@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 package net;
 
 import java.io.InputStream;
@@ -36,27 +35,4 @@ public class TestMethods {
      
 	}
 }
-=======
-package net;
 
-import java.io.InputStream;
-import java.sql.Timestamp;
-import java.util.Properties;
-
-import model.Event;
-
-
-public class TestMethods {
-
-    @SuppressWarnings("deprecation")
-	public static void main(String [] args) throws Exception {
-    	DBConnection db = new DBConnection("Properties.properties");
-    	db.connect();
-    	DBMethods dbm = new DBMethods();
-    	dbm.setConnection(db.getConnection());
-    	
-    	
-     
-	}
-}
->>>>>>> small changes
