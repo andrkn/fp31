@@ -10,7 +10,8 @@ import model.Room;
 
 public class Event {
 	
-	private String createdBy, name, description, place;
+	private Person createdBy;
+	private String name, description, place;
 	private int eventId;
 	private Room room;
 	private Timestamp startTime, endTime;
@@ -18,8 +19,8 @@ public class Event {
 	private ArrayList<HaveCalendar> attenders;
 	private HashMap<Person, Integer> alarms;
 	
-	public Event(int eventId, String createdBy, Timestamp startTime, Timestamp endTime, String name, 
-	String description, String place, String room, ArrayList<HaveCalendar> attenders){
+	public Event(int eventId, Person createdBy, Timestamp startTime, Timestamp endTime, String name, 
+	String description, String place, Room room, ArrayList<HaveCalendar> attenders){
 		this.eventId = eventId;
 		this.createdBy = createdBy;
 		this.startTime = startTime;
@@ -34,10 +35,10 @@ public class Event {
 		
 	}
 	
-	public void setCreatedBy(String createdBy){
+	public void setCreatedBy(Person createdBy){
 		this.createdBy = createdBy;
 	}
-	public String getCreatedBy(){
+	public Person getCreatedBy(){
 		return createdBy;
 	}
 	
