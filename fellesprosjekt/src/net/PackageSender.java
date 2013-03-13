@@ -19,6 +19,7 @@ public class PackageSender {
 	private String serverAdress;
 	private ObjectOutputStream oos;
 	private ObjectInputStream ois;
+	private Socket serverConnection;
 
 	public PackageSender() throws IOException{
 		
@@ -29,7 +30,7 @@ public class PackageSender {
         this.serverPort = Integer.parseInt((String) prop.get("serverPort"));
         this.serverAdress = (String)(prop.get("serverAdress"));
 		
-        Socket serverConnection = new Socket(InetAddress.getByName(this.serverAdress),this.serverPort);
+        serverConnection = new Socket(InetAddress.getByName(this.serverAdress),this.serverPort);
         
         //Create outputstream for sending of packages
         OutputStream serverOutputStream = serverConnection.getOutputStream();
@@ -72,6 +73,12 @@ public class PackageSender {
 			e.printStackTrace();
 		}
 		return null;
+	}
+	
+	public void close() throws IOException{
+		oos.close();
+		ois.close();
+		serverConnection.close();
 	}
 	
 }

@@ -76,4 +76,11 @@ public class PackageReceiver {
 			e.printStackTrace();
 		}
 	}
+	
+	public void close() throws IOException{
+		oos.close();
+		ois.close();
+		clientSocket.close();
+		serverSocket.close();
+	}
 }
