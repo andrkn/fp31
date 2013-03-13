@@ -148,6 +148,10 @@ public class EventModel {
 	public void addAttender(Person person){
 		
 	}
+	public void removeAttender(Person selected) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 	public void addPropertyChangeListener(PropertyChangeListener listener){
 		pcs.addPropertyChangeListener(listener); 
@@ -155,4 +159,6 @@ public class EventModel {
 	public void removePropertyChangeListener(PropertyChangeListener listener){
 		pcs.removePropertyChangeListener(listener); 
 	}
+
+
 }

@@ -20,8 +20,11 @@ public class InviteListPanel extends JPanel{
 	private JList list;
 	private JButton addButton; 
 	private DefaultListModel listModel; 
+	private EventModel model;
 	
 	public InviteListPanel(EventModel model){
+		
+		this.model = model;
 		
 		ArrayList<Person> persons = model.getInviteList();
 		
@@ -54,7 +57,8 @@ public class InviteListPanel extends JPanel{
 			
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				
+				Person selected = (Person) list.getSelectedValue();
+				model.addAttender(selected);
 			}
 		});
 	}

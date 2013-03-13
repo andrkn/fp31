@@ -23,8 +23,10 @@ public class AttenderListPanel extends JPanel{
 	private JList list;
 	private JButton addButton; 
 	private DefaultListModel listModel; 
+	private EventModel model;
 	
 	public AttenderListPanel(EventModel model){
+		this.model = model;
 		
 		ArrayList<Person> persons = model.getAttenders();
 		
@@ -57,6 +59,8 @@ public class AttenderListPanel extends JPanel{
 			
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
+				Person selected = (Person) list.getSelectedValue();
+				model.removeAttender(selected);
 				
 			}
 		});
