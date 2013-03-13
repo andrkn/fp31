@@ -95,7 +95,7 @@ public class LoginPanel extends JPanel {
 						
 						//Notify the MainPanel that the login has been approved. MainPanel will take appropriate aciton.
 						sender.close();
-						mainPanel.loginApproved();
+						mainPanel.loginApproved(username.getText());
 					}
 					else{
 						//LOGIN FAILED
