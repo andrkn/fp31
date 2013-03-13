@@ -121,6 +121,7 @@ import encryption.PasswordEncryption;
 
 public class ServerPackageHandler {
 	//DataPackage pack;
+	DBConnection connection;
 	
 	public DataPackage HandlePackage(DataPackage pack){
 		DataPackage returnPackage = null;
@@ -151,25 +152,30 @@ public class ServerPackageHandler {
 		return returnPackage;
 	}
 
+	private DBMethods ConnectToDB() throws IOException{
+				//load properties
+				System.out.println("Debugpoint #6");
+				Properties prop = new Properties();
+		        InputStream in = PackageSender.class.getResourceAsStream("Properties.properties");
+		        prop.load(in);
+		        //connect to DB
+				connection = new DBConnection(prop);
+				connection.connect();
+				Connection c = connection.getConnection();
+				Statement s = connection.getStatement();
+				DBMethods method = new DBMethods();
+				method.setConnection(c);
+				method.setStatement(s);
+				
+				return method;
+	}
 
-
-
+	private void DisconnectFromDB() throws SQLException{
+		connection.close();
+	}
 
 	private boolean HandleLoginPackage(DataPackage pack) throws IOException {
-		//load properties
-		System.out.println("Debugpoint #6");
-		Properties prop = new Properties();
-        InputStream in = PackageSender.class.getResourceAsStream("Properties.properties");
-        prop.load(in);
-        //connect to DB
-		DBConnection connection = new DBConnection(prop);
-		connection.connect();
-		Connection c = connection.getConnection();
-		Statement s = connection.getStatement();
-		DBMethods method = new DBMethods();
-		method.setConnection(c);
-		method.setStatement(s);
-		
+		DBMethods method = ConnectToDB();
 		//store pack as LoginPackage, must be checked before method is called
 		LoginPackage loginpack = (LoginPackage)pack;
 		byte[] hash = null;
@@ -198,7 +204,7 @@ public class ServerPackageHandler {
 		}
 		
 		try {
-			connection.close();
+			DisconnectFromDB();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -213,8 +219,11 @@ public class ServerPackageHandler {
 		
 	}
 	
-	private void HandleCalendarRequestPackage(DataPackage pack) {
+	private void HandleCalendarRequestPackage(DataPackage pack) throws IOException {
 		CalendarRequestPackage CalReq = (CalendarRequestPackage)pack;
+		
+		DBMethods method = ConnectToDB();
+		
 		
 	}
 	
