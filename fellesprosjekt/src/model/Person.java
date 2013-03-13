@@ -5,8 +5,14 @@ import java.util.concurrent.Callable;
 
 public class Person implements HaveCalendar, Comparable<Person>{
 	
-	String name, email;
+	private String name, email, username;
 	CalendarModel model;
+
+	public Person(String username, String name, String email){
+		this.username = username;
+		this.name = name;
+		this.email = email;
+	}
 	
 	@Override
 	public CalendarModel getCalendar() {
