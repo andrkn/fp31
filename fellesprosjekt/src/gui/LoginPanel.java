@@ -6,16 +6,12 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
-import javax.swing.SpringLayout;
 
-import com.mysql.jdbc.NotUpdatable;
-
-import net.PackageReceiver;
 import net.PackageSender;
 
 import datapackage.DataPackage;
@@ -37,15 +33,13 @@ public class LoginPanel extends JPanel {
 		this.mainPanel = mainPanel;
 		
 		username = new JTextField();
-		username.setText("...");
 		user = new JLabel("Username:");
 		username.setName("username");
 		username.setColumns(25);
 		add(user);
 		add(username);
 		
-		password = new JTextField();
-		password.setText("...");
+		password = new JPasswordField();
 		pass = new JLabel("Password:");
 		password.setName("password");
 		password.setColumns(25);
