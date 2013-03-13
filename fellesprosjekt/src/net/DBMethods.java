@@ -42,13 +42,24 @@ public class DBMethods {
 		resultSet.beforeFirst();
 		resultSet.next();
 		int eventId = resultSet.getInt(1);
-		return new Event(eventId, getPerson(createdBy),startTime,endTime, eventName, description,place,getRoom(roomNr), null);
+		return new Event(eventId, getPerson(createdBy),startTime,endTime, eventName, description,place,getRoom(roomNr), getInvitedToEvent(eventId));
 	}
 	
 	public void invitePersons(int eventId, String invitedPersons) throws SQLException{
 		for (String person : invitedPersons.split(" ")){
 			updateInvited(person, eventId);
 		}
+	}
+	
+	public ArrayList<HaveCalendar> getInvitedToEvent(int eventId) throws SQLException{
+		statement = connection.createStatement();
+		String sql = "SELECT * FROM Invited WHERE eventID = " + eventId;
+		ResultSet resultSet = statement.executeQuery(sql);
+		ArrayList<HaveCalendar> invitedPersons = new ArrayList<HaveCalendar>();
+		while(resultSet.next()){
+			invitedPersons.add(getPerson(resultSet.getString(1)));
+		}
+		return invitedPersons;
 	}
 	
 	public void inviteGroup(String invitedGroups, int eventId) throws NumberFormatException, SQLException{
