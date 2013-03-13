@@ -13,6 +13,9 @@ public class Person implements HaveCalendar, Comparable<Person>{
 		this.name = name;
 		this.email = email;
 	}
+	public Person(){
+		
+	}
 	
 	@Override
 	public CalendarModel getCalendar() {
