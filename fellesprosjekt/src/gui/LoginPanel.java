@@ -1,14 +1,17 @@
 package gui;
 
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.SpringLayout;
 
 import com.mysql.jdbc.NotUpdatable;
 
@@ -23,6 +26,7 @@ import datapackage.LoginPackage;
 @SuppressWarnings("serial")
 public class LoginPanel extends JPanel {
 	private JTextField username, password;
+	private JLabel user, pass;
 	private JButton login;
 	private PackageSender sender;
 	private Boolean isLoggedIn = false;
@@ -33,13 +37,17 @@ public class LoginPanel extends JPanel {
 		this.mainPanel = mainPanel;
 		
 		username = new JTextField();
+		user = new JLabel("Username:");
 		username.setName("username");
-		username.setColumns(30);
+		username.setColumns(25);
+		add(user);
 		add(username);
 		
 		password = new JTextField();
+		pass = new JLabel("Password:");
 		password.setName("password");
-		password.setColumns(30);
+		password.setColumns(25);
+		add(pass);
 		add(password);
 		
 		login = new JButton();
@@ -47,6 +55,17 @@ public class LoginPanel extends JPanel {
 		login.setText("Login");
 		login.addActionListener(new loginAction());
 		add(login);
+		
+		this.setPreferredSize(new Dimension(400,115));
+		
+//		try {
+//			Thread.sleep(3000);
+//		} catch (InterruptedException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		
+//		this.setPreferredSize(new Dimension(500,500));
 		
 		sender = new PackageSender();
 				

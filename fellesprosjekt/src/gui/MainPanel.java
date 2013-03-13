@@ -33,6 +33,7 @@ public class MainPanel {
 		frame.getContentPane().add(pane);
 		frame.pack();
 		frame.setVisible(true);
+		frame.setResizable(false);
 	}
 	
 	private Boolean waitForLogIn() {
