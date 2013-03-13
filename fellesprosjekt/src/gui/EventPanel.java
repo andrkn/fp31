@@ -33,6 +33,7 @@ public class EventPanel extends JPanel implements PropertyChangeListener{
 	private JTextField descriptionField;
 	private JTextField alarmField;
 	private int[] attendersGridConstants = new int[2];
+	private int inviteRow;
 	
 	public EventPanel(EventModel model){
 		
@@ -40,12 +41,13 @@ public class EventPanel extends JPanel implements PropertyChangeListener{
 		
 		this.setLayout(new GridBagLayout());
 		
-		addLabels(); 
-		addTextFields();
-		addTittel();
+		model.setEditeble(false);
+		
+		addLabels(model.getEditable()); 
+		addTextFields(model.getEditable());
+		addTittel(model.getEditable());
 		addButtons();
 		
-		setEditeble();
 		
 	}
 	
@@ -54,60 +56,49 @@ public class EventPanel extends JPanel implements PropertyChangeListener{
 		
 	}
 
+//	public void setEditeble(){
+//		boolean editeble = model.getEditable();
+//		
+//		setEditebleTextField(nameField, editeble);
+//		setEditebleTextField(startTimeField, editeble);
+//		setEditebleTextField(endTimeField, editeble);
+//		setEditebleTextField(placeField, editeble);
+//		setEditebleTextField(descriptionField, editeble);
+//		setEditebleTextField(alarmField, editeble);
+//		
+//		fixAttendersEditeble(editeble);
+//	}
 	public void setEditeble(){
+		this.removeAll();
+		
 		boolean editeble = model.getEditable(); 
-		if (editeble == false){
-			nameField.setEditable(false); 
-			nameField.setBorder(javax.swing.BorderFactory.createEmptyBorder());
-			
-			startTimeField.setEditable(false); 
-			startTimeField.setBorder(javax.swing.BorderFactory.createEmptyBorder());
-			
-			endTimeField.setEditable(false); 
-			endTimeField.setBorder(javax.swing.BorderFactory.createEmptyBorder());
-			
-			placeField.setEditable(false); 
-			placeField.setBorder(javax.swing.BorderFactory.createEmptyBorder());
-			
-			descriptionField.setEditable(false); 
-			descriptionField.setBorder(javax.swing.BorderFactory.createEmptyBorder());
-			
-			alarmField.setEditable(false); 
-			alarmField.setBorder(javax.swing.BorderFactory.createEmptyBorder());
-			
-			fixAttendersEditeble(true);
-			
-		}else{
+		
+		addLabels(editeble); 
+		addTextFields(editeble); 
+		addTittel(editeble); 
+		
+		this.validate();
+		this.repaint();
+	}
+	
+	private void setEditebleTextField(JTextField field, boolean editeble){
+		if (!editeble){
 			Border border = (new JTextField()).getBorder();
-			
-			nameField.setEditable(true); 
-			nameField.setBorder(border);
-			
-			startTimeField.setEditable(true); 
-			startTimeField.setBorder(border);
-			
-			endTimeField.setEditable(true); 
-			endTimeField.setBorder(border);
-			
-			placeField.setEditable(true); 
-			placeField.setBorder(border);
-			
-			descriptionField.setEditable(true); 
-			descriptionField.setBorder(border);
-			
-			alarmField.setEditable(true); 
-			alarmField.setBorder(border);
-			
-			fixAttendersEditeble(true);
+			field.setEditable(true); 
+			field.setBorder(border);
+		}else{
+			field.setEditable(false); 
+			field.setBorder(javax.swing.BorderFactory.createEmptyBorder());
 		}
 	}
 
 	private void fixAttendersEditeble(boolean editeble) {
 		for (Component comp : this.getComponents()){
+			System.out.println(comp);
 			if(comp.getName() == null){
 				continue;
 				
-			}else if (comp.getName().equals("AttendersList")){
+			}else if (comp.getName().equals("AttenderListPanel") && editeble == false){
 				setupGridForComponents(); 
 				this.remove(comp); 
 				
@@ -118,7 +109,7 @@ public class EventPanel extends JPanel implements PropertyChangeListener{
 				System.out.println("Added InviteListPanel");
 				break;
 				
-			}else if(comp.getName().equals("InviteListPanel")){
+			}else if(comp.getName().equals("InviteListPanel") && editeble == true){
 				
 				
 				setupGridForComponents(); 
@@ -132,14 +123,14 @@ public class EventPanel extends JPanel implements PropertyChangeListener{
 				
 				break; 
 			}else {
-				System.out.println("lol");
+//				System.out.println("lol");
 			}
 		}
 		this.validate();
 		this.repaint();
 	}
 
-	private void addTittel() {
+	private void addTittel(boolean editeble) {
 		grid = new GridBagConstraints();
 		grid.gridx = 0; 
 		grid.gridy = 0; 
@@ -149,54 +140,74 @@ public class EventPanel extends JPanel implements PropertyChangeListener{
 		
 		nameField = new JTextField(); 
 		nameField.setText(model.getName());
+		nameField.setName("NameField");
+		setEditebleTextField(nameField, editeble);
 //		nameField.setEditable(model.getEditable()); 
 //		nameField.setBorder(javax.swing.BorderFactory.createEmptyBorder());
 		this.add(nameField, grid);
 		
 	}
 
-	private void addTextFields() {
+	private void addTextFields(boolean editeble) {
 		//Setup of grid
 		setupGridForComponents();
 		
 		startTimeField = new JTextField(); 
 		startTimeField.setText(model.getStartTime());
-//		startTimeField.setEditable(model.getEditable());
+		startTimeField.setName("StartTimeField");
+		setEditebleTextField(startTimeField, editeble);
 		this.add(startTimeField, grid); 
 		
 		grid.gridy += 1; 
 		endTimeField = new JTextField(); 
-		endTimeField.setText(model.getEndTime()); 
-//		endTimeField.setEditable(model.getEditable()); 
+		endTimeField.setText(model.getEndTime());
+		setEditebleTextField(endTimeField, editeble);
 		this.add(endTimeField, grid);
 		
 		grid.gridy += 1; 
 		placeField = new JTextField(); 
-		placeField.setText(model.getPlace()); 
-//		placeField.setEditable(model.getEditable()); 
+		placeField.setText(model.getPlace());
+		placeField.setName("PlaceField");
+		setEditebleTextField(placeField, editeble);
 		this.add(placeField, grid); 
 		
 		grid.gridy += 1; 
 		descriptionField = new JTextField();
-		descriptionField.setText(model.getDescription()); 
-//		descriptionField.setEditable(model.getEditable()); 
+		descriptionField.setText(model.getDescription());
+		descriptionField.setName("DescriptionField");
+		setEditebleTextField(descriptionField, editeble);
 		this.add(descriptionField, grid); 
 		
 		//Vise deltagere, ikke implimentert 
 		grid.gridy += 1; 
-		JList attendersJList = getAttenders();
-//		JPanel invitePanel = new InviteListPanel(model, model.getInviteList());
-		int height = attendersJList.getHeight()+(new JButton()).getHeight();
-		this.add(attendersJList,grid);
+		Component attenderComponent;
+		if(!editeble){
+			attenderComponent = new AttenderListPanel(model);
+			System.out.println("halla");
+			
+		}else{
+			attenderComponent = getAttenders();
+			
+		}
+		int height = attenderComponent.getHeight()+(new JButton()).getHeight();
+		this.add(attenderComponent,grid);
 		attendersGridConstants[0] = grid.gridx;
 		attendersGridConstants[1] = grid.gridy;
 		grid.ipady = 0;
+		
+		//inviteRow
+		grid.gridy += 1;
+//		if(editeble){
+//			JPanel invitePanel = new InviteListPanel(model); 
+//			this.add(invitePanel, grid);
+//		}
 		
 
 		grid.gridy += 1;
 		alarmField = new JTextField(); 
 		alarmField.setText("20"); 
-//		alarmField.setEditable(model.getEditable()); 
+		alarmField.setName("AlarmField");
+		setEditebleTextField(alarmField, editeble);
 		this.add(alarmField, grid);
 		
 		
@@ -229,39 +240,60 @@ public class EventPanel extends JPanel implements PropertyChangeListener{
 	}
 
 	
-	private void addLabels() {
+	private void addLabels(boolean editeble) {
 		//Setup of grid
+		setupForGridLabel();
+		
+		
+		//Add labels
+		JLabel startTimeLabel = new JLabel("Fra: "); 
+		startTimeLabel.setName("StartTimeLabel");
+		this.add(startTimeLabel, grid); 
+		
+		grid.gridy += 1; 
+		JLabel endTimeLabel = new JLabel("Til: ");
+		endTimeLabel.setName("EndTimeLabel");
+		this.add(endTimeLabel, grid);
+		
+		grid.gridy += 1; 
+		JLabel placeLabel = new JLabel("Sted: ");
+		placeLabel.setName("PlaceLabel");
+		this.add(placeLabel, grid); 
+		
+		grid.gridy += 1; 
+		JLabel descriptionLabel = new JLabel("Detaljer: ");
+		descriptionLabel.setName("DescriptionLabel");
+		this.add(descriptionLabel, grid); 
+		
+		grid.gridy += 1; 
+		JLabel attendersLabel = new JLabel("Deltagere: ");
+		attendersLabel.setName("AttendersLabel");
+		this.add(attendersLabel, grid); 
+		
+		//Row for invite list
+		grid.gridy += 1; 
+		inviteRow = grid.gridy;
+//		if (editeble){
+//			System.out.println("hallo");
+//			JLabel inviteLabel = new JLabel("Inviter"); 
+//			inviteLabel.setName("inviteLabel");
+//			this.add(inviteLabel,grid.gridy);
+//		}
+		
+		
+		grid.gridy += 1; 
+		JLabel alarmLabel = new JLabel("Alarm: "); 
+		alarmLabel.setName("AlarmLabel");
+		this.add(alarmLabel, grid); 
+	}
+
+	private void setupForGridLabel() {
 		grid = new GridBagConstraints();
 		grid.gridx = 0;
 		grid.gridy = 1; 
 		grid.gridwidth = 1;
 		grid.insets = new Insets(5,0,5,5);
 		grid.anchor = GridBagConstraints.FIRST_LINE_START;
-		
-		
-		//Add labels
-		JLabel startTimeLabel = new JLabel("Fra: "); 
-		this.add(startTimeLabel, grid); 
-		
-		grid.gridy += 1; 
-		JLabel endTimeLabel = new JLabel("Til: "); 
-		this.add(endTimeLabel, grid);
-		
-		grid.gridy += 1; 
-		JLabel placeLabel = new JLabel("Sted: ");
-		this.add(placeLabel, grid); 
-		
-		grid.gridy += 1; 
-		JLabel descriptionLabel = new JLabel("Detaljer: ");
-		this.add(descriptionLabel, grid); 
-		
-		grid.gridy += 1; 
-		JLabel attendersLabel = new JLabel("Deltagere: "); 
-		this.add(attendersLabel, grid); 
-		
-		grid.gridy += 1; 
-		JLabel alarmLabel = new JLabel("Alarm: "); 
-		this.add(alarmLabel, grid); 
 	}
 
 	
