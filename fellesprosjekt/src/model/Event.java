@@ -23,7 +23,7 @@ public class Event {
 	private HashMap<Person, Integer> alarms;
 	
 	public Event(int eventId, Person createdBy, Timestamp startTime, Timestamp endTime, String name, 
-	String description, String place, String invitedPersons, String invitedGroups, Room room){
+	String description, String place, Room room){
 		this.eventId = eventId;
 		this.createdBy = createdBy;
 		this.startTime = startTime;
