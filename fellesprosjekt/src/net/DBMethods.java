@@ -13,6 +13,7 @@ import java.util.ArrayList;
 
 import model.Event;
 import model.HaveCalendar;
+import model.Person;
 import model.Room;
 
 public class DBMethods {
@@ -41,7 +42,7 @@ public class DBMethods {
 		resultSet.beforeFirst();
 		resultSet.next();
 		int eventId = resultSet.getInt(1);
-		return new Event(eventId, createdBy,startTime,endTime, eventName, description,place,invitedPersons,invitedGroups,roomNr);
+		return new Event(eventId, getPerson(createdBy),startTime,endTime, eventName, description,place,getRoom(roomNr), null);
 	}
 	
 	public void invitePersons(int eventId, String invitedPersons) throws SQLException{
@@ -114,7 +115,7 @@ public class DBMethods {
     	String invitedPersons = resultSet.getString(8);
     	String invitedGroups = resultSet.getString(9);
     	String roomNr = resultSet.getString(10);
-    	return new Event(id, createdBy, start, end, eventName, description, place, invitedPersons, invitedGroups, roomNr);
+    	return new Event(id, getPerson(createdBy), start, end, eventName, description, place, getRoom(roomNr), null);
     }
  
     public void answerInvite(String username, int eventId, int isGoing) throws SQLException{
@@ -156,8 +157,8 @@ public class DBMethods {
     		String invitedPersons = resultSet.getString(8);
     		String invitedGroups = resultSet.getString(9);
     		String roomNr = resultSet.getString(10);
-    		events.add(new Event(eventId,createdBy,startTime,endTime,eventName,
-    				description,place,invitedPersons,invitedGroups,roomNr));
+    		events.add(new Event(eventId,getPerson(createdBy),startTime,endTime,eventName,
+    				description,place, getRoom(roomNr), null));
     	}
     	String sql2 = "SELECT * FROM Invited WHERE username = '" + username + "'";
     	resultSet = statement.executeQuery(sql2);
@@ -166,6 +167,20 @@ public class DBMethods {
     		events.add(getEvent(eventId));
     	}
     	return events;
+    }
+    
+    public Person getPerson(String username) throws SQLException{
+    	statement = connection.createStatement();
+    	String sql = "SELECT * FROM Person WHERE username = '" + username + "'";
+    	ResultSet resultSet = statement.executeQuery(sql);
+    	return new Person(resultSet.getString(1), resultSet.getString(4), resultSet.getString(5));
+    }
+    
+    public Room getRoom(String roomNr) throws SQLException{
+    	statement = connection.createStatement();
+    	String sql = "SELECT * FROM Room WHERE RoomNr = '" + roomNr + "'";
+    	ResultSet resultSet = statement.executeQuery(sql);
+    	return new Room(resultSet.getString(1), resultSet.getInt(2));
     }
     
     public void deleteEvent(int eventId) throws SQLException{
@@ -187,4 +202,3 @@ public class DBMethods {
     
     
 }
-
