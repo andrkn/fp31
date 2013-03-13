@@ -10,5 +10,7 @@ public class MainCalendarPanel extends JPanel {
 		EventModel model = new EventModel(null, null);
 		EventPanel eventPanel = new EventPanel(model);
 		add(eventPanel);
+		
+		
 	}
 }

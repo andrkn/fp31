@@ -38,14 +38,14 @@ public class MainPanel {
 		frame.setResizable(false);
 	}
 	
-	public void loginApproved() {
+	public void loginApproved(String username) {
 		pane.removeAll();
 		pane.updateUI();
-		constructCalender();
+		constructCalender(username);
 	}
 	
-	public static void constructCalender(){
-		pane = new MainCalendarPanel();
+	public static void constructCalender(String username){
+		pane = new MainCalendarPanel(username);
 		frame.getContentPane().add(pane);
 		frame.pack();
 		frame.setVisible(true);
