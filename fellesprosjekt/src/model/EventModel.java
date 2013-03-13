@@ -24,9 +24,20 @@ public class EventModel {
 	public String getStartTime(){
 		return getTimeString(event.getStartTime()); 
 	}
+	public void setStartTime(String startTimeString){
+		event.setStartTime(getTimestamp(startTimeString));
+	}
 	
 	public String getEndTime(){
 		return getTimeString(event.getEndTime()); 
+	}
+	public void setEndTime(String endTimeString){
+		event.setEndTime(getTimestamp(endTimeString));
+	}
+	
+	private Timestamp getTimestamp(String timeString) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 	public String getPlace(){
@@ -40,9 +51,15 @@ public class EventModel {
 	public String getName(){
 		return event.getName();
 	}
+	public void setName(String name){
+		event.setName(name); 
+	}
 	
 	public String getDescription() {
 		return event.getDescription();
+	}
+	public void setDescription(String description){
+		event.setDescription(description); 
 	}
 	
 	public String getAlarm(){
@@ -68,16 +85,19 @@ public class EventModel {
 	public ArrayList<Person> getAttenders(){
 		ArrayList<Person> test = new ArrayList<Person>();
 		Person p1 = new Person(); 
-		p1.setName("Torstein"); 
+		p1.setName("Per"); 
 		
 		Person p2 = new Person(); 
-		p2.setName("Adam");
+		p2.setName("Simon");
+		
+		Person p3 = new Person(); 
+		p3.setName("Kristoffer");
 		
 		test.add(p1);
 		test.add(p2);
+		test.add(p3);
 		return test;
 	}
-
 
 	public boolean getEditable(){
 		return editable;
@@ -110,6 +130,7 @@ public class EventModel {
 	public void addAttender(Person person){
 		
 	}
+	
 	public void addPropertyChangeListener(PropertyChangeListener listener){
 		pcs.addPropertyChangeListener(listener); 
 	}
