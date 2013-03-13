@@ -42,8 +42,13 @@ public class MainPanel {
 		//constructCalender();
 	}
 	
-	public void constructCalender(){
-		//add all the components of the calendar
+	public static void constructCalender(JFrame frame, MainPanel mainPanel){
+		pane = new MainCalendarPanel();
+		frame.getContentPane().add(pane);
+		frame.pack();
+		frame.setVisible(true);
+		frame.setResizable(false);
+		
 	}
 	
 }
