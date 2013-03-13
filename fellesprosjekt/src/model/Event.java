@@ -19,7 +19,7 @@ public class Event {
 	private HashMap<Person, Integer> alarms;
 	
 	public Event(int eventId, String createdBy, Timestamp startTime, Timestamp endTime, String name, 
-	String description, String place, String invitedPersons, String invitedGroups, String room){
+	String description, String place, String room, ArrayList<HaveCalendar> attenders){
 		this.eventId = eventId;
 		this.createdBy = createdBy;
 		this.startTime = startTime;
@@ -27,6 +27,7 @@ public class Event {
 		this.name = name;
 		this.description = description;
 		this.place = place;
+		this.attenders = attenders;
 	}
 	
 	public Event(){
