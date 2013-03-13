@@ -31,7 +31,7 @@ public class RoomListTest {
 		roomArray.add(new Room("110",19));
 		roomArray.add(new Room("101",5));
 		
-		Event event = new Event(0, null, null, null, null, null, null, null, null, null);
+		Event event = new Event(0, null, null, null, null, null, null, null, null);
 		event.addAttender(new Person());
 		event.addAttender(new Person());
 		event.addAttender(new Person());

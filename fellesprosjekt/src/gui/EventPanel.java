@@ -76,7 +76,7 @@ public class EventPanel extends JPanel implements PropertyChangeListener{
 		
 		boolean editeble = model.getEditable(); 
 		
-		launchAlarm();
+//		launchAlarm();
 		addLabels(editeble); 
 		addTextFields(editeble); 
 		addTittel(editeble); 

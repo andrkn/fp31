@@ -125,8 +125,8 @@ public class Event {
 		return attenders.size();
 	}
 
-	public void setAlarms(Person person, int eventId) {
-		alarms.put(person, eventId);
+	public void setAlarm(Person person, int alarm) {
+		alarms.put(person, alarm);
 	}
 
 	public HashMap<Person, Integer> getAlarms() {

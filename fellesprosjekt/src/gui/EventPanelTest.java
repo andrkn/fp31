@@ -16,8 +16,9 @@ public class EventPanelTest {
 		JFrame frame = new JFrame();
 		
 		EventModel model = new EventModel(
-				new Event(99, new Person(), new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()), 
-						"Name", "Decription", "Place", null, null,null), new Person());
+				new Event(99, new Person(), new Timestamp(System.currentTimeMillis()), 
+						new Timestamp(System.currentTimeMillis()), 
+						"Name", "Decription", "Place", null, null), new Person());
 		EventPanel panel = new EventPanel(model);
 		frame.setContentPane(panel);
 		frame.setSize(500,600); 

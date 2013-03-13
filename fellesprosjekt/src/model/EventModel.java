@@ -80,7 +80,7 @@ public class EventModel {
 		return Integer.toString(alarm);
 	}
 	public void setAlarm(int alarm){
-		event.setAlarms(user, event.getEventId());
+		event.setAlarm(user, alarm);
 	}
 
 
