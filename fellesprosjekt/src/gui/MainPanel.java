@@ -7,6 +7,7 @@ import javax.swing.JFrame;
 public class MainPanel {
 
 	private static Boolean isRunning = true;
+	private static LoginPanel pane;
 	
 	public static void main(String args[]) {
 		JFrame frame = new JFrame("Main");
@@ -28,7 +29,7 @@ public class MainPanel {
 	}
 	
 	private static void startLogIn(JFrame frame, MainPanel mainPanel) throws IOException, InterruptedException {
-		LoginPanel pane = new LoginPanel(mainPanel);
+		pane = new LoginPanel(mainPanel);
 		frame.getContentPane().add(pane);
 		frame.pack();
 		frame.setVisible(true);
@@ -40,7 +41,8 @@ public class MainPanel {
 	}
 	
 	public void loginApproved() {
-		removeAll();
+		pane.removeAll();
+		pane.updateUI();
 		//constructCalender();
 	}
 	

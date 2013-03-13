@@ -19,7 +19,7 @@ public class GuiTest {
 	 */
 	public static void main(String[] args) throws IOException {
 			JFrame frame = new JFrame("Login");
-			frame.getContentPane().add(new LoginPanel());
+			frame.getContentPane().add(new LoginPanel(null));
 			frame.pack();
 			frame.setVisible(true);
 				
