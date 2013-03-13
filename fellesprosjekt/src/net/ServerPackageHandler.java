@@ -39,8 +39,15 @@ public class ServerPackageHandler {
 				e.printStackTrace();
 			}
 		}
+		else if(pack instanceof CalendarRequestPackage){
+			System.out.println("CalReqPack Received");
+			HandleCalendarRequestPackage(pack);
+		}
 		return returnPackage;
 	}
+
+
+
 
 
 	private boolean HandleLoginPackage(DataPackage pack) throws IOException {
@@ -85,12 +92,24 @@ public class ServerPackageHandler {
 			return false;
 		}
 		
+		try {
+			connection.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		if (PasswordEncryption.checkPassword(loginpack.getPassword(), salt, hash)){
 			return true;
 		}
 		else{
 			return false;
 		}
+		
+	}
+	
+	private void HandleCalendarRequestPackage(DataPackage pack) {
+		CalendarRequestPackage CalReq = (CalendarRequestPackage)pack;
 		
 	}
 	

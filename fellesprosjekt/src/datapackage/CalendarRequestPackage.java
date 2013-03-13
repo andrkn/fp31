@@ -4,13 +4,17 @@ import model.HaveCalendar;
 
 public class CalendarRequestPackage implements DataPackage{
 	
-	private HaveCalendar hc;
+	private String name;
+	private int group;
 	
-	public CalendarRequestPackage(HaveCalendar hc){
-		this.hc = hc; 
+	public CalendarRequestPackage(
+	
+	public String getName(){
+		return this.name;
 	}
-	public HaveCalendar getHaveCalendar(){
-		return hc;
+	
+	public int getGroup(){
+		return this.group;
 	}
 
 }
