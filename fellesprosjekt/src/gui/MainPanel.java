@@ -39,7 +39,7 @@ public class MainPanel {
 	public void loginApproved() {
 		pane.removeAll();
 		pane.updateUI();
-		//constructCalender();
+		constructCalender();
 	}
 	
 	public void constructCalender(){
