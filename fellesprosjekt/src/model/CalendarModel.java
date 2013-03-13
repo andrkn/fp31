@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 public class CalendarModel implements PropertyChangeListener {
 	
-	ArrayList<Person> eventList;
+	ArrayList<Event> eventList;
 	PropertyChangeSupport scp;
 	
 	public void addEvent(String name, String description) {
@@ -15,6 +15,10 @@ public class CalendarModel implements PropertyChangeListener {
 	}
 	
 	public void removeEvent(Event event) {
+		
+	}
+	
+	public void addEvent(Event event) {
 		
 	}
 	
@@ -37,15 +41,18 @@ public class CalendarModel implements PropertyChangeListener {
 		
 	}
 
-	public ArrayList<Person> getEventList() {
+	public ArrayList<Event> getEventList() {
 		return eventList;
 	}
-	public void setEventList(ArrayList<Person> eventList) {
+	
+	public void setEventList(ArrayList<Event> eventList) {
 		this.eventList = eventList;
 	}
+	
 	public PropertyChangeSupport getScp() {
 		return scp;
 	}
+	
 	public void setScp(PropertyChangeSupport scp) {
 		this.scp = scp;
 	}
