@@ -1,11 +1,8 @@
 package model;
 
-import java.sql.Date;
-import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Hashtable;
 
 import model.HaveCalendar;
 import model.Person;
@@ -23,7 +20,7 @@ public class Event {
 	private HashMap<Person, Integer> alarms;
 	
 	public Event(int eventId, Person createdBy, Timestamp startTime, Timestamp endTime, String name, 
-	String description, String place, Room room){
+	String description, String place, Room room, ArrayList<HaveCalendar> attenders) {
 		this.eventId = eventId;
 		this.createdBy = createdBy;
 		this.startTime = startTime;
@@ -32,6 +29,7 @@ public class Event {
 		this.description = description;
 		this.place = place;
 		this.room = room;
+		this.attenders = attenders;
 
 	}
 	

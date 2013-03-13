@@ -15,8 +15,8 @@ public class CalendarModel implements PropertyChangeListener {
 		eventList = new ArrayList<Event>();
 	}
 	
-	public void addEvent(int eventId, Person createdBy, Timestamp startTime, Timestamp endTime, String name, String description, String place, Room room) {
-		Event newEvent = new Event(eventId, createdBy, startTime, endTime, name, description, place, room);
+	public void addEvent(int eventId, Person createdBy, Timestamp startTime, Timestamp endTime, String name, String description, String place, Room room, ArrayList<HaveCalendar> attenders) {
+		Event newEvent = new Event(eventId, createdBy, startTime, endTime, name, description, place, room, attenders);
 		eventList.add(newEvent);
 	}
 	
@@ -24,12 +24,13 @@ public class CalendarModel implements PropertyChangeListener {
 		eventList.remove(event);
 	}
 	
-	public void changeEvent(Event event, Timestamp startTime, Timestamp endTime, String name, String description, String place, String invitedPersons, String invitedGroups, Room room) {
+	public void changeEvent(Event event, Timestamp startTime, Timestamp endTime, String name, String description, String place, Room room, ArrayList<HaveCalendar> attenders) {
 		event.setStartTime(startTime);
 		event.setEndTime(endTime);
 		event.setName(name);
 		event.setDescription(description);
 		event.setPlace(place);
+		event.setAttenders(attenders);
 	}
 	
 	public void addPropertyChangeListener(PropertyChangeListener pcl) {

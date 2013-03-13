@@ -3,14 +3,16 @@ package gui;
 import java.io.IOException;
 
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 public class MainPanel {
 
 	private static Boolean isRunning = true;
-	private static LoginPanel pane;
+	private static JPanel pane;
+	private static JFrame frame;
 	
 	public static void main(String args[]) {
-		JFrame frame = new JFrame("Calendar");
+		frame = new JFrame("Calendar");
 		frame.setDefaultCloseOperation(frame.EXIT_ON_CLOSE);
 		MainPanel mainPanel = new MainPanel();
 		
@@ -42,7 +44,7 @@ public class MainPanel {
 		constructCalender();
 	}
 	
-	public static void constructCalender(JFrame frame, MainPanel mainPanel){
+	public static void constructCalender(){
 		pane = new MainCalendarPanel();
 		frame.getContentPane().add(pane);
 		frame.pack();
