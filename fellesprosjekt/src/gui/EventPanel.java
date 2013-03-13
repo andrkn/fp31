@@ -321,6 +321,8 @@ public class EventPanel extends JPanel implements PropertyChangeListener{
 		model.setDescription(descriptionField.getText());
 		model.setStartTime(startTimeField.getText()); 
 		model.setEndTime(endTimeField.getText());
+		System.out.println(Integer.parseInt(alarmField.getText()));
+		model.setAlarm(Integer.parseInt(alarmField.getText()));
 		
 		model.setEditeble(true);
 	}

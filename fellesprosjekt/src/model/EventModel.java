@@ -36,8 +36,21 @@ public class EventModel {
 	}
 	
 	private Timestamp getTimestamp(String timeString) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		String[] time_date = timeString.split(" ");
+		String[] time = time_date[0].split(":");
+		String[] date = time_date[1].split("\\.");
+
+		
+		int year = Integer.parseInt(date[2])-1900;
+		int month = Integer.parseInt(date[1])-1;
+		int day = Integer.parseInt(date[0]);
+		
+		int hour = Integer.parseInt(time[0]); 
+		int minute = Integer.parseInt(time[1]);
+		
+		Timestamp timestamp = new Timestamp(year, month, day, hour, minute, 0, 0); 
+		return timestamp;
 	}
 	
 	public String getPlace(){
@@ -65,6 +78,9 @@ public class EventModel {
 	public String getAlarm(){
 		int alarm = event.getAlarms().get(user);
 		return Integer.toString(alarm);
+	}
+	public void setAlarm(int alarm){
+		event.setAlarms(user, event.getEventId());
 	}
 
 
