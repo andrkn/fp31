@@ -11,6 +11,7 @@ public class MainPanel {
 	
 	public static void main(String args[]) {
 		JFrame frame = new JFrame("Calendar");
+		frame.setDefaultCloseOperation(frame.EXIT_ON_CLOSE);
 		MainPanel mainPanel = new MainPanel();
 		
 		try {
@@ -25,7 +26,6 @@ public class MainPanel {
 			e.printStackTrace();
 		}
 		
-		
 	}
 	
 	private static void startLogIn(JFrame frame, MainPanel mainPanel) throws IOException, InterruptedException {
@@ -36,11 +36,6 @@ public class MainPanel {
 		frame.setResizable(false);
 	}
 	
-	private Boolean waitForLogIn() {
-		
-		return null;
-	}
-	
 	public void loginApproved() {
 		pane.removeAll();
 		pane.updateUI();
@@ -49,10 +44,6 @@ public class MainPanel {
 	
 	public void constructCalender(){
 		//add all the components of the calendar
-	}
-	
-	private void removeAll() {
-		removeAll();
 	}
 	
 }

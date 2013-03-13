@@ -54,6 +54,7 @@ public class LoginPanel extends JPanel {
 		
 		this.setPreferredSize(new Dimension(400,115));
 		
+//		Testing resize of window
 //		try {
 //			Thread.sleep(3000);
 //		} catch (InterruptedException e) {
