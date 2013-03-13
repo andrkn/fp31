@@ -1,21 +1,3 @@
-<<<<<<< HEAD
-package gui;
-
-import javax.swing.JPanel;
-
-import model.EventModel;
-
-public class MainCalendarPanel extends JPanel {
-	
-	public MainCalendarPanel(String username){
-		EventModel model = new EventModel(null, null);
-		EventPanel eventPanel = new EventPanel(model);
-		add(eventPanel);
-		
-		
-	}
-}
-=======
 package gui;
 
 import javax.swing.JPanel;
@@ -41,4 +23,3 @@ public class MainCalendarPanel extends JPanel {
 		
 	}
 }
->>>>>>> branch 'master' of git@github.com:andrkn/fp31.git
