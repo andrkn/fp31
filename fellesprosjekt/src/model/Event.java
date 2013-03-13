@@ -126,6 +126,9 @@ public class Event {
 	}
 
 	public void setAlarm(Person person, int alarm) {
+		if (alarms == null){
+			alarms = new HashMap<Person, Integer>();
+		}
 		alarms.put(person, alarm);
 	}
 

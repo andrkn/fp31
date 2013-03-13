@@ -220,7 +220,7 @@ public class EventPanel extends JPanel implements PropertyChangeListener{
 
 		grid.gridy += 1;
 		alarmField = new JTextField(); 
-		alarmField.setText("20"); 
+		alarmField.setText(model.getAlarm()); 
 		alarmField.setName("AlarmField");
 		setEditebleTextField(alarmField, editeble);
 		this.add(alarmField, grid);

@@ -4,7 +4,6 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Date;
 
 public class EventModel {
 	
@@ -76,6 +75,9 @@ public class EventModel {
 	}
 	
 	public String getAlarm(){
+		if(event.getAlarms() == null){
+			return "0";
+		}
 		int alarm = event.getAlarms().get(user);
 		return Integer.toString(alarm);
 	}
