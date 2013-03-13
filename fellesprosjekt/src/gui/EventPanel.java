@@ -12,8 +12,10 @@ import java.util.Collections;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
@@ -26,6 +28,7 @@ public class EventPanel extends JPanel implements PropertyChangeListener{
 	
 	private GridBagConstraints grid;
 	private EventModel model;
+	private Person user;
 	
 	private JTextField nameField; 
 	private JTextField startTimeField; 
@@ -35,6 +38,7 @@ public class EventPanel extends JPanel implements PropertyChangeListener{
 	private JTextField alarmField;
 	private int[] attendersGridConstants = new int[2];
 	private int endRow;
+	private int alarmOption;
 	
 	public EventPanel(EventModel model){
 		
@@ -72,6 +76,7 @@ public class EventPanel extends JPanel implements PropertyChangeListener{
 		
 		boolean editeble = model.getEditable(); 
 		
+		launchAlarm();
 		addLabels(editeble); 
 		addTextFields(editeble); 
 		addTittel(editeble); 
@@ -324,6 +329,17 @@ public class EventPanel extends JPanel implements PropertyChangeListener{
 	}
 	public void change(){
 		model.setEditeble(false);
+	}
+	
+	public boolean launchAlarm() {
+		
+		String alertMsg = "Du har en oppkommende avtale kl. "  +
+							"\n på rom ";
+		
+		alarmOption = JOptionPane.showConfirmDialog(null, alertMsg, "Møtealarm", JOptionPane.OK_OPTION);
+		
+		return alarmOption == 0 ? true:false;
+		
 	}
 
 }
