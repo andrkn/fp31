@@ -21,15 +21,11 @@ public class CalendarModel implements PropertyChangeListener {
 	}
 	
 	public void removeEvent(Event event) {
-		
-	}
-	
-	public void addEvent(Event event) {
-		
+		eventList.remove(event);
 	}
 	
 	public void changeEvent(Event event, String name, String description) {
-		
+		event
 	}
 	
 	public void addPropertyChangeListener(PropertyChangeListener pcl) {
