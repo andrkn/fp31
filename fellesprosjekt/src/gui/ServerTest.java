@@ -6,6 +6,7 @@ import net.PackageReceiver;
 import net.ServerPackageHandler;
 import datapackage.DataPackage;
 import datapackage.ErrorPackage;
+import datapackage.ErrorType;
 import datapackage.LoginPackage;
 
 public class ServerTest {
@@ -16,7 +17,8 @@ public class ServerTest {
 	 */
 	public static void main(String[] args) throws IOException {
 		PackageReceiver rec = new PackageReceiver();
-		while (true){
+		boolean logedin = false;
+		while (!logedin){
 		DataPackage pack = rec.receivePackage();
 		LoginPackage loginpack = (LoginPackage)pack;
 		System.out.println(loginpack.getUsername());
@@ -28,6 +30,9 @@ public class ServerTest {
 		System.out.println(responsePack2);
 		System.out.println(responsePack2.getErrorType());
 		System.out.println(responsePack2.getDescription());
+		if (responsePack2.getErrorType()==ErrorType.OK){
+			logedin = true;
+		}	
 		rec.sendPackage(responsePack);
 		}
 

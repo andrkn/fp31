@@ -97,6 +97,7 @@ public class LoginPanel extends JPanel {
 						JOptionPane.showMessageDialog(null, "YOU CAN LOGIN! GANDALF WILL LET YOU PASS!");
 						
 						//Notify the MainPanel that the login has been approved. MainPanel will take appropriate aciton.
+						sender.close();
 						mainPanel.loginApproved();
 					}
 					else{

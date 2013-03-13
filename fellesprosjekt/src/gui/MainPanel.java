@@ -47,6 +47,10 @@ public class MainPanel {
 		//constructCalender();
 	}
 	
+	public void constructCalender(){
+		//add all the components of the calendar
+	}
+	
 	private void removeAll() {
 		removeAll();
 	}
