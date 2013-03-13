@@ -1,5 +1,8 @@
 package gui;
 
+import java.awt.Dimension;
+import java.awt.Point;
+import java.awt.Toolkit;
 import java.io.IOException;
 
 import javax.swing.JFrame;
@@ -13,6 +16,11 @@ public class MainPanel {
 	
 	public static void main(String args[]) {
 		frame = new JFrame("Calendar");
+		frame.setAlwaysOnTop(true);
+		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+		Point middle = new Point(screenSize.width / 2, screenSize.height / 2);
+		Point newLocation = new Point(middle.x - (400 / 2), middle.y - (115 / 2));
+		frame.setLocation(newLocation);
 		frame.setDefaultCloseOperation(frame.EXIT_ON_CLOSE);
 		MainPanel mainPanel = new MainPanel();
 		
