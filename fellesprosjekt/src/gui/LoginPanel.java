@@ -26,10 +26,12 @@ public class LoginPanel extends JPanel {
 	private JButton login;
 	private PackageSender sender;
 	private Boolean isLoggedIn = false;
-	
+	private MainPanel mainPanel;
 	
 
-	public LoginPanel() throws IOException{
+	public LoginPanel(MainPanel mainPanel) throws IOException{
+		this.mainPanel = mainPanel;
+		
 		username = new JTextField();
 		username.setName("username");
 		username.setColumns(30);
@@ -71,12 +73,15 @@ public class LoginPanel extends JPanel {
 			else{
 				try {
 					if (validLogin(username.getText(), password.getText())){
+						//LOGIN APPROVED
 						setIsLoggedIn(true);
 						JOptionPane.showMessageDialog(null, "YOU CAN LOGIN! GANDALF WILL LET YOU PASS!");
-						//Login approved - Move to calender-view
-						//.removeAll() or similar
+						
+						//Notify the MainPanel that the login has been approved. MainPanel will take appropriate aciton.
+						mainPanel.loginApproved();
 					}
 					else{
+						//LOGIN FAILED
 						JOptionPane.showMessageDialog(null, "You may not login. Incorrect username/password-combo");
 					}
 				} catch (IOException e1) {
