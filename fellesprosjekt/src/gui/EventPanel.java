@@ -1,6 +1,7 @@
 package gui;
 
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -33,29 +34,27 @@ public class EventPanel extends JPanel implements PropertyChangeListener{
 	private JTextField descriptionField;
 	private JTextField alarmField;
 	private int[] attendersGridConstants = new int[2];
-	private int inviteRow;
+	private int endRow;
 	
 	public EventPanel(EventModel model){
 		
 		this.model = model;
+		model.addPropertyChangeListener(this);
 		
 		this.setLayout(new GridBagLayout());
 		
-		model.setEditeble(false);
+		model.setEditeble(true);
 		
-		addLabels(model.getEditable()); 
-		addTextFields(model.getEditable());
-		addTittel(model.getEditable());
-		addButtons();
+//		addLabels(model.getEditable()); 
+//		addTextFields(model.getEditable());
+//		addTittel(model.getEditable());
+//		addButtons();
+		
+		setEditeble();
 		
 		
 	}
 	
-	private void addButtons() {
-		// TODO Auto-generated method stub
-		
-	}
-
 //	public void setEditeble(){
 //		boolean editeble = model.getEditable();
 //		
@@ -76,6 +75,7 @@ public class EventPanel extends JPanel implements PropertyChangeListener{
 		addLabels(editeble); 
 		addTextFields(editeble); 
 		addTittel(editeble); 
+		addEventButtonPanel(editeble);
 		
 		this.validate();
 		this.repaint();
@@ -92,51 +92,46 @@ public class EventPanel extends JPanel implements PropertyChangeListener{
 		}
 	}
 
-	private void fixAttendersEditeble(boolean editeble) {
-		for (Component comp : this.getComponents()){
-			System.out.println(comp);
-			if(comp.getName() == null){
-				continue;
-				
-			}else if (comp.getName().equals("AttenderListPanel") && editeble == false){
-				setupGridForComponents(); 
-				this.remove(comp); 
-				
-				grid.gridx = attendersGridConstants[0]; 
-				grid.gridy = attendersGridConstants[1]; 
-				
-				this.add(new InviteListPanel(model),grid);
-				System.out.println("Added InviteListPanel");
-				break;
-				
-			}else if(comp.getName().equals("InviteListPanel") && editeble == true){
-				
-				
-				setupGridForComponents(); 
-				this.remove(comp);
-				
-				grid.gridx = attendersGridConstants[0]; 
-				grid.gridy = attendersGridConstants[1]; 
-				
-				this.add(getAttenders(), grid);
-				System.out.println("Added attendersList");
-				
-				break; 
-			}else {
-//				System.out.println("lol");
-			}
-		}
-		this.validate();
-		this.repaint();
-	}
+//	private void fixAttendersEditeble(boolean editeble) {
+//		for (Component comp : this.getComponents()){
+//			System.out.println(comp);
+//			if(comp.getName() == null){
+//				continue;
+//				
+//			}else if (comp.getName().equals("AttenderListPanel") && editeble == false){
+//				setupGridForComponents(); 
+//				this.remove(comp); 
+//				
+//				grid.gridx = attendersGridConstants[0]; 
+//				grid.gridy = attendersGridConstants[1]; 
+//				
+//				this.add(new InviteListPanel(model),grid);
+//				System.out.println("Added InviteListPanel");
+//				break;
+//				
+//			}else if(comp.getName().equals("InviteListPanel") && editeble == true){
+//				
+//				
+//				setupGridForComponents(); 
+//				this.remove(comp);
+//				
+//				grid.gridx = attendersGridConstants[0]; 
+//				grid.gridy = attendersGridConstants[1]; 
+//				
+//				this.add(getAttenders(), grid);
+//				System.out.println("Added attendersList");
+//				
+//				break; 
+//			}else {
+////				System.out.println("lol");
+//			}
+//		}
+//		this.validate();
+//		this.repaint();
+//	}
 
 	private void addTittel(boolean editeble) {
-		grid = new GridBagConstraints();
-		grid.gridx = 0; 
-		grid.gridy = 0; 
-		grid.gridwidth = 2; 
-		grid.insets = new Insets(5, 5, 7, 5);
-		grid.anchor = GridBagConstraints.CENTER;
+		setupGridForSpan2();
 		
 		nameField = new JTextField(); 
 		nameField.setText(model.getName());
@@ -145,7 +140,22 @@ public class EventPanel extends JPanel implements PropertyChangeListener{
 //		nameField.setEditable(model.getEditable()); 
 //		nameField.setBorder(javax.swing.BorderFactory.createEmptyBorder());
 		this.add(nameField, grid);
-		
+
+	}
+
+	private void setupGridForSpan2() {
+		grid = new GridBagConstraints();
+		grid.gridx = 0;
+		grid.gridy = 0;
+		grid.gridwidth = 2;
+		grid.insets = new Insets(5, 5, 7, 5);
+		grid.anchor = GridBagConstraints.CENTER;
+	}
+
+	private void addEventButtonPanel(boolean editeble) {
+		setupGridForSpan2();
+		grid.gridy = endRow;
+		this.add(new EventButtonPanel(this, editeble), grid);
 	}
 
 	private void addTextFields(boolean editeble) {
@@ -175,6 +185,7 @@ public class EventPanel extends JPanel implements PropertyChangeListener{
 		descriptionField = new JTextField();
 		descriptionField.setText(model.getDescription());
 		descriptionField.setName("DescriptionField");
+		descriptionField.setPreferredSize(new Dimension(120,60));
 		setEditebleTextField(descriptionField, editeble);
 		this.add(descriptionField, grid); 
 		
@@ -183,13 +194,12 @@ public class EventPanel extends JPanel implements PropertyChangeListener{
 		Component attenderComponent;
 		if(!editeble){
 			attenderComponent = new AttenderListPanel(model);
-			System.out.println("halla");
 			
 		}else{
 			attenderComponent = getAttenders();
 			
 		}
-		int height = attenderComponent.getHeight()+(new JButton()).getHeight();
+//		int height = attenderComponent.getHeight()+(new JButton()).getHeight();
 		this.add(attenderComponent,grid);
 		attendersGridConstants[0] = grid.gridx;
 		attendersGridConstants[1] = grid.gridy;
@@ -197,10 +207,10 @@ public class EventPanel extends JPanel implements PropertyChangeListener{
 		
 		//inviteRow
 		grid.gridy += 1;
-//		if(editeble){
-//			JPanel invitePanel = new InviteListPanel(model); 
-//			this.add(invitePanel, grid);
-//		}
+		if(!editeble){
+			JPanel invitePanel = new InviteListPanel(model); 
+			this.add(invitePanel, grid);
+		}
 		
 
 		grid.gridy += 1;
@@ -210,7 +220,7 @@ public class EventPanel extends JPanel implements PropertyChangeListener{
 		setEditebleTextField(alarmField, editeble);
 		this.add(alarmField, grid);
 		
-		
+		endRow = grid.gridy+1;
 	}
 
 	private void setupGridForComponents() {
@@ -272,13 +282,11 @@ public class EventPanel extends JPanel implements PropertyChangeListener{
 		
 		//Row for invite list
 		grid.gridy += 1; 
-		inviteRow = grid.gridy;
-//		if (editeble){
-//			System.out.println("hallo");
-//			JLabel inviteLabel = new JLabel("Inviter"); 
-//			inviteLabel.setName("inviteLabel");
-//			this.add(inviteLabel,grid.gridy);
-//		}
+		if (!editeble){
+			JLabel inviteLabel = new JLabel("Inviter"); 
+			inviteLabel.setName("inviteLabel");
+			this.add(inviteLabel,grid);
+		}
 		
 		
 		grid.gridy += 1; 
@@ -299,7 +307,23 @@ public class EventPanel extends JPanel implements PropertyChangeListener{
 	
 	@Override
 	public void propertyChange(PropertyChangeEvent evt) {
+		setEditeble();
+	}
+	
+	public void save(){
 		
+		model.setName(nameField.getText()); 
+		model.setDescription(descriptionField.getText());
+		model.setStartTime(startTimeField.getText()); 
+		model.setEndTime(endTimeField.getText());
+		
+		model.setEditeble(true);
+	}
+	public void abort(){
+		model.setEditeble(true); 
+	}
+	public void change(){
+		model.setEditeble(false);
 	}
 
 }

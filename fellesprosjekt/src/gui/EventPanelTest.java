@@ -1,8 +1,6 @@
 package gui;
 
 import java.sql.Timestamp;
-import java.util.Calendar;
-import java.util.Date;
 
 import javax.swing.JFrame;
 
@@ -22,24 +20,22 @@ public class EventPanelTest {
 						"Name", "Decription", "Place", null, null,null), new Person());
 		EventPanel panel = new EventPanel(model);
 		frame.setContentPane(panel);
-		frame.setSize(500,350); 
+		frame.setSize(500,600); 
 		frame.setVisible(true); 
 		frame.setDefaultCloseOperation(frame.EXIT_ON_CLOSE); 
 		
 		
-//		model.setEditeble(true); 
-//		panel.setEditeble();
 		
 		
 		
 		
-		while (true){
-			
-			model.setEditeble(!model.getEditable());
-			panel.setEditeble(); 
-			
-			Thread.sleep(5000); 
-			
-		}
+//		while (true){
+//			
+//			model.setEditeble(!model.getEditable());
+//			panel.setEditeble(); 
+//			
+//			Thread.sleep(3000); 
+//			
+//		}
 	}
 }
