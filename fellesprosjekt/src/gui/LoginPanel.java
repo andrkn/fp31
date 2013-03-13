@@ -37,6 +37,7 @@ public class LoginPanel extends JPanel {
 		this.mainPanel = mainPanel;
 		
 		username = new JTextField();
+		username.setText("...");
 		user = new JLabel("Username:");
 		username.setName("username");
 		username.setColumns(25);
@@ -44,6 +45,7 @@ public class LoginPanel extends JPanel {
 		add(username);
 		
 		password = new JTextField();
+		password.setText("...");
 		pass = new JLabel("Password:");
 		password.setName("password");
 		password.setColumns(25);

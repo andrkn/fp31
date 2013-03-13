@@ -10,7 +10,7 @@ public class MainPanel {
 	private static LoginPanel pane;
 	
 	public static void main(String args[]) {
-		JFrame frame = new JFrame("Main");
+		JFrame frame = new JFrame("Calendar");
 		MainPanel mainPanel = new MainPanel();
 		
 		try {
