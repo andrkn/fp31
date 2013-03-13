@@ -3,6 +3,7 @@ package model;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 
 public class CalendarModel implements PropertyChangeListener {
@@ -10,8 +11,13 @@ public class CalendarModel implements PropertyChangeListener {
 	ArrayList<Event> eventList;
 	PropertyChangeSupport scp;
 	
-	public void addEvent(String name, String description) {
-		
+	public CalendarModel() {
+		eventList = new ArrayList<Event>();
+	}
+	
+	public void addEvent(int eventId, Person createdBy, Timestamp startTime, Timestamp endTime, String name, String description, String place, String invitedPersons, String invitedGroups, Room room) {
+		Event newEvent = new Event(eventId, createdBy, startTime, endTime, name, description, place, invitedPersons, invitedGroups, room);
+		eventList.add(newEvent);
 	}
 	
 	public void removeEvent(Event event) {
