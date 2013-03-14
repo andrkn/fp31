@@ -5,9 +5,12 @@ import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Properties;
 
 import javax.swing.JOptionPane;
+
+import model.Event;
 
 import datapackage.*;
 import encryption.PasswordEncryption;
@@ -20,8 +23,8 @@ public class ServerPackageHandler {
 	//DataPackage pack;
 	DBConnection connection;
 	
-	public DataPackage HandlePackage(DataPackage pack){
-		DataPackage returnPackage = null;
+	public ArrayList<DataPackage> HandlePackage(DataPackage pack){
+		ArrayList<DataPackage> returnPackages = new ArrayList<DataPackage>();
 		System.out.println("Debugpoint #1");
 		if (pack instanceof LoginPackage){
 			System.out.println("Debugpoint #2");
@@ -29,12 +32,12 @@ public class ServerPackageHandler {
 				if (HandleLoginPackage(pack)){
 					System.out.println("Debugpoint #3");
 					ErrorPackage errorPack = new ErrorPackage(ErrorType.OK,"All is well, user may pass");
-					returnPackage = errorPack;
+					returnPackages.add(errorPack);
 				}
 				else{
 					System.out.println("Debugpoint #4");
 					ErrorPackage errorPack = new ErrorPackage(ErrorType.WRONG_PASSWORD,"The user SHALL NOT PASS");
-					returnPackage = errorPack;
+					returnPackages.add(errorPack);
 				}
 			} catch (IOException e) {
 				System.out.println("Debugpoint #5");
@@ -54,7 +57,7 @@ public class ServerPackageHandler {
 				e.printStackTrace();
 			}
 		}
-		return returnPackage;
+		return returnPackages;
 	}
 
 	private DBMethods ConnectToDB() throws IOException{
@@ -124,28 +127,41 @@ public class ServerPackageHandler {
 		
 	}
 	
-	private void HandleCalendarRequestPackage(DataPackage pack) throws IOException, SQLException {
+	private ArrayList<DataPackage> HandleCalendarRequestPackage(DataPackage pack) throws IOException, SQLException {
 		CalendarRequestPackage CalReq = (CalendarRequestPackage)pack;
 		String name = CalReq.getName();
 		Integer group = CalReq.getGroup();
-		
-		
+		ArrayList<Event> events = new ArrayList<Event>();
+		ArrayList<DataPackage> responseList = new ArrayList<DataPackage>();
 		if ((CalReq.getName() != null) && (CalReq.getGroup() == null)){
 			DBMethods method = ConnectToDB();
-			//get users cal
+			events = method.loadEvents(name);
 			DisconnectFromDB();
+			
+			responseList = ConstructPackageListFromEvents(events);
+			return responseList;
 		}
 		else if ((CalReq.getGroup() != null) && (CalReq.getName() == null)){
 			DBMethods method = ConnectToDB();
 			//get groups cal
 			DisconnectFromDB();
+			return null;
 		}
 		else{
 			JOptionPane.showMessageDialog(null, "Malformated CalReqPackage");
+			return null;
 		}
-		
-		
-		
+	}
+	
+	private ArrayList<DataPackage> ConstructPackageListFromEvents(ArrayList<Event> events){
+		ArrayList<DataPackage> returnList = new ArrayList<DataPackage>();
+		Event event;
+		for (int i=0;i<events.size();i++){
+			event = events.get(i);
+			EventPackage pack = new EventPackage(i, events.size(), event);
+			returnList.add(pack);
+		}
+		return returnList;
 	}
 	
 	//Should probably not be used, will cause massive connection problems...
