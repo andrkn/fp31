@@ -1,5 +1,6 @@
 package net;
 
+import java.io.EOFException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
@@ -7,6 +8,7 @@ import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.net.Socket;
 
+import datapackage.DataPackage;
 import datapackage.LoginPackage;
 
 class doComms implements Runnable {
@@ -31,15 +33,26 @@ class doComms implements Runnable {
   		OutputStream serverOutputStream = clientSocket.getOutputStream();
         oos = new ObjectOutputStream(serverOutputStream);
         
+        ServerPackageHandler handler = new ServerPackageHandler();
+        DataPackage response;
+        
         boolean isConnected = ! clientSocket.isClosed();
         
         while(isConnected) {
-        	LoginPackage ph = (LoginPackage) ois.readObject();
-        	System.out.println(ph.getPassword());
-        	
-        	closeStreams();
-        	isConnected = ! clientSocket.isClosed();
+        	try {
+        		DataPackage pack = (DataPackage) ois.readObject();
+        		response = handler.HandlePackage(pack);
+        		oos.writeObject(response);
+        	}
+        	catch (EOFException e) {
+        		System.out.println("Could not use streams");
+        		isConnected = false;
+        	}
+         	 
+        	//closeStreams();
+        	//isConnected = ! clientSocket.isClosed();
         }
+        closeStreams();
       } 
       
       catch (IOException ioe) {
