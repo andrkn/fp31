@@ -49,6 +49,9 @@ public class ServerPackageHandler {
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
 		}
 		return returnPackage;
@@ -121,21 +124,26 @@ public class ServerPackageHandler {
 		
 	}
 	
-	private void HandleCalendarRequestPackage(DataPackage pack) throws IOException {
+	private void HandleCalendarRequestPackage(DataPackage pack) throws IOException, SQLException {
 		CalendarRequestPackage CalReq = (CalendarRequestPackage)pack;
+		String name = CalReq.getName();
+		Integer group = CalReq.getGroup();
 		
 		
 		if ((CalReq.getName() != null) && (CalReq.getGroup() == null)){
+			DBMethods method = ConnectToDB();
 			//get users cal
+			DisconnectFromDB();
 		}
 		else if ((CalReq.getGroup() != null) && (CalReq.getName() == null)){
+			DBMethods method = ConnectToDB();
 			//get groups cal
+			DisconnectFromDB();
 		}
 		else{
 			JOptionPane.showMessageDialog(null, "Malformated CalReqPackage");
 		}
 		
-		DBMethods method = ConnectToDB();
 		
 		
 	}

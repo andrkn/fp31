@@ -16,7 +16,7 @@ public class MainPanel {
 	
 	public static void main(String args[]) {
 		frame = new JFrame("Calendar");
-		frame.setAlwaysOnTop(true);
+		//frame.setAlwaysOnTop(true);
 		//Centering the frame on the screen
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		Point middle = new Point(screenSize.width / 2, screenSize.height / 2);
@@ -60,7 +60,10 @@ public class MainPanel {
 		frame.getContentPane().add(pane);
 		frame.pack();
 		frame.setVisible(true);
-		frame.setResizable(false);
+		frame.setResizable(true);
+		frame.setSize(300, 800);
+		pane.updateUI();
+		
 		
 	}
 	
