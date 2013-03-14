@@ -22,7 +22,7 @@ public class GuiTest {
 			frame.getContentPane().add(new LoginPanel(null));
 			frame.pack();
 			frame.setVisible(true);
-				
+			
 //			PackageReceiver rec = new PackageReceiver();
 //			DataPackage pack = rec.receivePackage();
 //			LoginPackage logpack = (LoginPackage)pack;
