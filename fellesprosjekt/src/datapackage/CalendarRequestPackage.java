@@ -7,9 +7,9 @@ public class CalendarRequestPackage implements DataPackage{
 	
 	private String name;
 	private Integer group;
-	private Integer packageNumber, totalPackages;
+	private int packageNumber, totalPackages;
 	
-	public CalendarRequestPackage(String name, Integer group, Integer packageNumber, Integer totalPackages){
+	public CalendarRequestPackage(String name, Integer group, int packageNumber, int totalPackages){
 		this.name = name;
 		this.group = group;
 		this.packageNumber = packageNumber;
