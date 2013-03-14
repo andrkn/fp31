@@ -62,7 +62,10 @@ public class MainPanel {
 		frame.setVisible(true);
 		frame.setResizable(true);
 		frame.setSize(300, 800);
-		pane.updateUI();
+		pane.validate();
+		pane.repaint();
+		frame.validate();
+		frame.repaint();
 		
 		
 	}

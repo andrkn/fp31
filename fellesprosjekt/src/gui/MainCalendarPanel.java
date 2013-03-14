@@ -2,6 +2,7 @@ package gui;
 
 import java.io.IOException;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -12,6 +13,7 @@ import net.PackageSender;
 
 import model.Event;
 import model.EventModel;
+import model.HaveCalendar;
 import model.Person;
 
 public class MainCalendarPanel extends JPanel {
@@ -29,13 +31,17 @@ public class MainCalendarPanel extends JPanel {
 //		sender.sendPackage(calReq);
 		Person p = new Person();
 		p.setName("Torstein");
+		ArrayList<HaveCalendar> test = new ArrayList<HaveCalendar>();
 		EventModel model = new EventModel(
 				new Event(99, new Person(), new Timestamp(System.currentTimeMillis()), 
 						new Timestamp(System.currentTimeMillis()), 
-						"Name", "Decription", "Place", null, null), p);
+						"Name", "Decription", "Place", null, test), p);
 		EventPanel eventPanel = new EventPanel(model);
 		add(eventPanel);
 		this.updateUI();
+		this.validate();
+		this.repaint();
+		
 
 		
 	}
