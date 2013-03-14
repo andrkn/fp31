@@ -153,9 +153,9 @@ public class EventModel {
 	}
 	
 	public void setEditeble(boolean editeble){
-		if (this.editable == editeble){
-			return;
-		}
+//		if (this.editable == editeble){
+//			return;
+//		}
 		this.editable = editeble;
 		pcs.firePropertyChange("editeble", !editeble, editeble);
 	}

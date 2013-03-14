@@ -61,7 +61,7 @@ public class MainPanel {
 		frame.pack();
 		frame.setVisible(true);
 		frame.setResizable(true);
-		frame.setSize(300, 800);
+		frame.setSize(800, 800);
 		pane.validate();
 		pane.repaint();
 		frame.validate();

@@ -38,9 +38,7 @@ public class MainCalendarPanel extends JPanel {
 						"Name", "Decription", "Place", null, test), p);
 		EventPanel eventPanel = new EventPanel(model);
 		add(eventPanel);
-		this.updateUI();
-		this.validate();
-		this.repaint();
+		model.setEditeble(true);
 		
 
 		
