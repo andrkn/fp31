@@ -48,7 +48,7 @@ public class ServerPackageHandler {
 		else if(pack instanceof CalendarRequestPackage){
 			System.out.println("CalReqPack Received");
 			try {
-				HandleCalendarRequestPackage(pack);
+				returnPackages = HandleCalendarRequestPackage(pack);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
