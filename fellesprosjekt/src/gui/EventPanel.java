@@ -21,6 +21,7 @@ import javax.swing.JTextField;
 import javax.swing.border.Border;
 
 import model.EventModel;
+import model.HaveCalendar;
 import model.InviteListPanel;
 import model.Person;
 
@@ -171,22 +172,28 @@ public class EventPanel extends JPanel implements PropertyChangeListener{
 		startTimeField.setText(model.getStartTime());
 		startTimeField.setName("StartTimeField");
 		setEditebleTextField(startTimeField, editeble);
-		this.add(startTimeField, grid); 
-		
-		grid.gridy += 1; 
-		endTimeField = new JTextField(); 
+		this.add(startTimeField, grid);
+
+		grid.gridy += 1;
+		endTimeField = new JTextField();
 		endTimeField.setText(model.getEndTime());
 		setEditebleTextField(endTimeField, editeble);
 		this.add(endTimeField, grid);
-		
-		grid.gridy += 1; 
-		placeField = new JTextField(); 
-		placeField.setText(model.getPlace());
-		placeField.setName("PlaceField");
-		setEditebleTextField(placeField, editeble);
-		this.add(placeField, grid); 
-		
-		grid.gridy += 1; 
+
+		grid.gridy += 1;
+		if (!editeble) {
+			JPanel roomPanel = new RoomPanel(model.getRoomListModel());
+			this.add(roomPanel, grid);
+
+		} else {
+			placeField = new JTextField();
+			placeField.setText(model.getPlace());
+			placeField.setName("PlaceField");
+			setEditebleTextField(placeField, editeble);
+			this.add(placeField, grid);
+		}
+
+		grid.gridy += 1;
 		descriptionField = new JTextField();
 		descriptionField.setText(model.getDescription());
 		descriptionField.setName("DescriptionField");
@@ -243,10 +250,10 @@ public class EventPanel extends JPanel implements PropertyChangeListener{
 		DefaultListModel listModel = new DefaultListModel(); 
 		attendersList.setModel(listModel);
 
-		ArrayList<Person> attendersArray = model.getAttenders();
+		ArrayList<HaveCalendar> attendersArray = model.getAttenders();
 		Collections.sort(attendersArray);
-		for(Person person : attendersArray){
-			listModel.addElement(person); 
+		for(HaveCalendar hc : attendersArray){
+			listModel.addElement(hc); 
 		}
 		
 		attendersList.setName("AttendersList");
@@ -321,7 +328,6 @@ public class EventPanel extends JPanel implements PropertyChangeListener{
 		model.setDescription(descriptionField.getText());
 		model.setStartTime(startTimeField.getText()); 
 		model.setEndTime(endTimeField.getText());
-		System.out.println(Integer.parseInt(alarmField.getText()));
 		model.setAlarm(Integer.parseInt(alarmField.getText()));
 		
 		model.setEditeble(true);

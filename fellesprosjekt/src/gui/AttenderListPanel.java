@@ -15,6 +15,7 @@ import javax.swing.JPanel;
 import javax.swing.ListSelectionModel;
 
 import model.EventModel;
+import model.HaveCalendar;
 import model.Person;
 
 public class AttenderListPanel extends JPanel{
@@ -28,10 +29,10 @@ public class AttenderListPanel extends JPanel{
 	public AttenderListPanel(EventModel model){
 		this.model = model;
 		
-		ArrayList<Person> persons = model.getAttenders();
+		ArrayList<HaveCalendar> hcs = model.getAttenders();
 		
 		this.setLayout(new GridBagLayout());
-		createList(persons);
+		createList(hcs);
 		createButton();
 		
 		addComponents(); 
@@ -59,22 +60,22 @@ public class AttenderListPanel extends JPanel{
 			
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				Person selected = (Person) list.getSelectedValue();
+				HaveCalendar selected = (HaveCalendar) list.getSelectedValue();
 				model.removeAttender(selected);
 				
 			}
 		});
 	}
 
-	private void createList(ArrayList<Person> persons) {
+	private void createList(ArrayList<HaveCalendar> hcs) {
 		listModel = new DefaultListModel();
 		list = new JList(); 
 		list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		list.setModel(listModel);
 		
-		Collections.sort(persons);
-		for (Person person : persons){
-			listModel.addElement(person);
+		Collections.sort(hcs);
+		for (HaveCalendar hc : hcs){
+			listModel.addElement(hc);
 		}
 	}
 

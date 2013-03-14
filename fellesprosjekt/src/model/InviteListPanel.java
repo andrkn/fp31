@@ -26,7 +26,7 @@ public class InviteListPanel extends JPanel{
 		
 		this.model = model;
 		
-		ArrayList<Person> persons = model.getInviteList();
+		ArrayList<HaveCalendar> persons = model.getInviteList();
 		
 		this.setLayout(new GridBagLayout());
 		createList(persons);
@@ -57,21 +57,23 @@ public class InviteListPanel extends JPanel{
 			
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				Person selected = (Person) list.getSelectedValue();
+				HaveCalendar selected = (HaveCalendar) list.getSelectedValue();
 				model.addAttender(selected);
 			}
 		});
 	}
 
-	private void createList(ArrayList<Person> persons) {
+	private void createList(ArrayList<HaveCalendar> hcs) {
 		listModel = new DefaultListModel();
 		list = new JList(); 
 		list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		list.setModel(listModel);
 		
-		Collections.sort(persons);
-		for (Person person : persons){
-			listModel.addElement(person);
+		Collections.sort(hcs);
+		for (HaveCalendar hc : hcs){
+			if (!model.getAttenders().contains(hc)){
+				listModel.addElement(hc);
+			}
 		}
 	}
 

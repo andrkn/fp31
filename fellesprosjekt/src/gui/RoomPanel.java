@@ -28,8 +28,8 @@ public class RoomPanel extends JPanel{
 	}
 
 	private void addButton() {
-		grid.gridy = 0;
-		grid.gridx = 1; 
+		grid.gridy = 1;
+		grid.gridx = 0; 
 		JButton pickRoom = new JButton("OK");
 		
 		pickRoom.addActionListener(new ActionListener() {

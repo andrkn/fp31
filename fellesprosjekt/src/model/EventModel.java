@@ -54,10 +54,21 @@ public class EventModel {
 	
 	public String getPlace(){
 		if (event.getRoom() != null){
-			return event.getRoom().getRoomNr();
+			return "Rom " + event.getRoom().getRoomNr();
 		}else{
 			return event.getPlace(); 
 		}
+	}
+	
+	public RoomListModel getRoomListModel(){
+		ArrayList<Room> roomArray = new ArrayList<Room>();
+		roomArray.add(new Room("100",40));
+		roomArray.add(new Room("110",19));
+		roomArray.add(new Room("101",5));
+		
+		RoomListModel rlm = new RoomListModel(roomArray, event);
+		
+		return rlm;
 	}
 	
 	public String getName(){
@@ -86,35 +97,55 @@ public class EventModel {
 	}
 
 
-	public ArrayList<Person> getInviteList(){
-		ArrayList<Person> test = new ArrayList<Person>();
+	public ArrayList<HaveCalendar> getInviteList(){
+		ArrayList<HaveCalendar> test = new ArrayList<HaveCalendar>();
+		
+//		for (HaveCalendar hc : event.getAttenders()){
+//			test.add(hc);
+//		}
+		
 		Person p1 = new Person(); 
 		p1.setName("Torstein"); 
 		
 		Person p2 = new Person(); 
 		p2.setName("Adam");
 		
-		test.add(p1);
-		test.add(p2);
-		return test;
-	}
-
-
-	public ArrayList<Person> getAttenders(){
-		ArrayList<Person> test = new ArrayList<Person>();
-		Person p1 = new Person(); 
-		p1.setName("Per"); 
-		
-		Person p2 = new Person(); 
-		p2.setName("Simon");
-		
 		Person p3 = new Person(); 
-		p3.setName("Kristoffer");
+		p3.setName("Per"); 
+		
+		Person p4 = new Person(); 
+		p4.setName("Simon");
+		
+		Person p5 = new Person(); 
+		p5.setName("Kristoffer");
 		
 		test.add(p1);
 		test.add(p2);
 		test.add(p3);
+		test.add(p4);
+		test.add(p5);
 		return test;
+	}
+
+
+	public ArrayList<HaveCalendar> getAttenders(){
+		
+		return event.getAttenders();
+		
+//		ArrayList<Person> test = new ArrayList<Person>();
+//		Person p1 = new Person(); 
+//		p1.setName("Per"); 
+//		
+//		Person p2 = new Person(); 
+//		p2.setName("Simon");
+//		
+//		Person p3 = new Person(); 
+//		p3.setName("Kristoffer");
+//		
+//		test.add(p1);
+//		test.add(p2);
+//		test.add(p3);
+//		return test;
 	}
 
 	public boolean getEditable(){
@@ -145,12 +176,13 @@ public class EventModel {
 		return dateString;
 	}
 	
-	public void addAttender(Person person){
-		
+	public void addAttender(HaveCalendar hc){
+		event.addAttender(hc);
+		pcs.firePropertyChange("AddAttender", null, hc);
 	}
-	public void removeAttender(Person selected) {
-		// TODO Auto-generated method stub
-		
+	public void removeAttender(HaveCalendar hc) {
+		event.removeAttender(hc);
+		pcs.firePropertyChange("RemoveAttender", null, hc);
 	}
 	
 	public void addPropertyChangeListener(PropertyChangeListener listener){
@@ -159,6 +191,4 @@ public class EventModel {
 	public void removePropertyChangeListener(PropertyChangeListener listener){
 		pcs.removePropertyChangeListener(listener); 
 	}
-
-
 }
