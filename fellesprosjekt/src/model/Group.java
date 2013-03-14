@@ -31,7 +31,11 @@ public class Group implements HaveCalendar {
 
 	@Override
 	public int compareTo(HaveCalendar other) {
-		return this.getName().compareTo(other.getName());
+		try {
+			return this.getName().compareTo(other.getName());
+		} catch (NullPointerException e) {
+		}
+		return 0;
 	}
 
 }
