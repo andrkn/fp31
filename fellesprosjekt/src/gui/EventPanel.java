@@ -142,6 +142,7 @@ public class EventPanel extends JPanel implements PropertyChangeListener{
 		nameField = new JTextField(); 
 		nameField.setText(model.getName());
 		nameField.setName("NameField");
+		nameField.setColumns(15);
 		setEditebleTextField(nameField, editeble);
 //		nameField.setEditable(model.getEditable()); 
 //		nameField.setBorder(javax.swing.BorderFactory.createEmptyBorder());
@@ -171,12 +172,14 @@ public class EventPanel extends JPanel implements PropertyChangeListener{
 		startTimeField = new JTextField(); 
 		startTimeField.setText(model.getStartTime());
 		startTimeField.setName("StartTimeField");
+		startTimeField.setColumns(15);
 		setEditebleTextField(startTimeField, editeble);
 		this.add(startTimeField, grid);
 
 		grid.gridy += 1;
 		endTimeField = new JTextField();
 		endTimeField.setText(model.getEndTime());
+		endTimeField.setColumns(15);
 		setEditebleTextField(endTimeField, editeble);
 		this.add(endTimeField, grid);
 

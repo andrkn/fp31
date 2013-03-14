@@ -65,6 +65,7 @@ public class MainPanel {
 		pane.validate();
 		pane.repaint();
 		frame.validate();
+		
 		frame.repaint();
 		
 		
