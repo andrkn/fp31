@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 
 import model.Event;
@@ -153,6 +154,21 @@ public class DBMethods {
     	statement = connection.createStatement();
     	String sql = "INSERT INTO Alarm (time, eventId, username) VALUES ('" + time + "'," + eventId + ", '" + username + "')";
     	statement.executeUpdate(sql); 
+    }
+    
+    public HashMap<String, Timestamp> getAlarms() throws SQLException {
+		
+    	HashMap<String, Timestamp> map = new HashMap<String, Timestamp>();
+    	statement = connection.createStatement();
+    	
+    	String sql = "SELECT time, username FROM Alarm;";
+    	ResultSet  rs = statement.executeQuery(sql);
+    	
+    	while(rs.next()) {
+    		map.put(rs.getString("username"), rs.getTimestamp("time"));
+    	}
+    	
+    	return map;
     }
     
     
