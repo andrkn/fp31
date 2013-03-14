@@ -45,7 +45,7 @@ class doComms implements Runnable {
         		oos.writeObject(response);
         	}
         	catch (EOFException e) {
-        		System.out.println("Could not use streams");
+        		System.out.println("Socket disconnected");
         		isConnected = false;
         	}
          	 
