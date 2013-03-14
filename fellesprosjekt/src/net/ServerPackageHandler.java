@@ -31,12 +31,12 @@ public class ServerPackageHandler {
 			try {
 				if (HandleLoginPackage(pack)){
 					System.out.println("Debugpoint #3");
-					ErrorPackage errorPack = new ErrorPackage(ErrorType.OK,"All is well, user may pass");
+					ErrorPackage errorPack = new ErrorPackage(ErrorType.OK,"All is well, user may pass",1,1);
 					returnPackages.add(errorPack);
 				}
 				else{
 					System.out.println("Debugpoint #4");
-					ErrorPackage errorPack = new ErrorPackage(ErrorType.WRONG_PASSWORD,"The user SHALL NOT PASS");
+					ErrorPackage errorPack = new ErrorPackage(ErrorType.WRONG_PASSWORD,"The user SHALL NOT PASS", 1, 1);
 					returnPackages.add(errorPack);
 				}
 			} catch (IOException e) {
