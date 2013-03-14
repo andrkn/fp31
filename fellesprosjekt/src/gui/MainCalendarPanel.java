@@ -1,5 +1,6 @@
 package gui;
 
+import java.awt.Dimension;
 import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -29,6 +30,7 @@ public class MainCalendarPanel extends JPanel {
 //			e.printStackTrace();
 //		}
 //		sender.sendPackage(calReq);
+		this.setPreferredSize(new Dimension(800, 800));
 		Person p = new Person();
 		p.setName("Torstein");
 		ArrayList<HaveCalendar> test = new ArrayList<HaveCalendar>();

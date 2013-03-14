@@ -56,12 +56,12 @@ public class MainPanel {
 	}
 	
 	public static void constructCalender(String username){
+		frame.setResizable(true);
 		pane = new MainCalendarPanel(username);
 		frame.getContentPane().add(pane);
 		frame.pack();
 		frame.setVisible(true);
 		frame.setResizable(true);
-		frame.setSize(800, 800);
 		pane.validate();
 		pane.repaint();
 		frame.validate();
