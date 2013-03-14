@@ -113,7 +113,7 @@ public class LoginPanel extends JPanel {
 		
 		public boolean validLogin(String username, String password) throws IOException{
 			//PackageReceiver receiver = new PackageReceiver();
-			LoginPackage loginPack = new LoginPackage(username, password);
+			LoginPackage loginPack = new LoginPackage(username, password, 1, 1);
 			sender.sendPackage(loginPack);
 			DataPackage responsePack = sender.receivePackage();
 			if (responsePack instanceof ErrorPackage){

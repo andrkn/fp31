@@ -8,8 +8,7 @@ public class EventPackage implements DataPackage {
 	private int totalPackages; 
 	private Event event;
 
-	public EventPackage(int packageNumberr, int totalPackages,
-			Event event) {
+	public EventPackage(int packageNumberr, int totalPackages, Event event) {
 		this.packageNumber = packageNumber;
 		this.totalPackages = totalPackages;
 		this.event = event;
