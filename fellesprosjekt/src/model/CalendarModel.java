@@ -19,6 +19,9 @@ public class CalendarModel implements PropertyChangeListener {
 		Event newEvent = new Event(eventId, createdBy, startTime, endTime, name, description, place, room, attenders);
 		eventList.add(newEvent);
 	}
+	public void addEvent(Event event){
+		eventList.add(event);
+	}
 	
 	public void removeEvent(Event event) {
 		eventList.remove(event);

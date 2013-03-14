@@ -56,7 +56,6 @@ public class EventPreview extends JPanel implements PropertyChangeListener{
 
 	@Override
 	public void propertyChange(PropertyChangeEvent arg0) {
-		System.out.println("halla");
 		update();
 	}
 
