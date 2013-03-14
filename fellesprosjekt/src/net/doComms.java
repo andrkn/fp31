@@ -7,6 +7,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.net.Socket;
+import java.util.ArrayList;
 
 import datapackage.DataPackage;
 import datapackage.LoginPackage;
@@ -34,18 +35,20 @@ class doComms implements Runnable {
         oos = new ObjectOutputStream(serverOutputStream);
         
         ServerPackageHandler handler = new ServerPackageHandler();
-        DataPackage response;
+        ArrayList<DataPackage> packages;
         
         boolean isConnected = ! clientSocket.isClosed();
         
         while(isConnected) {
         	try {
         		DataPackage pack = (DataPackage) ois.readObject();
-        		response = handler.HandlePackage(pack);
-        		oos.writeObject(response);
+        		packages = (ArrayList<DataPackage>) handler.HandlePackage(pack);
+        		for (DataPackage responsePack : packages) {
+        			oos.writeObject(responsePack);
+        		}
         	}
         	catch (EOFException e) {
-        		System.out.println("Socket disconnected");
+        		System.out.println("Socket with id " + connectionId + " disconnected.");
         		isConnected = false;
         	}
          	 
