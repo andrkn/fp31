@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 import model.Event;
 import model.EventModel;
@@ -34,13 +35,19 @@ public class EventPanelTest {
 //		test.add(p2);
 //		test.add(p3);
 		
+		JPanel mainPanel = new JPanel();
+		
 		
 		EventModel model = new EventModel(
 				new Event(99, new Person(), new Timestamp(System.currentTimeMillis()), 
 						new Timestamp(System.currentTimeMillis()), 
 						"Name", "Decription", "Place", null, test), p);
 		EventPanel panel = new EventPanel(model);
-		frame.setContentPane(panel);
+		
+		mainPanel.add(panel);
+		mainPanel.add(new EventPreview(model));
+		
+		frame.setContentPane(mainPanel);
 		frame.setSize(500,600); 
 		frame.setVisible(true); 
 		frame.setDefaultCloseOperation(frame.EXIT_ON_CLOSE); 
