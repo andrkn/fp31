@@ -8,6 +8,7 @@ import java.io.OutputStream;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.util.ArrayList;
 import java.util.Properties;
 
 
@@ -58,7 +59,7 @@ public class PackageSender {
 
 		try {
 			DataPackage pack = (DataPackage)ois.readObject();
-
+			
 			//Pack now contains the package that was received.
 			return pack;
 
@@ -74,6 +75,35 @@ public class PackageSender {
 		}
 		return null;
 	}
+	
+	public ArrayList<DataPackage>receivePackageArray(){
+
+		try {
+			ArrayList<DataPackage> returnList = new ArrayList<DataPackage>();
+			DataPackage pack = (DataPackage)ois.readObject();
+			if (pack.getTotalPackages() != 1){
+				for (int i = 1; i<pack.getTotalPackages()-1;i++){
+					returnList.add(pack);
+					pack = (DataPackage)ois.readObject();
+				}
+			}
+			returnList.add(pack);
+			//Pack now contains the package that was received.
+			return returnList;
+
+		} catch (UnknownHostException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
 	
 	public void close() throws IOException{
 		oos.close();
