@@ -131,6 +131,7 @@ public class DBMethods {
     	String invitedPersons = resultSet.getString(8);
     	String invitedGroups = resultSet.getString(9);
     	String roomNr = resultSet.getString(10);
+    	System.out.println("Trying to get event created by: " + createdBy);
     	return new Event(id, getPerson(createdBy), start, end, eventName, description, place, getRoom(roomNr), null);
     }
  
@@ -204,6 +205,7 @@ public class DBMethods {
     	statement = connection.createStatement();
     	String sql = "SELECT * FROM Person WHERE username = '" + username + "'";
     	ResultSet resultSet = statement.executeQuery(sql);
+    	resultSet.next();
     	return new Person(resultSet.getString(1), resultSet.getString(4), resultSet.getString(5));
     }
     
@@ -211,6 +213,7 @@ public class DBMethods {
     	statement = connection.createStatement();
     	String sql = "SELECT * FROM Room WHERE RoomNr = '" + roomNr + "'";
     	ResultSet resultSet = statement.executeQuery(sql);
+    	resultSet.next();
     	return new Room(resultSet.getString(1), resultSet.getInt(2));
     }
     

@@ -8,7 +8,7 @@ import model.HaveCalendar;
 import model.Person;
 import model.Room;
 
-public class Event {
+public class Event implements java.io.Serializable {
 	
 	private String name, description, place;
 	private Person createdBy;
