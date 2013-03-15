@@ -7,8 +7,11 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
@@ -55,6 +58,7 @@ public class EventPanel extends JPanel implements PropertyChangeListener{
 //		addTittel(model.getEditable());
 //		addButtons();
 		
+		launchAlarm();
 		setEditeble();
 		
 		
@@ -77,7 +81,7 @@ public class EventPanel extends JPanel implements PropertyChangeListener{
 		
 		boolean editeble = model.getEditable(); 
 		
-//		launchAlarm();
+
 		addLabels(editeble); 
 		addTextFields(editeble); 
 		addTittel(editeble); 
@@ -232,7 +236,7 @@ public class EventPanel extends JPanel implements PropertyChangeListener{
 
 		grid.gridy += 1;
 		alarmField = new JTextField(); 
-		alarmField.setText(model.getAlarm()); 
+		//alarmField.setText(model.getAlarm()); 
 		alarmField.setName("AlarmField");
 		setEditebleTextField(alarmField, editeble);
 		this.add(alarmField, grid);
@@ -349,14 +353,22 @@ public class EventPanel extends JPanel implements PropertyChangeListener{
 		model.setEditeble(false);
 	}
 	
-	public boolean launchAlarm() {
+	public void launchAlarm() {
 		
-		String alertMsg = "Du har en oppkommende avtale kl. "  +
-							"\n på rom ";
+		HashMap<Person, Timestamp> hm = model.getMapAlarms();
 		
-		alarmOption = JOptionPane.showConfirmDialog(null, alertMsg, "Møtealarm", JOptionPane.OK_OPTION);
-		
-		return alarmOption == 0 ? true:false;
+		for (int i=0; i < hm.size(); i++) {
+
+			Timestamp t = new Timestamp(System.currentTimeMillis());
+			Person key = (Person)hm.keySet().toArray()[i];
+
+			Timestamp val = hm.get(key);
+			
+			System.out.println("key,val: " + key + "," + val);
+
+			//i = 0;
+			
+		}
 		
 	}
 

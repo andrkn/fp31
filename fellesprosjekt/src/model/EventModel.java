@@ -35,7 +35,7 @@ public class EventModel {
 		event.setEndTime(getTimestamp(endTimeString));
 	}
 	
-	private Timestamp getTimestamp(String timeString) {
+	public Timestamp getTimestamp(String timeString) {
 		
 		String[] time_date = timeString.split(" ");
 		String[] time = time_date[0].split(":");
@@ -94,6 +94,18 @@ public class EventModel {
 	public void setAlarm(int alarm){
 		event.setAlarm(user, alarm);
 	}
+	
+	public HashMap<Person, Timestamp> getMapAlarms(){
+        if(event.getMapAlarm() == null){
+                return null;
+        }
+
+        return event.getMapAlarm();
+}       
+                
+	public void setMapAlarm(Person person, Timestamp alarm){
+        event.setMapAlarm(person, alarm);
+	}	    
 
 
 	public ArrayList<HaveCalendar> getInviteList(){

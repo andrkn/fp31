@@ -24,6 +24,8 @@ public class Event implements java.io.Serializable {
 	private ArrayList<HaveCalendar> attenders;
 	private HashMap<Person, Integer> alarms;
 	
+	private HashMap<Person, Timestamp> mapAlarms;
+	
 	public Event(int eventId, Person createdBy, Timestamp startTime, Timestamp endTime, String name, 
 	String description, String place, Room room, ArrayList<HaveCalendar> attenders) {
 		this.eventId = eventId;
@@ -136,6 +138,19 @@ public class Event implements java.io.Serializable {
 	
 	public HashMap<Person, Integer> getAlarms() {
 	      return alarms;
+	}
+	
+	public void setMapAlarm(Person person, Timestamp alarm) {
+        if (mapAlarms == null){
+                mapAlarms = new HashMap<Person, Timestamp>();
+        }
+        mapAlarms.put(person, alarm);
+}
+
+	public HashMap<Person, Timestamp> getMapAlarm() {
+
+        return (mapAlarms == null) ? null:mapAlarms;
+
 	}
 
 	
