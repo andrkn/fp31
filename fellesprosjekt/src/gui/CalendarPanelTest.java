@@ -30,12 +30,11 @@ public class CalendarPanelTest {
 				"Name", "Decription", "Place", null, test); 
 		
 		
-		
-		
 		model.addEvent(e1); 
 		model.addEvent(e2);
 		
-		CalendarPanel calendarPanel = new CalendarPanel(model); 
+		CalendarPanelWithLabels calendarPanel = new CalendarPanelWithLabels(model); 
+		System.out.println(calendarPanel.getComponentCount());
 		
 		frame.setContentPane(calendarPanel); 
 		frame.setSize(1000, 1000); 

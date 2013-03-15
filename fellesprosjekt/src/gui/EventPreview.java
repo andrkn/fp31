@@ -1,5 +1,6 @@
 package gui;
 
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -7,6 +8,7 @@ import java.awt.Insets;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
+import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -15,6 +17,7 @@ import model.EventModel;
 public class EventPreview extends JPanel implements PropertyChangeListener{
 	
 	private EventModel model;
+	public static final Color backgroundColor = new Color(190,190,190); 
 	
 	public EventPreview(EventModel model){
 		this.model = model;
@@ -34,7 +37,7 @@ public class EventPreview extends JPanel implements PropertyChangeListener{
 		grid.gridx = 0; 
 		grid.anchor = GridBagConstraints.FIRST_LINE_START; 
 		grid.insets = new Insets(3, 3, 3, 3); 
-		grid.ipady = 10; 
+		grid.ipady = 5; 
 		
 		JLabel nameLabel = new JLabel(model.getName());
 		nameLabel.setFont(new Font("Serif", Font.BOLD, 14)); 
@@ -49,6 +52,9 @@ public class EventPreview extends JPanel implements PropertyChangeListener{
 		grid.gridy += 1;
 		JLabel numberOfAttendersLabel = new JLabel("Deltagere: " + model.getAttenders().size());
 		this.add(numberOfAttendersLabel, grid);
+		
+		this.setBorder(BorderFactory.createLineBorder(Color.black));
+		this.setBackground(backgroundColor);
 		
 		this.validate(); 
 		this.repaint();
