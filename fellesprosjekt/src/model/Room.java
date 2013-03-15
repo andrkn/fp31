@@ -1,6 +1,6 @@
 package model;
 
-public class Room implements Comparable<Room>{
+public class Room implements Comparable<Room>, java.io.Serializable{
 	
 	private String roomNr; 
 	private int capacity; 

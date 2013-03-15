@@ -3,7 +3,7 @@ package model;
 import java.util.concurrent.Callable;
 
 
-public class Person implements HaveCalendar{
+public class Person implements HaveCalendar, java.io.Serializable{
 	
 	private String name, email, username;
 	CalendarModel model;
