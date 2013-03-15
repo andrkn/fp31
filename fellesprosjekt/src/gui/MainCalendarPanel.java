@@ -40,6 +40,9 @@ public class MainCalendarPanel extends JPanel {
 				eventList.add(ePack.getEvent());
 			}
 		}
+		for (int j = 0; j<eventList.size(); j++){
+			System.out.println("Got eventID: " + eventList.get(j).getEventId());
+		}
 		//eventList now contains all events for the username requested!
 		
 		this.setPreferredSize(new Dimension(800, 800));
