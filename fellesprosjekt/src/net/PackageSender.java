@@ -82,7 +82,7 @@ public class PackageSender {
 			ArrayList<DataPackage> returnList = new ArrayList<DataPackage>();
 			DataPackage pack = (DataPackage)ois.readObject();
 			if (pack.getTotalPackages() != 1){
-				for (int i = 1; i<pack.getTotalPackages()-1;i++){
+				for (int i = 1; i<pack.getTotalPackages();i++){
 					returnList.add(pack);
 					pack = (DataPackage)ois.readObject();
 				}
