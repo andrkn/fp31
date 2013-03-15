@@ -4,6 +4,7 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class EventModel {
 	
@@ -85,15 +86,16 @@ public class EventModel {
 		event.setDescription(description); 
 	}
 	
-	public String getAlarm(){
+	public HashMap<Person, Timestamp> getAlarm(){
 		if(event.getAlarms() == null){
-			return "0";
+			return null;
 		}
-		int alarm = event.getAlarms().get(user);
-		return Integer.toString(alarm);
+		
+		return event.getAlarms();
 	}
-	public void setAlarm(int alarm){
-		event.setAlarm(user, alarm);
+	
+	public void setAlarm(Person person, Timestamp alarm){
+		event.setAlarm(person, alarm);
 	}
 
 

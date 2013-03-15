@@ -3,6 +3,11 @@ package model;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
+
+import com.sun.corba.se.impl.encoding.OSFCodeSetRegistry.Entry;
+
+import net.DBMethods;
 
 import model.HaveCalendar;
 import model.Person;
@@ -17,7 +22,7 @@ public class Event {
 	private Timestamp startTime, endTime;
 	private Boolean isActive;
 	private ArrayList<HaveCalendar> attenders;
-	private HashMap<Person, Integer> alarms;
+	private HashMap<Person, Timestamp> alarms;
 	
 	public Event(int eventId, Person createdBy, Timestamp startTime, Timestamp endTime, String name, 
 	String description, String place, Room room, ArrayList<HaveCalendar> attenders) {
@@ -125,15 +130,22 @@ public class Event {
 		return attenders.size();
 	}
 
-	public void setAlarm(Person person, int alarm) {
+	public void setAlarm(Person person, Timestamp alarm) {
 		if (alarms == null){
-			alarms = new HashMap<Person, Integer>();
+			alarms = new HashMap<Person, Timestamp>();
 		}
 		alarms.put(person, alarm);
 	}
 
-	public HashMap<Person, Integer> getAlarms() {
-		return alarms;
+	public HashMap<Person, Timestamp> getAlarms() {
+		HashMap<Person, Timestamp> aMap = new HashMap<Person, Timestamp>();
+		
+		for(Person p : alarms.keySet()){
+			
+			aMap.put(p, alarms.get(p));
+		}
+		
+		return aMap;
 	}
 	
 }
