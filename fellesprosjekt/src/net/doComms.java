@@ -13,7 +13,10 @@ import datapackage.DataPackage;
 import datapackage.LoginPackage;
 
 class doComms implements Runnable {
-    private Socket clientSocket;
+   
+	//This class handles the connection (recieve and send datapackages) 
+	//and is created by the FinalServer in a new Thread.
+	private Socket clientSocket;
     private int connectionId;
 	private ObjectInputStream ois;
 	private ObjectOutputStream oos;
@@ -28,12 +31,15 @@ class doComms implements Runnable {
       try {
     	//Create inputstream for reading of packages
   		InputStream clientInputStream = clientSocket.getInputStream();
+  		//Wrap the inputstream in an objectinputstream
   		ois = new ObjectInputStream(clientInputStream);
   		
   		//Create outputstream for sending of packages
   		OutputStream serverOutputStream = clientSocket.getOutputStream();
-        oos = new ObjectOutputStream(serverOutputStream);
+        //Wrap the outputstream in an objectoutputstream.
+  		oos = new ObjectOutputStream(serverOutputStream);
         
+  		
         ServerPackageHandler handler = new ServerPackageHandler();
         ArrayList<DataPackage> packages;
         
@@ -41,6 +47,7 @@ class doComms implements Runnable {
         
         while(isConnected) {
         	try {
+        		//Tries to read from the stream and generates the appropriate responsepackages
         		DataPackage pack = (DataPackage) ois.readObject();
         		packages = (ArrayList<DataPackage>) handler.HandlePackage(pack);
         		for (DataPackage responsePack : packages) {
@@ -48,6 +55,7 @@ class doComms implements Runnable {
         		}
         	}
         	catch (EOFException e) {
+        		//Catches socket errors (mainly that the sockets are closed therefore disconected from the server).
         		System.out.println("Socket with id " + connectionId + " disconnected.");
         		isConnected = false;
         	}
