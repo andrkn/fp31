@@ -18,8 +18,8 @@ public class TestMethods {
     	dbm.setConnection(db.getConnection());
     	
     	
-    	System.out.println(dbm.getAlarms());
-    	dbm.setSubGroup(1, 2);
+    	//System.out.println(dbm.getAlarms());
+    	//dbm.setSubGroup(1, 2);
     	
     	//dbm.invitePersons(38, "gardmf");
     	//dbm.answerInvite("gardmf", 38, 1);
@@ -28,8 +28,8 @@ public class TestMethods {
     	//	System.out.println(e.getEventId());
     	//}
     	
-    	//dbm.createEvent("garmdf", new Timestamp(113,11,3,15,0,0,0), new Timestamp(113,11,3,17,0,0,0), "prosjekt", "jobbe med prosjektet", "", "helle hanskhe", "1", "");
-
+    	Event e = dbm.createEvent("hanskhe", new Timestamp(113,12,2,15,0,0,0), new Timestamp(113,12,2,16,0,0,0), "prosjekt", "jobbe med prosjektet", "", "helle", null, "");
+    	db.close();
     	
     	
 //    	for(Event e : dbm.loadEvents("hanskhe")){

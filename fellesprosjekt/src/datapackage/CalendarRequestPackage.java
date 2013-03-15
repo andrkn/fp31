@@ -7,10 +7,13 @@ public class CalendarRequestPackage implements DataPackage{
 	
 	private String name;
 	private Integer group;
+	private int packageNumber, totalPackages;
 	
-	public CalendarRequestPackage(String name, Integer group){
+	public CalendarRequestPackage(String name, Integer group, int packageNumber, int totalPackages){
 		this.name = name;
 		this.group = group;
+		this.packageNumber = packageNumber;
+		this.totalPackages = totalPackages;
 	}
 	
 	public String getName(){
@@ -19,6 +22,18 @@ public class CalendarRequestPackage implements DataPackage{
 	
 	public Integer getGroup(){
 		return this.group;
+	}
+
+	@Override
+	public int getPackageNumber() {
+		// TODO Auto-generated method stub
+		return packageNumber;
+	}
+
+	@Override
+	public int getTotalPackages() {
+		// TODO Auto-generated method stub
+		return totalPackages;
 	}
 
 }

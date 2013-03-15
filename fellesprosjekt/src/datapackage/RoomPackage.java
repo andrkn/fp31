@@ -4,18 +4,19 @@ import model.Room;
 
 public class RoomPackage implements DataPackage{
 	
-	private int packageNr; 
+
 	private int totalPackages; 
+	private int packageNumber;
 	private Room room;
 
-	public RoomPackage(int packageNr, int totalPackages, Room room) {
-		this.packageNr = packageNr;
+	public RoomPackage(int packageNumber, int totalPackages, Room room) {
+		this.packageNumber = packageNumber;
 		this.totalPackages = totalPackages;
 		this.room = room;
 	}
 
-	public int getPackageNr() {
-		return packageNr;
+	public int getPackageNumber() {
+		return packageNumber;
 	}
 
 	public int getTotalPackages() {

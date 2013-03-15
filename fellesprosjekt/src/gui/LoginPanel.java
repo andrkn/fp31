@@ -94,7 +94,7 @@ public class LoginPanel extends JPanel {
 						JOptionPane.showMessageDialog(null, "YOU CAN LOGIN! GANDALF WILL LET YOU PASS!");
 						
 						//Notify the MainPanel that the login has been approved. MainPanel will take appropriate aciton.
-						sender.close();
+						//sender.close();
 						mainPanel.loginApproved(username.getText());
 					}
 					else{
@@ -113,7 +113,7 @@ public class LoginPanel extends JPanel {
 		
 		public boolean validLogin(String username, String password) throws IOException{
 			//PackageReceiver receiver = new PackageReceiver();
-			LoginPackage loginPack = new LoginPackage(username, password);
+			LoginPackage loginPack = new LoginPackage(username, password, 1, 1);
 			sender.sendPackage(loginPack);
 			DataPackage responsePack = sender.receivePackage();
 			if (responsePack instanceof ErrorPackage){

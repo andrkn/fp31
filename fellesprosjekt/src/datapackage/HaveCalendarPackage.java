@@ -4,18 +4,18 @@ import model.HaveCalendar;
 
 public class HaveCalendarPackage implements DataPackage{
 	
-	private int packageNr; 
+	private int packageNumber; 
 	private int totalPackages; 
 	private HaveCalendar hc;
 	
-	public HaveCalendarPackage(int packageNr, int totalPackages, HaveCalendar hc) {
-		this.packageNr = packageNr;
+	public HaveCalendarPackage(int packageNumber, int totalPackages, HaveCalendar hc) {
+		this.packageNumber = packageNumber;
 		this.totalPackages = totalPackages;
 		this.hc = hc;
 	}
 
 	public int getPackageNr() {
-		return packageNr;
+		return packageNumber;
 	}
 
 	public int getTotalPackages() {
@@ -24,5 +24,11 @@ public class HaveCalendarPackage implements DataPackage{
 
 	public HaveCalendar getHc() {
 		return hc;
+	}
+
+	@Override
+	public int getPackageNumber() {
+		// TODO Auto-generated method stub
+		return packageNumber;
 	} 
 }
