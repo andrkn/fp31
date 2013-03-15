@@ -42,6 +42,7 @@ public class EventPanelTest {
 				new Event(99, new Person(), new Timestamp(System.currentTimeMillis()), 
 						new Timestamp(System.currentTimeMillis()), 
 						"Name", "Decription", "Place", null, test), p);
+		model.setMapAlarm(p, model.getTimestamp(model.getStartTime() + 10000));
 		EventPanel panel = new EventPanel(model);
 		
 		mainPanel.add(panel);

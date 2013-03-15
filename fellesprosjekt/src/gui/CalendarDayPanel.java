@@ -1,7 +1,11 @@
 package gui;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.GridBagLayout;
+import java.awt.geom.Line2D;
 import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
@@ -18,8 +22,6 @@ import model.Person;
 
 public class CalendarDayPanel extends JPanel{
 	
-	
-	
 	public CalendarDayPanel(ArrayList<Event> events, int width, int height){
 		
 		
@@ -28,30 +30,41 @@ public class CalendarDayPanel extends JPanel{
 		
 		for (Event event : events){
 			JPanel eventPanel = new EventPreview(new EventModel(event, new Person()));
-//			eventPanel.setAlignmentY((height/24)*event.getStartTime().getHours());
 			this.add(eventPanel);
-			eventPanel.setBounds(2, (height/24)*event.getStartTime().getHours(), width-5,70);
-//			eventPanel.setLocation(100, 100);
-//			eventPanel.setSize(70, 70);
-//			
-//			eventPanel.setVisible(true);
+			System.out.println(height/24);
+			
+			eventPanel.setBounds(0, (int)(height/24)*event.getStartTime().getHours(), (int)width,70);
 		}
-//		JLabel l = new JLabel("Halla");
-//		this.add(l);
-//		l.setBounds(0, 0, width, 30);
-//		l.setLocation(50, 60); 
-//		l.setSize(230, 40);
-//		this.setSize(1000, 1000);
-//		this.setBackground(Color.GREEN);
-//		System.out.println(this.getComponentCount());
-//		this.setVisible(true);
-		this.setBorder(BorderFactory.createRaisedBevelBorder());
 		this.validate(); 
 		this.repaint();
 	}
 	
-	public void update(){
-		
-	}
+	public void paintComponent(Graphics g) {
 
+		super.paintComponent(g);
+		
+		// fill with the color you want
+		int wide = getWidth();
+		int tall = getHeight();
+		g.setColor(new Color(240,240,240));
+		g.fillRect(0, 0, wide, tall);
+
+		// go into Graphics2D for all the fine art, more options
+		// optional, here I just get variable Stroke sizes
+		Graphics2D g2 = (Graphics2D) g;
+		g2.setColor(Color.BLACK);
+
+		g2.setStroke(new BasicStroke(1));
+		g2.drawLine(0, 0, 0, tall);
+
+		g2.setColor(Color.BLACK);
+		double rowH = getHeight() / 24;
+		for (int i = 1; i < 24; i++) {
+			Line2D line = new Line2D.Double(0.0, (double) i * rowH,
+					(double) getWidth(), (double) i * rowH);
+			g2.draw(line);
+		}
+
+	}
+	
 }
