@@ -5,6 +5,7 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class CalendarModel implements PropertyChangeListener {
 	
@@ -68,5 +69,16 @@ public class CalendarModel implements PropertyChangeListener {
 		this.pcs = pcs;
 	}
 
+	public Timestamp getWeekStart(){
+		int week = 11; 
+		int year = 2013;
+		// Get calendar, clear it and set week number and year.
+		Calendar calendar = Calendar.getInstance();
+		calendar.clear();
+		calendar.set(Calendar.WEEK_OF_YEAR, week);
+		calendar.set(Calendar.YEAR, year);
+		
+		return new Timestamp(calendar.getTimeInMillis());
+	}
 	
 }
