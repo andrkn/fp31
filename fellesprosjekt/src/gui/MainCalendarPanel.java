@@ -60,6 +60,9 @@ public class MainCalendarPanel extends JPanel {
 		EventModel model = new EventModel(calModel.getEventList().get(0), calModel.getEventList().get(0).getCreatedBy());
 		System.out.println(model);
 		EventPanel eventPanel = new EventPanel(model);
+		
+		ButtonPanel buttonPanel = new ButtonPanel();
+		add(buttonPanel);
 		add(eventPanel);
 		model.setEditeble(true);
 	}

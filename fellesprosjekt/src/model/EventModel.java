@@ -87,8 +87,14 @@ public class EventModel {
 	}
 	
 	public String getAlarm(){
-		int alarm = event.getAlarms().get(user);
-		return Integer.toString(alarm);
+		System.out.println(event.getAlarms());
+		if (event.getAlarms() != null){
+			int alarm = event.getAlarms().get(user);
+			return Integer.toString(alarm);
+		}
+		else{
+			return "No Alarm";
+		}
 	}
 	
 	public void setAlarm(int alarm){
