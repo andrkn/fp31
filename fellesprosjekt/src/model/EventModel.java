@@ -86,16 +86,13 @@ public class EventModel {
 		event.setDescription(description); 
 	}
 	
-	public HashMap<Person, Timestamp> getAlarm(){
-		if(event.getAlarms() == null){
-			return null;
-		}
-		
-		return event.getAlarms();
+	public String getAlarm(){
+		int alarm = event.getAlarms().get(user);
+		return Integer.toString(alarm);
 	}
 	
-	public void setAlarm(Person person, Timestamp alarm){
-		event.setAlarm(person, alarm);
+	public void setAlarm(int alarm){
+		event.setAlarm(user, alarm);
 	}
 
 

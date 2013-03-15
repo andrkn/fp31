@@ -22,7 +22,7 @@ public class Event implements java.io.Serializable {
 	private Timestamp startTime, endTime;
 	private Boolean isActive;
 	private ArrayList<HaveCalendar> attenders;
-	private HashMap<Person, Timestamp> alarms;
+	private HashMap<Person, Integer> alarms;
 	
 	public Event(int eventId, Person createdBy, Timestamp startTime, Timestamp endTime, String name, 
 	String description, String place, Room room, ArrayList<HaveCalendar> attenders) {
@@ -130,26 +130,14 @@ public class Event implements java.io.Serializable {
 		return attenders.size();
 	}
 
-	public void setAlarm(Person person, Timestamp alarm) {
-		if (alarms == null){
-			alarms = new HashMap<Person, Timestamp>();
-		}
-		alarms.put(person, alarm);
+	public void setAlarm(Person person, int alarm) {
+		       alarms.put(person, alarm);
+		      }
+	
+	public HashMap<Person, Integer> getAlarms() {
+	      return alarms;
 	}
 
-	public HashMap<Person, Timestamp> getAlarms() {
-		HashMap<Person, Timestamp> aMap = new HashMap<Person, Timestamp>();
-		
-		if(alarms.isEmpty())
-			return null;
-		else {
-		for(Person p : alarms.keySet()){
-			
-			aMap.put(p, alarms.get(p));
-		}
-		
-		return aMap;
-		}
-	}
+	
 	
 }
