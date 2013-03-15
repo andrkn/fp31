@@ -35,7 +35,7 @@ public class EventModel {
 		event.setEndTime(getTimestamp(endTimeString));
 	}
 	
-	private Timestamp getTimestamp(String timeString) {
+	public Timestamp getTimestamp(String timeString) {
 		
 		String[] time_date = timeString.split(" ");
 		String[] time = time_date[0].split(":");
@@ -86,16 +86,13 @@ public class EventModel {
 		event.setDescription(description); 
 	}
 	
-	public HashMap<Person, Timestamp> getAlarm(){
-		if(event.getAlarms() == null){
-			return null;
-		}
-		
-		return event.getAlarms();
+	public String getAlarm(){
+		   int alarm = event.getAlarms().get(user);
+		    return Integer.toString(alarm);
 	}
 	
-	public void setAlarm(Person person, Timestamp alarm){
-		event.setAlarm(person, alarm);
+	public void setAlarm(int alarm){
+		    event.setAlarm(user, alarm);
 	}
 
 
