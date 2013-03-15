@@ -14,6 +14,7 @@ import datapackage.EventPackage;
 
 import net.PackageSender;
 
+import model.CalendarModel;
 import model.Event;
 import model.EventModel;
 import model.HaveCalendar;
@@ -45,19 +46,21 @@ public class MainCalendarPanel extends JPanel {
 		}
 		//eventList now contains all events for the username requested!
 		
+		CalendarModel calModel = new CalendarModel();
+		calModel.setEventList(eventList);
+		
 		this.setPreferredSize(new Dimension(800, 800));
-		Person p = new Person();
-		p.setName("Torstein");
+//		Person p = new Person();
+//		p.setName("Torstein");
 		ArrayList<HaveCalendar> test = new ArrayList<HaveCalendar>();
-		EventModel model = new EventModel(
-				new Event(99, new Person(), new Timestamp(System.currentTimeMillis()), 
-						new Timestamp(System.currentTimeMillis()), 
-						"Name", "Decription", "Place", null, test), p);
+//		EventModel model = new EventModel(
+//				new Event(99, new Person(), new Timestamp(System.currentTimeMillis()), 
+//						new Timestamp(System.currentTimeMillis()), 
+//						"Name", "Decription", "Place", null, test), p);
+		EventModel model = new EventModel(calModel.getEventList().get(0), calModel.getEventList().get(0).getCreatedBy());
+		System.out.println(model);
 		EventPanel eventPanel = new EventPanel(model);
 		add(eventPanel);
 		model.setEditeble(true);
-		
-
-		
 	}
 }

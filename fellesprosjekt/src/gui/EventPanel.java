@@ -211,7 +211,9 @@ public class EventPanel extends JPanel implements PropertyChangeListener{
 			attenderComponent = new AttenderListPanel(model);
 			
 		}else{
-			attenderComponent = getAttenders();
+			
+				attenderComponent = getAttenders();
+
 			
 		}
 //		int height = attenderComponent.getHeight()+(new JButton()).getHeight();
@@ -252,8 +254,13 @@ public class EventPanel extends JPanel implements PropertyChangeListener{
 		JList attendersList = new JList();
 		DefaultListModel listModel = new DefaultListModel(); 
 		attendersList.setModel(listModel);
-
 		ArrayList<HaveCalendar> attendersArray = model.getAttenders();
+		//Null-check
+		if (attendersArray == null){
+			ArrayList<HaveCalendar> nullCheckArray = new ArrayList<HaveCalendar>();
+			attendersArray = nullCheckArray;
+		}
+		
 		Collections.sort(attendersArray);
 		for(HaveCalendar hc : attendersArray){
 			listModel.addElement(hc); 
