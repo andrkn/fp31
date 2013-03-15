@@ -140,12 +140,16 @@ public class Event implements java.io.Serializable {
 	public HashMap<Person, Timestamp> getAlarms() {
 		HashMap<Person, Timestamp> aMap = new HashMap<Person, Timestamp>();
 		
+		if(alarms.isEmpty())
+			return null;
+		else {
 		for(Person p : alarms.keySet()){
 			
 			aMap.put(p, alarms.get(p));
 		}
 		
 		return aMap;
+		}
 	}
 	
 }
