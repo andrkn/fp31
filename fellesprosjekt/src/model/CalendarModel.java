@@ -42,6 +42,7 @@ public class CalendarModel implements PropertyChangeListener {
 	public void addEvent(int eventId, Person createdBy, Timestamp startTime, Timestamp endTime, String name, String description, String place, Room room, ArrayList<HaveCalendar> attenders) {
 		Event newEvent = new Event(eventId, createdBy, startTime, endTime, name, description, place, room, attenders);
 		eventList.add(newEvent);
+		pcs.firePropertyChange("addEvent", null, newEvent);
 	}
 	public void addEvent(Event event){
 		eventList.add(event);

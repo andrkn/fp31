@@ -31,6 +31,8 @@ public class CalendarPanel extends JPanel implements PropertyChangeListener{
 	
 	public void update(){
 		
+		this.removeAll();
+		
 		ArrayList<Event> events = model.getEventList();
 		
 		Timestamp dayStart = model.getWeekStart();
