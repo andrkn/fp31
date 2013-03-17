@@ -139,7 +139,15 @@ public class EventPanel extends JPanel implements PropertyChangeListener{
 //		this.validate();
 //		this.repaint();
 //	}
-
+	public EventModel getModel(){
+		return this.model;
+	}
+	
+	public void setModel(EventModel model){
+		this.model = model;
+		setEditeble();
+	}
+	
 	private void addTittel(boolean editeble) {
 		setupGridForSpan2();
 		

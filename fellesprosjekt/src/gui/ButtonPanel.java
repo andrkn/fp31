@@ -8,8 +8,11 @@ import javax.swing.JPanel;
 
 public class ButtonPanel extends JPanel {
 	private JButton addEvent, addExternalCal;
+	private MainCalendarPanel mainPanel
 	
-	public ButtonPanel(){
+	public ButtonPanel(MainCalendarPanel mainPanel){
+		this.mainPanel = mainPanel;
+		
 		addEvent = new JButton("New event");
 		addEvent.setName("NewEvent");
 		addEvent.addActionListener(new ButtonPanelAction());
@@ -28,6 +31,8 @@ public class ButtonPanel extends JPanel {
 			
 			if (sourceButton.getName().equals("NewEvent")){
 				System.out.println("Adding Event");
+				mainPanel.newEvent();
+				
 			}
 			else if (sourceButton.getName().equals("AddExternal")){
 				System.out.println("Adding External Calendar");

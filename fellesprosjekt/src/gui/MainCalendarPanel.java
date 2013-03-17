@@ -22,8 +22,9 @@ import model.Person;
 
 public class MainCalendarPanel extends JPanel {
 
-	PackageSender sender;
-
+	private PackageSender sender;
+	private EventPanel eventPanel;
+	
 	public MainCalendarPanel(String username){
 		CalendarRequestPackage calReq = new CalendarRequestPackage(username,null,1,1);
 		try {
@@ -59,11 +60,16 @@ public class MainCalendarPanel extends JPanel {
 //						"Name", "Decription", "Place", null, test), p);
 		EventModel model = new EventModel(calModel.getEventList().get(0), calModel.getEventList().get(0).getCreatedBy());
 		System.out.println(model);
-		EventPanel eventPanel = new EventPanel(model);
+		eventPanel = new EventPanel(model);
 		
-		ButtonPanel buttonPanel = new ButtonPanel();
+		ButtonPanel buttonPanel = new ButtonPanel(this);
 		add(buttonPanel);
 		add(eventPanel);
 		model.setEditeble(true);
 	}
+	
+	public void newEvent(){
+		this.eventPanel.setModel(new EventModel());
+	}
+	
 }
