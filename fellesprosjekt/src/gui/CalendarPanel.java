@@ -1,6 +1,8 @@
 package gui;
 
 import java.awt.GridBagConstraints;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 
@@ -10,7 +12,7 @@ import javax.swing.JPanel;
 import model.CalendarModel;
 import model.Event;
 
-public class CalendarPanel extends JPanel{
+public class CalendarPanel extends JPanel implements PropertyChangeListener{
 
 	CalendarModel model; 
 	GridBagConstraints grid; 
@@ -18,6 +20,7 @@ public class CalendarPanel extends JPanel{
 	
 	public CalendarPanel(CalendarModel model){
 		this.model = model; 
+		model.addPropertyChangeListener(this);
 		this.setLayout(null);
 		
 		update();
@@ -72,5 +75,12 @@ public class CalendarPanel extends JPanel{
 	
 	private JLabel getTimeLabel(int time){
 		return new JLabel("  " + Integer.toString(time) + ":00");
+	}
+
+	@Override
+	public void propertyChange(PropertyChangeEvent arg0) {
+		update(); 
+		this.validate(); 
+		this.repaint();
 	}
 }
