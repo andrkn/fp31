@@ -24,6 +24,8 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
 
+import datapackage.DataPackage;
+import datapackage.ErrorPackage;
 import datapackage.EventPackage;
 
 import model.EventModel;
@@ -358,7 +360,13 @@ public class EventPanel extends JPanel implements PropertyChangeListener{
 		
 		Event returnEvent = model.getEvent();
 		EventPackage eventPack = new EventPackage(1, 1, returnEvent);
-		mainCalendarPanel.sendPackage(eventPack);
+		DataPackage returnPack = mainCalendarPanel.sendPackage(eventPack);
+		if (returnPack instanceof EventPackage){
+			model.getEvent().setEventId(((EventPackage) returnPack).getEvent().getEventId());
+		}
+		else if (returnPack instanceof ErrorPackage){
+			System.out.println(((ErrorPackage)returnPack).getDescription());
+		}
 		
 		model.setEditeble(true);
 	}

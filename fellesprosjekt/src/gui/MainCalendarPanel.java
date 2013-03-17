@@ -79,9 +79,9 @@ public class MainCalendarPanel extends JPanel {
 		this.eventPanel.setModel(new EventModel(event, this.user));
 	}
 
-	public void sendPackage(DataPackage pack) {
+	public DataPackage sendPackage(DataPackage pack) {
 		sender.sendPackage(pack);
-		
+		return sender.receivePackage();
 	}
 	
 }

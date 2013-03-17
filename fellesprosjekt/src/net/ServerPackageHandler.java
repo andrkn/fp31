@@ -178,7 +178,7 @@ public class ServerPackageHandler {
 		ArrayList<DataPackage> returnPackages = new ArrayList<DataPackage>();
 		
 		if (returnEvent.getEventId() != 0){
-			returnPackages.add(new ErrorPackage(ErrorType.OK, "Sucsessfully inserted event to database", 1, 1));
+			returnPackages.add(new EventPackage(1, 1, returnEvent));
 			return returnPackages;
 		}
 		else{
