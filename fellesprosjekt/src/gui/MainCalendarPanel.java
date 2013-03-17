@@ -26,6 +26,7 @@ public class MainCalendarPanel extends JPanel {
 	private PackageSender sender;
 	private EventPanel eventPanel;
 	private Person user;
+	private ArrayList<Event> eventList;
 	
 	public MainCalendarPanel(String username){
 		//Set the current user. ATM does not care about anything but username
@@ -40,7 +41,7 @@ public class MainCalendarPanel extends JPanel {
 		}
 		sender.sendPackage(calReq);
 		ArrayList<DataPackage> response = sender.receivePackageArray();
-		ArrayList<Event> eventList = new ArrayList<Event>();
+		eventList = new ArrayList<Event>();
 		for (int i = 0; i<response.size();i++){
 			if (response.get(i) instanceof EventPackage){
 				EventPackage ePack = (EventPackage)response.get(i);
@@ -77,6 +78,10 @@ public class MainCalendarPanel extends JPanel {
 	public void newEvent(){
 		Event event = new Event(0,this.user,new Timestamp(0), new Timestamp(0),"","","",null,new ArrayList<HaveCalendar>());
 		this.eventPanel.setModel(new EventModel(event, this.user));
+	}
+	
+	public void importEvents(){
+		//import antoher contacts events.
 	}
 
 	public DataPackage sendPackage(DataPackage pack) {
