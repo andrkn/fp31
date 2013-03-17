@@ -33,7 +33,7 @@ public class CalendarPanelTest {
 		model.addEvent(e1); 
 		model.addEvent(e2);
 		
-		CalendarPanel calendarPanel = new CalendarPanel(model); 
+		CalendarPanel calendarPanel = new CalendarPanel(model, new MainCalendarPanel("hanskhe")); 
 		
 		frame.setContentPane(calendarPanel); 
 		frame.setSize(1300, 900); 

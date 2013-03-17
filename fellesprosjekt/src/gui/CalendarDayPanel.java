@@ -26,7 +26,7 @@ public class CalendarDayPanel extends JPanel{
 			"Søndag"
 	};
 	
-	public CalendarDayPanel(ArrayList<Event> events, int width, int height,int day){
+	public CalendarDayPanel(ArrayList<Event> events, int width, int height,int day, MainCalendarPanel mainPanel){
 		
 		this.setLayout(null);
 		
@@ -35,7 +35,7 @@ public class CalendarDayPanel extends JPanel{
 		dayLabel.setBounds(3, 10, width-10, 15);
 		
 		for (Event event : events){
-			JPanel eventPanel = new EventPreview(new EventModel(event, new Person()));
+			JPanel eventPanel = new EventPreview(new EventModel(event, new Person()), mainPanel);
 			this.add(eventPanel);
 			
 			eventPanel.setBounds(0, 30 + (int)(height/24)*event.getStartTime().getHours(), (int)width,70);

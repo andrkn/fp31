@@ -33,7 +33,7 @@ public class CalendarPanelWithLabels extends JPanel{
 		grid.gridwidth = 7;
 		grid.gridheight = 24; 
 		
-		calendarPanel = new CalendarPanel(model);
+		calendarPanel = new CalendarPanel(model,null);
 		
 		this.add(calendarPanel, grid);
 		

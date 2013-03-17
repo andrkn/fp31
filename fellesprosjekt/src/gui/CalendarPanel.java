@@ -15,11 +15,13 @@ import model.Event;
 public class CalendarPanel extends JPanel implements PropertyChangeListener{
 
 	CalendarModel model; 
+	MainCalendarPanel mainPanel;
 	GridBagConstraints grid; 
 	public static final long MILLISECOND_IN_DAY = 24*60*60*1000;
 	
-	public CalendarPanel(CalendarModel model){
+	public CalendarPanel(CalendarModel model, MainCalendarPanel mainPanel){
 		this.model = model; 
+		this.mainPanel = mainPanel;
 		model.addPropertyChangeListener(this);
 		this.setLayout(null);
 		
@@ -53,7 +55,7 @@ public class CalendarPanel extends JPanel implements PropertyChangeListener{
 				}
 			}
 			
-			JPanel dayPanel = new CalendarDayPanel(eventsForDay,width,height,i);
+			JPanel dayPanel = new CalendarDayPanel(eventsForDay,width,height,i, mainPanel);
 			this.add(dayPanel);
 			dayPanel.setBounds((int)width*(i)+50, 0, (int)width, (int)height);
 			
