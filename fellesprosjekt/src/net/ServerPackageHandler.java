@@ -173,6 +173,7 @@ public class ServerPackageHandler {
 		EventPackage eventPack = (EventPackage)pack;
 		Event event = eventPack.getEvent();
 		//Eventprintout
+		System.out.println("Received an eventPack with the following content:");
 		System.out.println(event.getEventId());
 		System.out.println(event.getCreatedBy().getUsername());
 		System.out.println(event.getStartTime());
