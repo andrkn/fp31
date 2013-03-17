@@ -2,6 +2,7 @@ package gui;
 
 import java.awt.Component;
 import java.awt.Dimension;
+import model.Event;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -23,6 +24,8 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
 
+import datapackage.EventPackage;
+
 import model.EventModel;
 import model.HaveCalendar;
 import model.InviteListPanel;
@@ -43,9 +46,10 @@ public class EventPanel extends JPanel implements PropertyChangeListener{
 	private int[] attendersGridConstants = new int[2];
 	private int endRow;
 	private int alarmOption;
+	private MainCalendarPanel mainCalendarPanel;
 	
-	public EventPanel(EventModel model){
-		
+	public EventPanel(EventModel model, MainCalendarPanel mainCalendarPanel){
+		this.mainCalendarPanel = mainCalendarPanel;
 		this.model = model;
 		model.addPropertyChangeListener(this);
 		
@@ -58,7 +62,7 @@ public class EventPanel extends JPanel implements PropertyChangeListener{
 //		addTittel(model.getEditable());
 //		addButtons();
 		
-		launchAlarm();
+		//launchAlarm();
 		setEditeble();
 		
 		
@@ -351,6 +355,10 @@ public class EventPanel extends JPanel implements PropertyChangeListener{
 		model.setStartTime(startTimeField.getText()); 
 		model.setEndTime(endTimeField.getText());
 		model.setAlarm(Integer.parseInt(alarmField.getText()));
+		
+		Event returnEvent = model.getEvent();
+		EventPackage eventPack = new EventPackage(1, 1, returnEvent);
+		mainCalendarPanel.sendPackage(eventPack);
 		
 		model.setEditeble(true);
 	}

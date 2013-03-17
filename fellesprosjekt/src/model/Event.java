@@ -37,6 +37,7 @@ public class Event implements java.io.Serializable {
 		this.place = place;
 		this.room = room;
 		this.attenders = attenders;
+		this.alarms = new HashMap<Person, Integer>();
 
 	}
 	

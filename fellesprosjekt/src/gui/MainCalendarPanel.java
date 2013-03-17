@@ -19,6 +19,7 @@ import model.Event;
 import model.EventModel;
 import model.HaveCalendar;
 import model.Person;
+import model.Room;
 
 public class MainCalendarPanel extends JPanel {
 
@@ -55,16 +56,17 @@ public class MainCalendarPanel extends JPanel {
 		calModel.setEventList(eventList);
 		
 		this.setPreferredSize(new Dimension(800, 800));
+		this.setMinimumSize(new Dimension(800,800));
+		ArrayList<HaveCalendar> test = new ArrayList<HaveCalendar>();
 //		Person p = new Person();
 //		p.setName("Torstein");
-		ArrayList<HaveCalendar> test = new ArrayList<HaveCalendar>();
 //		EventModel model = new EventModel(
 //				new Event(99, new Person(), new Timestamp(System.currentTimeMillis()), 
 //						new Timestamp(System.currentTimeMillis()), 
 //						"Name", "Decription", "Place", null, test), p);
 		EventModel model = new EventModel(calModel.getEventList().get(0), calModel.getEventList().get(0).getCreatedBy());
 		System.out.println(model);
-		eventPanel = new EventPanel(model);
+		eventPanel = new EventPanel(model, this);
 		
 		ButtonPanel buttonPanel = new ButtonPanel(this);
 		add(buttonPanel);
@@ -73,7 +75,13 @@ public class MainCalendarPanel extends JPanel {
 	}
 	
 	public void newEvent(){
-		this.eventPanel.setModel(new EventModel(new Event(),this.user));
+		Event event = new Event(0,this.user,new Timestamp(0), new Timestamp(0),"","","",null,new ArrayList<HaveCalendar>());
+		this.eventPanel.setModel(new EventModel(event, this.user));
+	}
+
+	public void sendPackage(DataPackage pack) {
+		sender.sendPackage(pack);
+		
 	}
 	
 }

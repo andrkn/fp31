@@ -8,7 +8,7 @@ import javax.swing.JPanel;
 
 public class ButtonPanel extends JPanel {
 	private JButton addEvent, addExternalCal;
-	private MainCalendarPanel mainPanel
+	private MainCalendarPanel mainPanel;
 	
 	public ButtonPanel(MainCalendarPanel mainPanel){
 		this.mainPanel = mainPanel;

@@ -20,6 +20,9 @@ public class EventModel {
 		pcs = new PropertyChangeSupport(this); 
 	}
 
+	public Event getEvent(){
+		return this.event;
+	}
 	
 	public String getStartTime(){
 		return getTimeString(event.getStartTime()); 
