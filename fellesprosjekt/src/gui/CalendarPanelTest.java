@@ -41,6 +41,12 @@ public class CalendarPanelTest {
 		frame.setDefaultCloseOperation(frame.EXIT_ON_CLOSE); 
 		
 		calendarPanel.update();
+		
+		Event e3 = new Event(99, new Person(), new Timestamp(System.currentTimeMillis() - 2*CalendarPanel.MILLISECOND_IN_DAY), 
+				new Timestamp(System.currentTimeMillis() - 2*CalendarPanel.MILLISECOND_IN_DAY), 
+				"Name", "Decription", "Place", null, test); 
+		
+		model.addEvent(e3);
 	}
 	
 }
