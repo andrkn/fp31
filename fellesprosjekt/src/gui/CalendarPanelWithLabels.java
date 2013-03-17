@@ -1,7 +1,9 @@
 package gui;
 
+import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Insets;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -11,6 +13,8 @@ import model.CalendarModel;
 public class CalendarPanelWithLabels extends JPanel{
 	
 	private CalendarPanel calendarPanel;
+	private int width = 1400; 
+	private int height = 900;
 	
 	public CalendarPanelWithLabels(CalendarModel model){
 		
@@ -33,6 +37,12 @@ public class CalendarPanelWithLabels extends JPanel{
 		
 		this.add(calendarPanel, grid);
 		
+		Dimension dim = new Dimension(width,height);
+		calendarPanel.setMinimumSize(dim);
+		calendarPanel.setPreferredSize(dim);
+		calendarPanel.setMaximumSize(dim);
+//		calendarPanel.setSize(dim);
+		
 		calendarPanel.setVisible(true);
 	}
 
@@ -40,6 +50,9 @@ public class CalendarPanelWithLabels extends JPanel{
 		GridBagConstraints grid = new GridBagConstraints();
 		grid.gridx = 0; 
 		grid.gridy = 1; 
+		grid.weightx = 1; 
+		grid.weighty = 1; 
+		
 		
 		for (int i = 0; i < 24; i++){
 			this.add(getTimeLabel(i), grid); 
@@ -52,9 +65,17 @@ public class CalendarPanelWithLabels extends JPanel{
 	}
 
 	private void addDayLabel() {
+//		JPanel this = new JPanel(); 
+		
 		GridBagConstraints grid = new GridBagConstraints();
+		
 		grid.gridx = 1; 
 		grid.gridy = 0;
+		grid.weightx = 1; 
+		grid.weighty = 1;
+		
+//		grid.insets = new Insets(0, 200, 0, 200); 
+		
 		
 		JLabel mondayLabel = new JLabel("Mandag");
 		this.add(mondayLabel, grid); 
@@ -82,6 +103,17 @@ public class CalendarPanelWithLabels extends JPanel{
 		grid.gridx += 1; 
 		JLabel sundayLabel = new JLabel("Søndag");
 		this.add(sundayLabel, grid);
+		
+//		grid = new GridBagConstraints();
+//		grid.gridx = 1; 
+//		grid.gridy = 0; 
+//		
+//		this.add(this, grid);
+//		
+//		Dimension dim = new Dimension(width, 30);
+//		this.setMinimumSize(dim);
+//		this.setPreferredSize(dim);
+//		this.setMaximumSize(dim);
 	}
 	
 	public void update(){

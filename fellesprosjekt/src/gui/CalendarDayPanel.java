@@ -4,17 +4,11 @@ import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.GridBagLayout;
 import java.awt.geom.Line2D;
 import java.util.ArrayList;
 
-import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
-import javax.swing.border.EtchedBorder;
-
-import com.sun.org.apache.xalan.internal.xsltc.dom.AbsoluteIterator;
 
 import model.Event;
 import model.EventModel;
@@ -22,18 +16,29 @@ import model.Person;
 
 public class CalendarDayPanel extends JPanel{
 	
-	public CalendarDayPanel(ArrayList<Event> events, int width, int height){
+	private String[] days = {
+			"Mandag", 
+			"Tirdsag", 
+			"Onsdag", 
+			"Torsdag", 
+			"Fredag", 
+			"Lørdag",
+			"Søndag"
+	};
+	
+	public CalendarDayPanel(ArrayList<Event> events, int width, int height,int day){
 		
-		
-		this.setLayout(new GridBagLayout());
 		this.setLayout(null);
+		
+		JLabel dayLabel = new JLabel(days[day]);
+		this.add(dayLabel); 
+		dayLabel.setBounds(3, 10, width-10, 15);
 		
 		for (Event event : events){
 			JPanel eventPanel = new EventPreview(new EventModel(event, new Person()));
 			this.add(eventPanel);
-			System.out.println(height/24);
 			
-			eventPanel.setBounds(0, (int)(height/24)*event.getStartTime().getHours(), (int)width,70);
+			eventPanel.setBounds(0, 30 + (int)(height/24)*event.getStartTime().getHours(), (int)width,70);
 		}
 		this.validate(); 
 		this.repaint();
@@ -46,7 +51,8 @@ public class CalendarDayPanel extends JPanel{
 		// fill with the color you want
 		int wide = getWidth();
 		int tall = getHeight();
-		g.setColor(new Color(240,240,240));
+		int color = 238;
+		g.setColor(new Color(color,color,color));
 		g.fillRect(0, 0, wide, tall);
 
 		// go into Graphics2D for all the fine art, more options
@@ -56,12 +62,13 @@ public class CalendarDayPanel extends JPanel{
 
 		g2.setStroke(new BasicStroke(1));
 		g2.drawLine(0, 0, 0, tall);
+		g2.drawLine(wide, 0, wide, tall);
 
 		g2.setColor(Color.BLACK);
-		double rowH = getHeight() / 24;
-		for (int i = 1; i < 24; i++) {
-			Line2D line = new Line2D.Double(0.0, (double) i * rowH,
-					(double) getWidth(), (double) i * rowH);
+		double rowH = tall / 24;
+		for (int i = 0; i < 24; i++) {
+			Line2D line = new Line2D.Double(0.0, 30 + (double) i * rowH,
+					(double) getWidth(), 30 + (double) i * rowH);
 			g2.draw(line);
 		}
 

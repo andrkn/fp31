@@ -25,19 +25,18 @@ public class CalendarPanelTest {
 				new Timestamp(System.currentTimeMillis()), 
 				"Name", "Decription", "Place", null, test);
 		
-		Event e2 = new Event(99, new Person(), new Timestamp(System.currentTimeMillis() + CalendarPanel.MILLISECOND_IN_DAY), 
-				new Timestamp(System.currentTimeMillis() + CalendarPanel.MILLISECOND_IN_DAY), 
+		Event e2 = new Event(99, new Person(), new Timestamp(System.currentTimeMillis() - CalendarPanel.MILLISECOND_IN_DAY), 
+				new Timestamp(System.currentTimeMillis() - CalendarPanel.MILLISECOND_IN_DAY), 
 				"Name", "Decription", "Place", null, test); 
 		
 		
 		model.addEvent(e1); 
 		model.addEvent(e2);
 		
-		CalendarPanelWithLabels calendarPanel = new CalendarPanelWithLabels(model); 
-		System.out.println(calendarPanel.getComponentCount());
+		CalendarPanel calendarPanel = new CalendarPanel(model); 
 		
 		frame.setContentPane(calendarPanel); 
-		frame.setSize(1000, 1000); 
+		frame.setSize(1300, 900); 
 		frame.setVisible(true); 
 		frame.setDefaultCloseOperation(frame.EXIT_ON_CLOSE); 
 		

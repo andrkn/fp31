@@ -1,25 +1,14 @@
 package gui;
 
-import java.awt.BasicStroke;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.geom.Line2D;
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
 
-import javax.swing.DebugGraphics;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import model.CalendarModel;
 import model.Event;
-import model.EventModel;
-import model.Person;
 
 public class CalendarPanel extends JPanel{
 
@@ -32,6 +21,7 @@ public class CalendarPanel extends JPanel{
 		this.setLayout(null);
 		
 		update();
+//		this.setBorder(BorderFactory.createLineBorder(Color.black));
 		this.validate(); 
 		this.repaint();
 	}
@@ -43,8 +33,10 @@ public class CalendarPanel extends JPanel{
 		Timestamp dayStart = model.getWeekStart();
 		Timestamp dayEnd = new Timestamp(dayStart.getTime() + MILLISECOND_IN_DAY);
 		
-		int height = this.getHeight();
-		int width = this.getWidth()/7;
+		int height = this.getHeight() - 30;
+		int width = (this.getWidth()-50)/7;
+		
+		addTimeLabel(height);
 		
 		for (int i = 0; i < 7; i++){
 			
@@ -56,13 +48,29 @@ public class CalendarPanel extends JPanel{
 				}
 			}
 			
-			JPanel dayPanel = new CalendarDayPanel(eventsForDay,width,height);
+			JPanel dayPanel = new CalendarDayPanel(eventsForDay,width,height,i);
 			this.add(dayPanel);
-			dayPanel.setBounds((int)width*i, 0, (int)width, (int)height);
+			dayPanel.setBounds((int)width*(i)+50, 0, (int)width, (int)height);
 			
 			dayStart = dayEnd; 
 			dayEnd = new Timestamp(dayStart.getTime() + MILLISECOND_IN_DAY);
 			
 		}
+	}
+	private void addTimeLabel(int height){
+		JPanel panel = new JPanel(); 
+		panel.setLayout(null); 
+		
+		for (int i = 0; i < 24; i ++){
+			JLabel timeLabel = getTimeLabel(i); 
+			panel.add(timeLabel); 
+			timeLabel.setBounds(0, i*(height/24) + 30, 50, height/24);
+		}
+		this.add(panel);
+		panel.setBounds(0, 0, 50, height);
+	}
+	
+	private JLabel getTimeLabel(int time){
+		return new JLabel("  " + Integer.toString(time) + ":00");
 	}
 }
