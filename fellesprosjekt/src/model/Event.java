@@ -40,6 +40,10 @@ public class Event implements java.io.Serializable {
 
 	}
 	
+	public Event(){
+		
+	}
+	
 	public void setCreatedBy(Person createdBy){
 		this.createdBy = createdBy;
 	}

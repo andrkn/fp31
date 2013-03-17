@@ -24,8 +24,12 @@ public class MainCalendarPanel extends JPanel {
 
 	private PackageSender sender;
 	private EventPanel eventPanel;
+	private Person user;
 	
 	public MainCalendarPanel(String username){
+		//Set the current user. ATM does not care about anything but username
+		user = new Person(username, "","");
+		
 		CalendarRequestPackage calReq = new CalendarRequestPackage(username,null,1,1);
 		try {
 			sender = new PackageSender();
@@ -69,7 +73,7 @@ public class MainCalendarPanel extends JPanel {
 	}
 	
 	public void newEvent(){
-		this.eventPanel.setModel(new EventModel());
+		this.eventPanel.setModel(new EventModel(new Event(),this.user));
 	}
 	
 }
