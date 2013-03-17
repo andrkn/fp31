@@ -60,8 +60,16 @@ public class ServerPackageHandler {
 		else if (pack instanceof EventPackage){
 			System.out.println("EventPackage Received");
 			try{
-				returnpackages = HandleEventPackage(pack);
+				returnPackages = HandleEventPackage(pack);
 			}
+			catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
 			
 		}
 		return returnPackages;
