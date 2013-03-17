@@ -57,8 +57,16 @@ public class ServerPackageHandler {
 				e.printStackTrace();
 			}
 		}
+		else if (pack instanceof EventPackage){
+			System.out.println("EventPackage Received");
+			try{
+				returnpackages = HandleEventPackage(pack);
+			}
+			
+		}
 		return returnPackages;
 	}
+
 
 	private DBMethods ConnectToDB() throws IOException{
 				//load properties
@@ -150,6 +158,24 @@ public class ServerPackageHandler {
 		else{
 			JOptionPane.showMessageDialog(null, "Malformated CalReqPackage");
 			return null;
+		}
+	}
+	
+	private ArrayList<DataPackage> HandleEventPackage(DataPackage pack) throws IOException, SQLException {
+		EventPackage eventPack = (EventPackage)pack;
+		Event event = eventPack.getEvent();
+		DBMethods method = ConnectToDB();
+		Event returnEvent = method.createEvent(event.getCreatedBy().getUsername(), event.getStartTime(), event.getEndTime(), event.getName(), event.getDescription(), event.getPlace(), "" /*TODO*/, "" /*TODO*/, event.getRoom().getRoomNr());
+		
+		ArrayList<DataPackage> returnPackages = new ArrayList<DataPackage>();
+		
+		if (returnEvent.getEventId() != 0){
+			returnPackages.add(new ErrorPackage(ErrorType.OK, "Sucsessfully inserted event to database", 1, 1));
+			return returnPackages;
+		}
+		else{
+			returnPackages.add(new ErrorPackage(ErrorType.EVENT_CREATION_ERROR, "Could not create event correctly", 1, 1));
+			return returnPackages;
 		}
 	}
 	

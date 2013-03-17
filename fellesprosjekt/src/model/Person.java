@@ -26,7 +26,9 @@ public class Person implements HaveCalendar, java.io.Serializable{
 	public void setCalendarModel(CalendarModel model) {
 		this.model = model;
 	}
-
+	public String getUsername(){
+		return username;
+	}
 	public String getName() {
 		return name;
 	}
