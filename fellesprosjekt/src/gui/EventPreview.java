@@ -5,6 +5,8 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
@@ -14,13 +16,15 @@ import javax.swing.JPanel;
 
 import model.EventModel;
 
-public class EventPreview extends JPanel implements PropertyChangeListener{
+public class EventPreview extends JPanel implements PropertyChangeListener, MouseListener{
 	
 	private EventModel model;
+	private MainCalendarPanel mainPanel;
 	public static final Color backgroundColor = new Color(190,190,190); 
 	
-	public EventPreview(EventModel model){
+	public EventPreview(EventModel model, MainCalendarPanel mainPanel){
 		this.model = model;
+		this.mainPanel = mainPanel;
 		model.addPropertyChangeListener(this);
 		this.setLayout(new GridBagLayout());
 		
@@ -63,6 +67,36 @@ public class EventPreview extends JPanel implements PropertyChangeListener{
 	@Override
 	public void propertyChange(PropertyChangeEvent arg0) {
 		update();
+	}
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		// TODO Auto-generated method stub
+		mainPanel.setEvent(model);
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
