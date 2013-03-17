@@ -80,8 +80,17 @@ public class MainCalendarPanel extends JPanel {
 		this.eventPanel.setModel(new EventModel(event, this.user));
 	}
 	
+	public void setEvent(EventModel model){
+		//Call this method if you need to change the event currently beeing viewed
+		this.eventPanel.setModel(model);
+	}
+	
 	public void importEvents(){
-		//import antoher contacts events.
+		/*Import antoher contacts events.
+		 * needs to activate a view that lets the user enter a username
+		 * and then send that username with a CalendarRequestPackage to
+		 * the server.
+		 */
 	}
 
 	public DataPackage sendPackage(DataPackage pack) {
