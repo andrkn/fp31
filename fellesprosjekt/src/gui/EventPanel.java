@@ -363,6 +363,7 @@ public class EventPanel extends JPanel implements PropertyChangeListener{
 		DataPackage returnPack = mainCalendarPanel.sendPackage(eventPack);
 		if (returnPack instanceof EventPackage){
 			model.getEvent().setEventId(((EventPackage) returnPack).getEvent().getEventId());
+			System.out.println(((EventPackage)returnPack).getEvent().getEventId());
 		}
 		else if (returnPack instanceof ErrorPackage){
 			System.out.println(((ErrorPackage)returnPack).getDescription());

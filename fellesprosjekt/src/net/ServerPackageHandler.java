@@ -172,8 +172,19 @@ public class ServerPackageHandler {
 	private ArrayList<DataPackage> HandleEventPackage(DataPackage pack) throws IOException, SQLException {
 		EventPackage eventPack = (EventPackage)pack;
 		Event event = eventPack.getEvent();
+		//Eventprintout
+		System.out.println(event.getEventId());
+		System.out.println(event.getCreatedBy().getUsername());
+		System.out.println(event.getStartTime());
+		System.out.println(event.getEndTime());
+		System.out.println(event.getName());
+		System.out.println(event.getDescription());
+		System.out.println(event.getPlace());
+		System.out.println(event.getRoom().getRoomNr());
+		
 		DBMethods method = ConnectToDB();
 		Event returnEvent = method.createEvent(event.getCreatedBy().getUsername(), event.getStartTime(), event.getEndTime(), event.getName(), event.getDescription(), event.getPlace(), "" /*TODO*/, "" /*TODO*/, event.getRoom().getRoomNr());
+		DisconnectFromDB();
 		
 		ArrayList<DataPackage> returnPackages = new ArrayList<DataPackage>();
 		
