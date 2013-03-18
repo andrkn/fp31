@@ -255,6 +255,23 @@ public class EventPanel extends JPanel implements PropertyChangeListener{
 		setEditebleTextField(alarmField, editeble);
 		this.add(alarmField, grid);
 		
+		
+		grid.gridy += 1; 
+		JLabel numberOfAttendersField = new JLabel(Integer.toString(model.getNumberOfAttenders())); 
+		numberOfAttendersField.setName("NumberOfAttendersField"); 
+		this.add(numberOfAttendersField, grid); 
+		
+		grid.gridy += 1; 
+		JLabel numberOfNotAnswardField = new JLabel(Integer.toString(model.getNumberOfNotAnsward())); 
+		numberOfNotAnswardField.setName("NumberOfNotAnswardField");
+		this.add(numberOfNotAnswardField, grid); 
+		
+		grid.gridy += 1; 
+		JLabel numberOfDeclinesField = new JLabel(Integer.toString(model.getNumberOfDeclines()));
+		numberOfDeclinesField.setName("NumberOfDeclinesField");
+		this.add(numberOfDeclinesField, grid);
+		
+		
 		endRow = grid.gridy+1;
 	}
 
@@ -333,6 +350,21 @@ public class EventPanel extends JPanel implements PropertyChangeListener{
 		JLabel alarmLabel = new JLabel("Alarm: "); 
 		alarmLabel.setName("AlarmLabel");
 		this.add(alarmLabel, grid); 
+		
+		grid.gridy += 1; 
+		JLabel numberOfAttendersLabel = new JLabel("Godtatt invitasjon: "); 
+		numberOfAttendersLabel.setName("NumberOfAttendersLabel"); 
+		this.add(numberOfAttendersLabel, grid); 
+		
+		grid.gridy += 1; 
+		JLabel numberOfNotAnswardLabel = new JLabel("Ikke svart: "); 
+		numberOfNotAnswardLabel.setName("NumberOfNotAnswardLabel");
+		this.add(numberOfNotAnswardLabel, grid); 
+		
+		grid.gridy += 1; 
+		JLabel numberOfDeclinesLabel = new JLabel("Avslått invitasjon: ");
+		numberOfDeclinesLabel.setName("NumberOfDeclinesLabel");
+		this.add(numberOfDeclinesLabel, grid);
 	}
 
 	private void setupForGridLabel() {

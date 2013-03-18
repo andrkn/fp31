@@ -220,4 +220,14 @@ public class EventModel {
 		pcs.removePropertyChangeListener(listener); 
 	}
 	
+	
+	public int getNumberOfAttenders(){
+		return 0; 
+	}
+	public int getNumberOfNotAnsward(){
+		return 0;
+	}
+	public int getNumberOfDeclines(){
+		return 0; 
+	}
 }
