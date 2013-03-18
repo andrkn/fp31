@@ -143,7 +143,12 @@ public class Event implements java.io.Serializable {
 	}
 	
 	public ArrayList<HaveCalendar> getAttenders(){
-		return attenders;
+		if (attenders != null){
+			return attenders;
+		}
+		else{
+			return new ArrayList<HaveCalendar>();
+		}
 	}
 	
 	public void addAttender(HaveCalendar haveCalendar){

@@ -66,7 +66,7 @@ public class MainPanel {
 		frame.validate(); 
 		frame.repaint();
 //		frame.setResizable(true);
-		Thread t = new Thread(idle());
+		//Thread t = new Thread(idle());
 	}
 
 	private static Runnable idle() {

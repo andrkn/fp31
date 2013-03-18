@@ -26,11 +26,12 @@ public class CalendarModel implements PropertyChangeListener {
 	
 	public void incrementWeek(){
 		int oldWeekNr = this.weekNr;
-		this.weekNr = weekNr++;
+		this.weekNr = weekNr + 1;
 		if (this.weekNr > 52){
 			this.weekNr = 1;
 			int oldyear = getYear();
-			setYear(++oldyear);
+			int newyear = oldyear + 1;
+			setYear(newyear);
 		}
 		System.out.println(weekNr);
 		pcs.firePropertyChange("setWeekNr", oldWeekNr, weekNr);
@@ -38,11 +39,12 @@ public class CalendarModel implements PropertyChangeListener {
 	
 	public void decrementWeek(){
 		int oldWeekNr = this.weekNr;
-		this.weekNr = weekNr--;
+		this.weekNr = weekNr - 1;
 		if (this.weekNr < 1){
 			this.weekNr = 52;
 			int oldyear = getYear();
-			setYear(--oldyear);
+			int newyear = oldyear - 1;
+			setYear(newyear);
 		}
 		System.out.println(weekNr);
 		pcs.firePropertyChange("setWeekNr", oldWeekNr, weekNr);
@@ -61,6 +63,9 @@ public class CalendarModel implements PropertyChangeListener {
 	public CalendarModel() {
 		eventList = new ArrayList<Event>();
 		pcs = new PropertyChangeSupport(this);
+		Calendar cal = Calendar.getInstance();
+		this.year = 1900 + cal.getTime().getYear();
+		this.weekNr = cal.WEEK_OF_YEAR;
 	}
 	
 	public void addEvent(int eventId, Person createdBy, Timestamp startTime, Timestamp endTime, String name, String description, String place, Room room, ArrayList<HaveCalendar> attenders) {
@@ -114,8 +119,8 @@ public class CalendarModel implements PropertyChangeListener {
 	}
 	
 	public Timestamp getWeekStart(){
-		int week = 11; 
-		int year = 2013;
+		int week = this.weekNr; 
+		int year = this.year;
 		// Get calendar, clear it and set week number and year.
 		Calendar calendar = Calendar.getInstance();
 		calendar.clear();

@@ -83,6 +83,7 @@ public class CalendarPanel extends JPanel implements PropertyChangeListener{
 
 	@Override
 	public void propertyChange(PropertyChangeEvent arg0) {
+		System.out.println("LOLZ PCS");
 		update(); 
 		this.validate(); 
 		this.repaint();
