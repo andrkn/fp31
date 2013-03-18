@@ -69,7 +69,7 @@ public class MainCalendarPanel extends JPanel {
 		
 		calendarPanel = new CalendarPanel(calModel,this);
 		calendarPanel.setVisible(true);
-		Dimension dim = new Dimension(800,800);
+		Dimension dim = new Dimension(200,200);
 		calendarPanel.setMinimumSize(dim);
 		calendarPanel.setMaximumSize(dim);
 		calendarPanel.setPreferredSize(dim);
@@ -84,6 +84,9 @@ public class MainCalendarPanel extends JPanel {
 		gridbagConstraints.gridy = 1;
 		add(calendarPanel, gridbagConstraints);
 		model.setEditeble(true);
+		
+		this.validate();
+		this.repaint();
 	}
 
 	private CalendarModel requestCalendar(String username) {

@@ -46,7 +46,7 @@ public class MainPanel {
 		frame.getContentPane().add(pane);
 		frame.pack();
 		frame.setVisible(true);
-		frame.setResizable(false); 
+		//frame.setResizable(false); 
 	}
 	
 	public void loginApproved(String username) {
@@ -61,13 +61,7 @@ public class MainPanel {
 		frame.getContentPane().add(pane);
 		frame.pack();
 		frame.setVisible(true);
-		frame.setResizable(true);
-		pane.validate();
-		pane.repaint();
-		frame.validate();
-		
-		frame.repaint();
-		
+//		frame.setResizable(true);
 		
 	}
 	
