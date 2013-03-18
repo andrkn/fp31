@@ -15,6 +15,14 @@ import model.Event;
 public class CalendarPanel extends JPanel implements PropertyChangeListener{
 
 	CalendarModel model; 
+	public CalendarModel getModel() {
+		return model;
+	}
+
+	public void setModel(CalendarModel model) {
+		this.model = model;
+	}
+
 	MainCalendarPanel mainPanel;
 	GridBagConstraints grid; 
 	public static final long MILLISECOND_IN_DAY = 24*60*60*1000;
@@ -83,7 +91,6 @@ public class CalendarPanel extends JPanel implements PropertyChangeListener{
 
 	@Override
 	public void propertyChange(PropertyChangeEvent arg0) {
-		System.out.println("LOLZ PCS");
 		update(); 
 		this.validate(); 
 		this.repaint();

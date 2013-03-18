@@ -20,7 +20,7 @@ public class UpdateSwingWorker extends SwingWorker<Void, Void>{
 
 	@Override
 	public Void doInBackground() {
-		
+		((MainCalendarPanel) pane).requestCalendar(pane.);
 		return null;
 	}
 
