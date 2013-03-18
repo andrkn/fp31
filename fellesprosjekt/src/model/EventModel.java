@@ -12,6 +12,7 @@ public class EventModel {
 	private Person user;
 	private boolean editable;
 	private PropertyChangeSupport pcs; 
+	private ArrayList<HaveCalendar> inviteList;
 	
 	public EventModel(Event event, Person user){
 		this.event = event;
@@ -118,33 +119,40 @@ public class EventModel {
 
 
 	public ArrayList<HaveCalendar> getInviteList(){
-		ArrayList<HaveCalendar> test = new ArrayList<HaveCalendar>();
-		
+//		ArrayList<HaveCalendar> test = new ArrayList<HaveCalendar>();
+//		
 //		for (HaveCalendar hc : event.getAttenders()){
 //			test.add(hc);
 //		}
-		
-		Person p1 = new Person(); 
-		p1.setName("Torstein"); 
-		
-		Person p2 = new Person(); 
-		p2.setName("Adam");
-		
-		Person p3 = new Person(); 
-		p3.setName("Per"); 
-		
-		Person p4 = new Person(); 
-		p4.setName("Simon");
-		
-		Person p5 = new Person(); 
-		p5.setName("Kristoffer");
-		
-		test.add(p1);
-		test.add(p2);
-		test.add(p3);
-		test.add(p4);
-		test.add(p5);
-		return test;
+//		
+//		Person p1 = new Person(); 
+//		p1.setName("Torstein"); 
+//		
+//		Person p2 = new Person(); 
+//		p2.setName("Adam");
+//		
+//		Person p3 = new Person(); 
+//		p3.setName("Per"); 
+//		
+//		Person p4 = new Person(); 
+//		p4.setName("Simon");
+//		
+//		Person p5 = new Person(); 
+//		p5.setName("Kristoffer");
+//		
+//		test.add(p1);
+//		test.add(p2);
+//		test.add(p3);
+//		test.add(p4);
+//		test.add(p5);
+		if (inviteList == null){
+			return new ArrayList<HaveCalendar>();
+		}
+		return inviteList;
+	}
+	
+	public void setInviteList(ArrayList<HaveCalendar> inviteList){
+		this.inviteList = inviteList; 
 	}
 
 
@@ -211,4 +219,5 @@ public class EventModel {
 	public void removePropertyChangeListener(PropertyChangeListener listener){
 		pcs.removePropertyChangeListener(listener); 
 	}
+	
 }
