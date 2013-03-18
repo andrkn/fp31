@@ -35,7 +35,11 @@ public class MainCalendarPanel extends JPanel {
 	private CalendarPanel calendarPanel;
 	private GridBagLayout gridbag;
 	private GridBagConstraints gridbagConstraints;
+<<<<<<< HEAD
 	private CalendarModel calModel;
+=======
+	private Boolean isRunning;
+>>>>>>> Implementing the polling method.
 	
 	
 	public MainCalendarPanel(String username){
@@ -43,7 +47,17 @@ public class MainCalendarPanel extends JPanel {
 		user = new Person(username, "","");
 		
 		//Request the users calendar from DB
+<<<<<<< HEAD
 		calModel = requestCalendar(username);
+=======
+		try {
+			sender = new PackageSender();
+		} catch (IOException e) {
+			JOptionPane.showMessageDialog(null, "Could not connect to server. Critical");
+			e.printStackTrace();
+		}
+		CalendarModel calModel = requestCalendar(username);
+>>>>>>> Implementing the polling method.
 		
 		//construct the view
 		Dimension dim = new Dimension(1300,900);
@@ -91,16 +105,25 @@ public class MainCalendarPanel extends JPanel {
 		
 		this.validate();
 		this.repaint();
+		
+	}
+
+	private void run() {
+		isRunning = true;
+		
+		while (isRunning) {
+			this.requestCalendar(user.getUsername());
+			try {
+				Thread.sleep(3000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 	}
 
 	private CalendarModel requestCalendar(String username) {
 		CalendarRequestPackage calReq = new CalendarRequestPackage(username,null,1,1);
-		try {
-			sender = new PackageSender();
-		} catch (IOException e) {
-			JOptionPane.showMessageDialog(null, "Could not connect to server. Critical");
-			e.printStackTrace();
-		}
 		sender.sendPackage(calReq);
 		response = sender.receivePackageArray();
 		eventList = new ArrayList<Event>();
