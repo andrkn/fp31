@@ -102,18 +102,6 @@ public class MainCalendarPanel extends JPanel {
 		
 	}
 
-	public CalendarPanel getCalendarPanel() {
-		return calendarPanel;
-	}
-
-	public void run() {
-		isRunning = true;
-		this.requestCalendar(user.getUsername());
-	}
-	
-	public Person getPerson() {
-		return this.user;
-	}
 
 	public CalendarModel requestCalendar(String username) {
 		CalendarRequestPackage calReq = new CalendarRequestPackage(username,null,1,1);
@@ -158,16 +146,30 @@ public class MainCalendarPanel extends JPanel {
 		sender.sendPackage(pack);
 		return sender.receivePackage();
 	}
-
+	
+	//Is this supposed to be done here????
 	public CalendarModel getCalModel() {
 		return calModel;
 	}
-
+	
+	//????
 	public void setCalModel(CalendarModel calModel) {
 		this.calModel = calModel;
 		firePropertyChange("Update", 1, 1);
 	}
 	
+	public CalendarPanel getCalendarPanel() {
+		return calendarPanel;
+	}
+	
+	public void run() {
+		isRunning = true;
+		this.requestCalendar(user.getUsername());
+	}
+	
+	public Person getPerson() {
+		return this.user;
+	}
 	
 	
 }

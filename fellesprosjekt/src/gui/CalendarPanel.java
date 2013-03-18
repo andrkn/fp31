@@ -66,10 +66,11 @@ public class CalendarPanel extends JPanel implements PropertyChangeListener{
 		}
 	}
 	
+	//Not sure if we are supposed to do this here or in MainCalendarPanel (i found somone elses methods doing that..)
 	public CalendarModel getModel() {
 		return model;
 	}
-	
+	// "
 	public void setModel(CalendarModel model) {
 		this.model = model;
 	}
