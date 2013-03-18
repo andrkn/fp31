@@ -36,6 +36,7 @@ public class MainCalendarPanel extends JPanel {
 	private GridBagLayout gridbag;
 	private GridBagConstraints gridbagConstraints;
 	
+	
 	public MainCalendarPanel(String username){
 		//Set the current user. ATM does not care about anything but username
 		user = new Person(username, "","");
@@ -107,9 +108,9 @@ public class MainCalendarPanel extends JPanel {
 		}
 		//eventList now contains all events for the username requested!
 		
-		CalendarModel calModel = new CalendarModel();
-		calModel.setEventList(eventList);
-		return calModel;
+		CalendarModel tempcalModel = new CalendarModel();
+		tempcalModel.setEventList(eventList);
+		return tempcalModel;
 	}
 	
 	public void newEvent(){
