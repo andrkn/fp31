@@ -182,7 +182,7 @@ public class ServerPackageHandler {
 		System.out.println(event.getName());
 		System.out.println(event.getDescription());
 		System.out.println(event.getPlace());
-		System.out.println(event.getRoom().getRoomNr());
+		System.out.println(event.getRoom());
 		
 		DBMethods method = ConnectToDB();
 		Event returnEvent = method.createEvent(event.getCreatedBy().getUsername(), event.getStartTime(), event.getEndTime(), event.getName(), event.getDescription(), event.getPlace(), "" /*TODO*/, "" /*TODO*/, event.getRoom().getRoomNr());

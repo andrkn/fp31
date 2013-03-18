@@ -64,7 +64,7 @@ public class EventPanel extends JPanel implements PropertyChangeListener{
 //		addTittel(model.getEditable());
 //		addButtons();
 		
-		//launchAlarm();
+		//launchAlarm(model.getEvent());
 		setEditeble();
 		
 		
@@ -362,7 +362,7 @@ public class EventPanel extends JPanel implements PropertyChangeListener{
 		this.add(numberOfNotAnswardLabel, grid); 
 		
 		grid.gridy += 1; 
-		JLabel numberOfDeclinesLabel = new JLabel("Avsl�tt invitasjon: ");
+		JLabel numberOfDeclinesLabel = new JLabel("Avsl�tt invitasjon: ");
 		numberOfDeclinesLabel.setName("NumberOfDeclinesLabel");
 		this.add(numberOfDeclinesLabel, grid);
 	}
@@ -413,24 +413,19 @@ public class EventPanel extends JPanel implements PropertyChangeListener{
 	public void change(){
 		model.setEditeble(false);
 	}
+	public void delete(){
+		model.deleteEvent();
+	}
 	
-	public void launchAlarm() {
+	public void launchAlarm(Event e) {
 		
-		HashMap<Person, Timestamp> hm = model.getMapAlarms();
+		String msgString = "Det er et oppkommende møte i rom: " + e.getPlace()
+							+ "\nklokken: " + e.getStartTime() + 
+							"\nfor følgende personer:" + e.getAttenders();
+		JOptionPane.showConfirmDialog(mainCalendarPanel, msgString);
+				
 		
-		for (int i=0; i < hm.size(); i++) {
-
-			Timestamp t = new Timestamp(System.currentTimeMillis());
-			Person key = (Person)hm.keySet().toArray()[i];
-
-			Timestamp val = hm.get(key);
-			
-			System.out.println("key,val: " + key + "," + val);
-
-			//i = 0;
-			
-		}
-		
+				
 	}
 
 }

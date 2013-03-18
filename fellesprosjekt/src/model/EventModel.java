@@ -25,6 +25,10 @@ public class EventModel {
 		return this.event;
 	}
 	
+	public void deleteEvent(){
+		
+	}
+	
 	public String getStartTime(){
 		return getTimeString(event.getStartTime()); 
 	}
