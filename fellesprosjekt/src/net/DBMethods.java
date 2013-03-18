@@ -67,28 +67,37 @@ public class DBMethods {
 		return invitedPersons;
 	}
 	
-	public int getIsGoing(int eventID) throws SQLException{
+	public ArrayList<String> getIsGoing(int eventID) throws SQLException{
 		statement = connection.createStatement();
-		String sql = "SELECT COUNT(*) FROM Invited WHERE eventID = " + eventID + " AND isGoing = 1";
+		ArrayList<String> isGoing = new ArrayList<String>();
+		String sql = "SELECT username FROM Invited WHERE eventID = " + eventID + " AND isGoing = 1";
 		ResultSet resultSet = statement.executeQuery(sql);
-		resultSet.next();
-		return  resultSet.getInt(1);
+		while(resultSet.next()){
+			isGoing.add(resultSet.getString(1));
+		}	
+		return isGoing;
 	}
 	
-	public int getIsNotGoing(int eventID) throws SQLException{
+	public ArrayList<String> getIsNotGoing(int eventID) throws SQLException{
 		statement = connection.createStatement();
-		String sql = "SELECT COUNT(*) FROM Invited WHERE eventID  = " + eventID + " AND isGoing = 0";
+		String sql = "SELECT username FROM Invited WHERE eventID  = " + eventID + " AND isGoing = 0";
+		ArrayList<String> isNotGoing = new ArrayList<String>();
 		ResultSet resultSet = statement.executeQuery(sql);
-		resultSet.next();
-		return resultSet.getInt(1);
+		while(resultSet.next()){
+			isNotGoing.add(resultSet.getString(1));
+		}
+		return isNotGoing;
 	}
 	
-	public int getHasNotReplied(int eventID) throws SQLException{
+	public ArrayList<String> getHasNotReplied(int eventID) throws SQLException{
 		statement = connection.createStatement();
-		String sql = "SELECT COUNT(*) FROM Invited WHERE eventID = " + eventID + " AND isGoing IS NULL";
+		String sql = "SELECT username FROM Invited WHERE eventID = " + eventID + " AND isGoing IS NULL";
+		ArrayList<String> hasNotReplied = new ArrayList<String>(); 
 		ResultSet resultSet = statement.executeQuery(sql);
-		resultSet.next();
-		return resultSet.getInt(1);
+		while(resultSet.next()){
+			hasNotReplied.add(resultSet.getString(1));
+		}
+		return hasNotReplied;
 	}
 	
 	public void inviteGroup(String invitedGroups, int eventId) throws NumberFormatException, SQLException{
@@ -210,8 +219,12 @@ public class DBMethods {
     		String description = resultSet.getString(6);
     		String place = resultSet.getString(7);
     		String roomNr = resultSet.getString(9);
-    		events.add(new Event(eventId,getPerson(createdBy),startTime,endTime,eventName,
-    				description,place, getRoom(roomNr), null));
+    		Event e = new Event(eventId,getPerson(createdBy),startTime,endTime,eventName,
+    				description,place, getRoom(roomNr), null);
+    		e.setIsGoing(getIsGoing(eventId));
+    		e.setIsNotGoing(getIsNotGoing(eventId));
+    		e.setHasNotReplied(getHasNotReplied(eventId));
+    		events.add(e);
     	}
     	String sql2 = "SELECT * FROM Invited WHERE username = '" + username + "'";
     	resultSet = statement.executeQuery(sql2);

@@ -22,6 +22,7 @@ public class Event implements java.io.Serializable {
 	private Timestamp startTime, endTime;
 	private Boolean isActive;
 	private ArrayList<HaveCalendar> attenders;
+	private ArrayList<String> isGoing, isNotGoing, hasNotReplied = new ArrayList<String>();
 	private HashMap<Person, Integer> alarms;
 	
 	private HashMap<Person, Timestamp> mapAlarms;
@@ -38,11 +39,34 @@ public class Event implements java.io.Serializable {
 		this.room = room;
 		this.attenders = attenders;
 		this.alarms = new HashMap<Person, Integer>();
-
 	}
 	
 	public Event(){
 		
+	}
+	
+	public void setIsGoing(ArrayList<String> isGoing){
+		this.isGoing = isGoing;
+	}
+	public void setIsNotGoing(ArrayList<String> isNotGoing){
+		this.isNotGoing = isNotGoing;
+	}
+	public void setHasNotReplied(ArrayList<String> hasNotReplied){
+		this.hasNotReplied = hasNotReplied;
+	}
+	public ArrayList<String> getIsGoing(){
+		return isGoing;
+	}
+	public ArrayList<String> getIsNotGoing(){
+		return isNotGoing;
+	}
+	public ArrayList<String> getHasNotGoing(){
+		return hasNotReplied;
+	}
+	
+	
+	public void addIsGoing(String p){
+		isGoing.add(p);
 	}
 	
 	public void setCreatedBy(Person createdBy){

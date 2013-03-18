@@ -2,8 +2,9 @@ package net;
 
 import java.io.InputStream;
 import java.sql.Timestamp;
+import java.util.GregorianCalendar;
 import java.util.Properties;
-
+import java.util.Date;
 import model.Event;
 
 
@@ -17,7 +18,6 @@ public class TestMethods {
     	DBMethods dbm = new DBMethods();
     	dbm.setConnection(db.getConnection());
     	
-    	
     	//System.out.println(dbm.getAlarms());
     	//dbm.setSubGroup(1, 2);
     	
@@ -28,9 +28,9 @@ public class TestMethods {
     	//	System.out.println(e.getEventId());
     	//}
     	
-    	System.out.println(dbm.getHasNotReplied(38));
+    	//System.out.println(dbm.getHasNotReplied(38));
     	//Event e = dbm.createEvent("hanskhe", new Timestamp(113,12,2,15,0,0,0), new Timestamp(113,12,2,16,0,0,0), "prosjekt", "jobbe med prosjektet", "", "helle", null, "");
-    	db.close();
+    	//db.close();
     	
     	
 //    	for(Event e : dbm.loadEvents("hanskhe")){
