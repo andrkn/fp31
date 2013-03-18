@@ -152,9 +152,8 @@ public class DBMethods {
     	String eventName = resultSet.getString(5);
     	String description = resultSet.getString(6);
     	String place = resultSet.getString(7); 
-    	String invitedPersons = resultSet.getString(8);
-    	String invitedGroups = resultSet.getString(9);
-    	String roomNr = resultSet.getString(10);
+    	String invitedGroups = resultSet.getString(8);
+    	String roomNr = resultSet.getString(9);
     	System.out.println("Trying to get event created by: " + createdBy);
     	return new Event(id, getPerson(createdBy), start, end, eventName, description, place, getRoom(roomNr), null);
     }
@@ -210,7 +209,7 @@ public class DBMethods {
     		String eventName = resultSet.getString(5);
     		String description = resultSet.getString(6);
     		String place = resultSet.getString(7);
-    		String roomNr = resultSet.getString(10);
+    		String roomNr = resultSet.getString(9);
     		events.add(new Event(eventId,getPerson(createdBy),startTime,endTime,eventName,
     				description,place, getRoom(roomNr), null));
     	}
