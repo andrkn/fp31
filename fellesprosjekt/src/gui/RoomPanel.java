@@ -7,28 +7,30 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 import model.Room;
 import model.RoomListModel;
 
 public class RoomPanel extends JPanel{
 	
-	private GridBagConstraints grid; 
 	private RoomListModel rlm;
 	private RoomList roomList;
+	private JTextField placeField;
 	
 	public RoomPanel(RoomListModel rlm){
 		super(new GridBagLayout());
-		grid = new GridBagConstraints(); 
 		
 		this.rlm = rlm;
 		
 		addRoomList(rlm); 
+		addPlaceTextField();
 		addButton();
 	}
 
 	private void addButton() {
-		grid.gridy = 1;
+		GridBagConstraints grid = new GridBagConstraints(); 
+		grid.gridy = 2;
 		grid.gridx = 0; 
 		JButton pickRoom = new JButton("OK");
 		
@@ -37,7 +39,12 @@ public class RoomPanel extends JPanel{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 //				System.out.println(roomList.getSelectedValue().getClass());
-				rlm.setRoom((Room)roomList.getSelectedValue());
+				if (roomList.getSelectedValue() == null){
+					rlm.setRoom(null);
+					rlm.setPlace(placeField.getText());
+				}else {
+					rlm.setRoom((Room)roomList.getSelectedValue());
+				}
 			}
 		});
 		pickRoom.setVisible(true);
@@ -47,11 +54,23 @@ public class RoomPanel extends JPanel{
 
 	private void addRoomList(RoomListModel rlm) {
 		roomList = new RoomList(rlm); 
+		GridBagConstraints grid = new GridBagConstraints(); 
 		grid.gridx = 0; 
 		grid.gridy = 0; 
 		
 		this.add(roomList, grid);
 	}
+	
+	private void addPlaceTextField(){
+		placeField = new JTextField();
+		GridBagConstraints grid = new GridBagConstraints(); 
+		grid.gridx = 1; 
+		grid.gridy = 0 ; 
+		
+		this.add(placeField, grid);
+	}
+	
+	
 	
 	
 }
