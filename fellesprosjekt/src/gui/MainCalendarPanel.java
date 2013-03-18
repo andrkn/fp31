@@ -45,8 +45,9 @@ public class MainCalendarPanel extends JPanel {
 		CalendarModel calModel = requestCalendar(username);
 		
 		//construct the view
-		this.setPreferredSize(new Dimension(800, 800));
-		this.setMinimumSize(new Dimension(800,800));
+		Dimension dim = new Dimension(1300,900);
+		this.setPreferredSize(dim);
+		this.setMinimumSize(dim);
 		ArrayList<HaveCalendar> test = new ArrayList<HaveCalendar>();
 //		Person p = new Person();
 //		p.setName("Torstein");
@@ -69,21 +70,23 @@ public class MainCalendarPanel extends JPanel {
 		
 		calendarPanel = new CalendarPanel(calModel,this);
 		calendarPanel.setVisible(true);
-		Dimension dim = new Dimension(200,200);
-		calendarPanel.setMinimumSize(dim);
-		calendarPanel.setMaximumSize(dim);
-		calendarPanel.setPreferredSize(dim);
+		Dimension dim2 = new Dimension(900,700);
+		calendarPanel.setMinimumSize(dim2);
+		calendarPanel.setMaximumSize(dim2);
+		calendarPanel.setPreferredSize(dim2);
+		calendarPanel.setSize(dim2);
 		
 		gridbagConstraints.gridx = 0;
 		gridbagConstraints.gridy = 0;
 		add(buttonPanel, gridbagConstraints);
 		gridbagConstraints.gridx = 1;
-		gridbagConstraints.gridy = 0;
+		gridbagConstraints.gridy = 1;
 		add(eventPanel, gridbagConstraints);
 		gridbagConstraints.gridx = 0;
 		gridbagConstraints.gridy = 1;
 		add(calendarPanel, gridbagConstraints);
 		model.setEditeble(true);
+		calendarPanel.update();
 		
 		this.validate();
 		this.repaint();
