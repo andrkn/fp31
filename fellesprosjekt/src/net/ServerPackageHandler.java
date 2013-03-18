@@ -29,7 +29,7 @@ public class ServerPackageHandler {
 		if (pack instanceof LoginPackage){
 			System.out.println("Debugpoint #2");
 			try {
-				if (HandleLoginPackage(pack)){
+				if (handleLoginPackage(pack)){
 					System.out.println("Debugpoint #3");
 					ErrorPackage errorPack = new ErrorPackage(ErrorType.OK,"All is well, user may pass",1,1);
 					returnPackages.add(errorPack);
@@ -48,7 +48,7 @@ public class ServerPackageHandler {
 		else if(pack instanceof CalendarRequestPackage){
 			System.out.println("CalReqPack Received");
 			try {
-				returnPackages = HandleCalendarRequestPackage(pack);
+				returnPackages = handleCalendarRequestPackage(pack);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -60,7 +60,7 @@ public class ServerPackageHandler {
 		else if (pack instanceof EventPackage){
 			System.out.println("EventPackage Received");
 			try{
-				returnPackages = HandleEventPackage(pack);
+				returnPackages = handleEventPackage(pack);
 			}
 			catch (IOException e) {
 				// TODO Auto-generated catch block
@@ -71,12 +71,24 @@ public class ServerPackageHandler {
 			}
 			
 			
+		}else if (pack instanceof EventUpdatePackage){
+			System.out.println("EventUpdatePackage Received");
+			try {
+				returnPackages = eventUpdateHandler((EventUpdatePackage)pack);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
 		}
 		return returnPackages;
 	}
 
 
-	private DBMethods ConnectToDB() throws IOException{
+	private DBMethods connectToDB() throws IOException{
 				//load properties
 				System.out.println("Debugpoint #6");
 				Properties prop = new Properties();
@@ -94,12 +106,12 @@ public class ServerPackageHandler {
 				return method;
 	}
 
-	private void DisconnectFromDB() throws SQLException{
+	private void disconnectFromDB() throws SQLException{
 		connection.close();
 	}
 
-	private boolean HandleLoginPackage(DataPackage pack) throws IOException {
-		DBMethods method = ConnectToDB();
+	private boolean handleLoginPackage(DataPackage pack) throws IOException {
+		DBMethods method = connectToDB();
 		//store pack as LoginPackage, must be checked before method is called
 		LoginPackage loginpack = (LoginPackage)pack;
 		byte[] hash = null;
@@ -128,7 +140,7 @@ public class ServerPackageHandler {
 		}
 		
 		try {
-			DisconnectFromDB();
+			disconnectFromDB();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -143,24 +155,24 @@ public class ServerPackageHandler {
 		
 	}
 	
-	private ArrayList<DataPackage> HandleCalendarRequestPackage(DataPackage pack) throws IOException, SQLException {
+	private ArrayList<DataPackage> handleCalendarRequestPackage(DataPackage pack) throws IOException, SQLException {
 		CalendarRequestPackage CalReq = (CalendarRequestPackage)pack;
 		String name = CalReq.getName();
 		Integer group = CalReq.getGroup();
 		ArrayList<Event> events = new ArrayList<Event>();
 		ArrayList<DataPackage> responseList = new ArrayList<DataPackage>();
 		if ((CalReq.getName() != null) && (CalReq.getGroup() == null)){
-			DBMethods method = ConnectToDB();
+			DBMethods method = connectToDB();
 			events = method.loadEvents(name);
-			DisconnectFromDB();
+			disconnectFromDB();
 			
-			responseList = ConstructPackageListFromEvents(events);
+			responseList = constructPackageListFromEvents(events);
 			return responseList;
 		}
 		else if ((CalReq.getGroup() != null) && (CalReq.getName() == null)){
-			DBMethods method = ConnectToDB();
+			DBMethods method = connectToDB();
 			//get groups cal
-			DisconnectFromDB();
+			disconnectFromDB();
 			return null;
 		}
 		else{
@@ -170,7 +182,7 @@ public class ServerPackageHandler {
 		}
 	}
 	
-	private ArrayList<DataPackage> HandleEventPackage(DataPackage pack) throws IOException, SQLException {
+	private ArrayList<DataPackage> handleEventPackage(DataPackage pack) throws IOException, SQLException {
 		EventPackage eventPack = (EventPackage)pack;
 		Event event = eventPack.getEvent();
 		//Eventprintout
@@ -184,9 +196,9 @@ public class ServerPackageHandler {
 		System.out.println(event.getPlace());
 		System.out.println(event.getRoom());
 		
-		DBMethods method = ConnectToDB();
+		DBMethods method = connectToDB();
 		Event returnEvent = method.createEvent(event.getCreatedBy().getUsername(), event.getStartTime(), event.getEndTime(), event.getName(), event.getDescription(), event.getPlace(), "" /*TODO*/, "" /*TODO*/, event.getRoom().getRoomNr());
-		DisconnectFromDB();
+		disconnectFromDB();
 		
 		ArrayList<DataPackage> returnPackages = new ArrayList<DataPackage>();
 		
@@ -200,7 +212,7 @@ public class ServerPackageHandler {
 		}
 	}
 	
-	private ArrayList<DataPackage> ConstructPackageListFromEvents(ArrayList<Event> events){
+	private ArrayList<DataPackage> constructPackageListFromEvents(ArrayList<Event> events){
 		ArrayList<DataPackage> returnList = new ArrayList<DataPackage>();
 		Event event;
 		for (int i=0;i<events.size();i++){
@@ -212,9 +224,20 @@ public class ServerPackageHandler {
 	}
 	
 	//Should probably not be used, will cause massive connection problems...
-	private void SendResponsePackage(DataPackage pack) throws IOException{
+	private void sendResponsePackage(DataPackage pack) throws IOException{
 		PackageSender sender = new PackageSender();
 		sender.sendPackage(pack);
 		
+	}
+	
+	private ArrayList<DataPackage> eventUpdateHandler(EventUpdatePackage pack) throws IOException, SQLException{
+		if (pack.getProperty().equals("Delete")){
+			DBMethods method = connectToDB(); 
+			method.deleteEvent(pack.getEventID());
+			disconnectFromDB();
+		}
+		ArrayList<DataPackage> list = new ArrayList<DataPackage>(); 
+		list.add(new ErrorPackage(ErrorType.OK, "Package was deleted", 1, 1));
+		return list;
 	}
 }

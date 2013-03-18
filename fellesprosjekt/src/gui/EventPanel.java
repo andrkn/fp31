@@ -27,6 +27,7 @@ import javax.swing.border.Border;
 import datapackage.DataPackage;
 import datapackage.ErrorPackage;
 import datapackage.EventPackage;
+import datapackage.EventUpdatePackage;
 
 import model.EventModel;
 import model.HaveCalendar;
@@ -414,7 +415,9 @@ public class EventPanel extends JPanel implements PropertyChangeListener{
 		model.setEditeble(false);
 	}
 	public void delete(){
-		model.deleteEvent();
+		EventUpdatePackage pack = new EventUpdatePackage(model.getEvent().getEventId(), "Delete", null, 1, 1);
+		
+		mainCalendarPanel.sendPackage(pack);
 	}
 	
 	public void launchAlarm(Event e) {
