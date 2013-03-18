@@ -23,7 +23,29 @@ public class CalendarModel implements PropertyChangeListener {
 		this.weekNr = weekNr;
 		pcs.firePropertyChange("setWeekNr", oldWeekNr, weekNr);
 	}
-
+	
+	public void incrementWeek(){
+		int oldWeekNr = this.weekNr;
+		this.weekNr = weekNr++;
+		if (this.weekNr > 52){
+			this.weekNr = 1;
+			int oldyear = getYear();
+			setYear(++oldyear);
+		}
+		pcs.firePropertyChange("setWeekNr", oldWeekNr, weekNr);
+	}
+	
+	public void decrementWeek(){
+		int oldWeekNr = this.weekNr;
+		this.weekNr = weekNr--;
+		if (this.weekNr < 1){
+			this.weekNr = 52;
+			int oldyear = getYear();
+			setYear(--oldyear);
+		}
+		pcs.firePropertyChange("setWeekNr", oldWeekNr, weekNr);
+	}
+	
 	public int getYear() {
 		return year;
 	}
