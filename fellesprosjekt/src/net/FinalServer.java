@@ -10,7 +10,8 @@ public class FinalServer {
 	private static int port=7899, maxConnections=0;
  
 	//This class listens for incoming connections and handle them in seperate threads
-  	public static void main(String[] args) {
+  	
+	public static void main(String[] args) {
     int i=0;
 
     try{
