@@ -222,12 +222,21 @@ public class EventModel {
 	
 	
 	public int getNumberOfAttenders(){
+		if (event.getIsGoing() == null){
+			return 0;
+		}
 		return event.getIsGoing().size(); 
 	}
 	public int getNumberOfNotAnsward(){
+		if (event.getHasNotReplied() == null){
+			return 0;
+		}
 		return event.getHasNotReplied().size();
 	}
 	public int getNumberOfDeclines(){
+		if (event.getIsNotGoing() == null){
+			return 0;
+		}
 		return event.getIsNotGoing().size(); 
 	}
 }
