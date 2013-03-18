@@ -67,6 +67,7 @@ public class MainPanel {
 		frame.repaint();
 //		frame.setResizable(true);
 		//Thread t = new Thread(idle());
+		UpdateSwingWorker usw = new UpdateSwingWorker(pane, frame, ((MainCalendarPanel) pane).getCalendarPanel());
 	}
 
 	private static Runnable idle() {

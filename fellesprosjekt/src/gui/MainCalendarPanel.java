@@ -33,6 +33,7 @@ public class MainCalendarPanel extends JPanel {
 	private ArrayList<Event> eventList;
 	private ArrayList<DataPackage> response;
 	private CalendarPanel calendarPanel;
+
 	private GridBagLayout gridbag;
 	private GridBagConstraints gridbagConstraints;
 	private CalendarModel calModel;
@@ -99,6 +100,10 @@ public class MainCalendarPanel extends JPanel {
 		this.validate();
 		this.repaint();
 		
+	}
+
+	public CalendarPanel getCalendarPanel() {
+		return calendarPanel;
 	}
 
 	public void run() {
