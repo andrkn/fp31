@@ -1,6 +1,9 @@
 package gui;
 
 import java.awt.Dimension;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
 import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -27,11 +30,16 @@ public class MainCalendarPanel extends JPanel {
 	private EventPanel eventPanel;
 	private Person user;
 	private ArrayList<Event> eventList;
+	private ArrayList<DataPackage> response;
+	private CalendarPanel calendarPanel;
+	private GridBagLayout gridbag;
+	private GridBagConstraints gridbagConstraints;
 	
 	public MainCalendarPanel(String username){
 		//Set the current user. ATM does not care about anything but username
 		user = new Person(username, "","");
 		
+		//Request the users calendar from DB
 		CalendarRequestPackage calReq = new CalendarRequestPackage(username,null,1,1);
 		try {
 			sender = new PackageSender();
@@ -40,7 +48,7 @@ public class MainCalendarPanel extends JPanel {
 			e.printStackTrace();
 		}
 		sender.sendPackage(calReq);
-		ArrayList<DataPackage> response = sender.receivePackageArray();
+		response = sender.receivePackageArray();
 		eventList = new ArrayList<Event>();
 		for (int i = 0; i<response.size();i++){
 			if (response.get(i) instanceof EventPackage){
@@ -56,6 +64,7 @@ public class MainCalendarPanel extends JPanel {
 		CalendarModel calModel = new CalendarModel();
 		calModel.setEventList(eventList);
 		
+		//construct the view
 		this.setPreferredSize(new Dimension(800, 800));
 		this.setMinimumSize(new Dimension(800,800));
 		ArrayList<HaveCalendar> test = new ArrayList<HaveCalendar>();
@@ -67,11 +76,33 @@ public class MainCalendarPanel extends JPanel {
 //						"Name", "Decription", "Place", null, test), p);
 		EventModel model = new EventModel(calModel.getEventList().get(0), calModel.getEventList().get(0).getCreatedBy());
 		System.out.println(model);
+		
+		gridbag = new GridBagLayout();
+		gridbagConstraints = new GridBagConstraints();
+		gridbagConstraints.fill = GridBagConstraints.HORIZONTAL;
+		gridbagConstraints.insets = new Insets(1,1,1,1);
+		this.setLayout(gridbag);
+		
 		eventPanel = new EventPanel(model, this);
 		
 		ButtonPanel buttonPanel = new ButtonPanel(this);
-		add(buttonPanel);
-		add(eventPanel);
+		
+		calendarPanel = new CalendarPanel(calModel,this);
+		calendarPanel.setVisible(true);
+		Dimension dim = new Dimension(800,800);
+		calendarPanel.setMinimumSize(dim);
+		calendarPanel.setMaximumSize(dim);
+		calendarPanel.setPreferredSize(dim);
+		
+		gridbagConstraints.gridx = 0;
+		gridbagConstraints.gridy = 0;
+		add(buttonPanel, gridbagConstraints);
+		gridbagConstraints.gridx = 1;
+		gridbagConstraints.gridy = 0;
+		add(eventPanel, gridbagConstraints);
+		gridbagConstraints.gridx = 0;
+		gridbagConstraints.gridy = 1;
+		add(calendarPanel, gridbagConstraints);
 		model.setEditeble(true);
 	}
 	
