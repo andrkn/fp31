@@ -164,6 +164,7 @@ public class ServerPackageHandler {
 			return null;
 		}
 		else{
+			System.out.println("MalformatedCalReqPack");
 			JOptionPane.showMessageDialog(null, "Malformated CalReqPackage");
 			return null;
 		}

@@ -3,6 +3,7 @@ package gui;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.HeadlessException;
 import java.awt.Insets;
 import java.io.IOException;
 import java.sql.Timestamp;
@@ -40,29 +41,7 @@ public class MainCalendarPanel extends JPanel {
 		user = new Person(username, "","");
 		
 		//Request the users calendar from DB
-		CalendarRequestPackage calReq = new CalendarRequestPackage(username,null,1,1);
-		try {
-			sender = new PackageSender();
-		} catch (IOException e) {
-			JOptionPane.showMessageDialog(null, "Could not connect to server. Critical");
-			e.printStackTrace();
-		}
-		sender.sendPackage(calReq);
-		response = sender.receivePackageArray();
-		eventList = new ArrayList<Event>();
-		for (int i = 0; i<response.size();i++){
-			if (response.get(i) instanceof EventPackage){
-				EventPackage ePack = (EventPackage)response.get(i);
-				eventList.add(ePack.getEvent());
-			}
-		}
-		for (int j = 0; j<eventList.size(); j++){
-			System.out.println("Got eventID: " + eventList.get(j).getEventId());
-		}
-		//eventList now contains all events for the username requested!
-		
-		CalendarModel calModel = new CalendarModel();
-		calModel.setEventList(eventList);
+		CalendarModel calModel = requestCalendar(username);
 		
 		//construct the view
 		this.setPreferredSize(new Dimension(800, 800));
@@ -104,6 +83,33 @@ public class MainCalendarPanel extends JPanel {
 		gridbagConstraints.gridy = 1;
 		add(calendarPanel, gridbagConstraints);
 		model.setEditeble(true);
+	}
+
+	private CalendarModel requestCalendar(String username) {
+		CalendarRequestPackage calReq = new CalendarRequestPackage(username,null,1,1);
+		try {
+			sender = new PackageSender();
+		} catch (IOException e) {
+			JOptionPane.showMessageDialog(null, "Could not connect to server. Critical");
+			e.printStackTrace();
+		}
+		sender.sendPackage(calReq);
+		response = sender.receivePackageArray();
+		eventList = new ArrayList<Event>();
+		for (int i = 0; i<response.size();i++){
+			if (response.get(i) instanceof EventPackage){
+				EventPackage ePack = (EventPackage)response.get(i);
+				eventList.add(ePack.getEvent());
+			}
+		}
+		for (int j = 0; j<eventList.size(); j++){
+			System.out.println("Got eventID: " + eventList.get(j).getEventId());
+		}
+		//eventList now contains all events for the username requested!
+		
+		CalendarModel calModel = new CalendarModel();
+		calModel.setEventList(eventList);
+		return calModel;
 	}
 	
 	public void newEvent(){
