@@ -28,7 +28,8 @@ public class TestMethods {
     	//	System.out.println(e.getEventId());
     	//}
     	
-    	Event e = dbm.createEvent("hanskhe", new Timestamp(113,12,2,15,0,0,0), new Timestamp(113,12,2,16,0,0,0), "prosjekt", "jobbe med prosjektet", "", "helle", null, "");
+    	System.out.println(dbm.getIsGoing(36));
+    	//Event e = dbm.createEvent("hanskhe", new Timestamp(113,12,2,15,0,0,0), new Timestamp(113,12,2,16,0,0,0), "prosjekt", "jobbe med prosjektet", "", "helle", null, "");
     	db.close();
     	
     	

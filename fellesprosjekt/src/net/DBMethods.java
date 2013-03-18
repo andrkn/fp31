@@ -67,6 +67,22 @@ public class DBMethods {
 		return invitedPersons;
 	}
 	
+	public int getIsGoing(int eventID) throws SQLException{
+		statement = connection.createStatement();
+		String sql = "SELECT COUNT(*) FROM Invited WHERE eventID = " + eventID + " AND isGoing = 1";
+		ResultSet resultSet = statement.executeQuery(sql);
+		resultSet.next();
+		return  resultSet.getInt(1);
+	}
+	
+	public int getIsNotGoing(int eventID) throws SQLException{
+		statement = connection.createStatement();
+		String sql = "SELECT COUNT(*) FROM Invited WHERE eventID  = " + eventID + " AND isGoing = 0";
+		ResultSet resultSet = statement.executeQuery(sql);
+		resultSet.next();
+		return resultSet.getInt(1);
+	}
+	
 	public void inviteGroup(String invitedGroups, int eventId) throws NumberFormatException, SQLException{
 		for (String g : invitedGroups.split(" ")){
 			String persons = getPersonsFromGroup(Integer.parseInt(g));
