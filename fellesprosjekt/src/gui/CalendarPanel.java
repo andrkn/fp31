@@ -15,13 +15,6 @@ import model.Event;
 public class CalendarPanel extends JPanel implements PropertyChangeListener{
 
 	CalendarModel model; 
-	public CalendarModel getModel() {
-		return model;
-	}
-
-	public void setModel(CalendarModel model) {
-		this.model = model;
-	}
 
 	MainCalendarPanel mainPanel;
 	GridBagConstraints grid; 
@@ -72,6 +65,15 @@ public class CalendarPanel extends JPanel implements PropertyChangeListener{
 			
 		}
 	}
+	
+	public CalendarModel getModel() {
+		return model;
+	}
+	
+	public void setModel(CalendarModel model) {
+		this.model = model;
+	}
+	
 	private void addTimeLabel(int height){
 		JPanel panel = new JPanel(); 
 		panel.setLayout(null); 

@@ -1,12 +1,8 @@
 package gui;
 
-import java.util.concurrent.RunnableFuture;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.SwingWorker;
-
-import model.CalendarModel;
 
 public class UpdateSwingWorker extends SwingWorker<Void, Void>{
 	
@@ -20,7 +16,7 @@ public class UpdateSwingWorker extends SwingWorker<Void, Void>{
 
 	@Override
 	public Void doInBackground() {
-		((MainCalendarPanel) pane).requestCalendar(pane.);
+		((MainCalendarPanel) pane).requestCalendar(((MainCalendarPanel) pane).getPerson().getUsername());
 		return null;
 	}
 

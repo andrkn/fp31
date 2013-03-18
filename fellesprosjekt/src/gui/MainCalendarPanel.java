@@ -103,12 +103,14 @@ public class MainCalendarPanel extends JPanel {
 
 	public void run() {
 		isRunning = true;
-		
 		this.requestCalendar(user.getUsername());
-		
+	}
+	
+	public Person getPerson() {
+		return this.user;
 	}
 
-	private CalendarModel requestCalendar(String username) {
+	public CalendarModel requestCalendar(String username) {
 		CalendarRequestPackage calReq = new CalendarRequestPackage(username,null,1,1);
 		sender.sendPackage(calReq);
 		response = sender.receivePackageArray();
