@@ -32,6 +32,7 @@ public class CalendarModel implements PropertyChangeListener {
 			int oldyear = getYear();
 			setYear(++oldyear);
 		}
+		System.out.println(weekNr);
 		pcs.firePropertyChange("setWeekNr", oldWeekNr, weekNr);
 	}
 	
@@ -43,6 +44,7 @@ public class CalendarModel implements PropertyChangeListener {
 			int oldyear = getYear();
 			setYear(--oldyear);
 		}
+		System.out.println(weekNr);
 		pcs.firePropertyChange("setWeekNr", oldWeekNr, weekNr);
 	}
 	

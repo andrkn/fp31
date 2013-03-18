@@ -7,11 +7,22 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 
 public class ButtonPanel extends JPanel {
-	private JButton addEvent, addExternalCal;
+	private JButton addEvent, addExternalCal, nextWeek, prevWeek;
 	private MainCalendarPanel mainPanel;
 	
 	public ButtonPanel(MainCalendarPanel mainPanel){
 		this.mainPanel = mainPanel;
+		
+		
+		prevWeek = new JButton("<<");
+		prevWeek.setName("PrevWeek");
+		prevWeek.addActionListener(new ButtonPanelAction());
+		add(prevWeek);
+		
+		nextWeek = new JButton(">>");
+		nextWeek.setName("NextWeek");
+		nextWeek.addActionListener(new ButtonPanelAction());
+		add(nextWeek);
 		
 		addEvent = new JButton("New event");
 		addEvent.setName("NewEvent");
@@ -38,8 +49,16 @@ public class ButtonPanel extends JPanel {
 				System.out.println("Adding External Calendar");
 				mainPanel.importEvents();
 			}
+			else if(sourceButton.getName().equals("NextWeek")){
+				System.out.println("Going to next week");
+				mainPanel.getCalModel().incrementWeek();
+			}
+			else if(sourceButton.getName().equals("PrevWeek")){
+				System.out.println("Going to prev week");
+				mainPanel.getCalModel().decrementWeek();
+			}
 		}
-		
+
 	}
 }
 

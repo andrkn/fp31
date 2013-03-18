@@ -35,6 +35,7 @@ public class MainCalendarPanel extends JPanel {
 	private CalendarPanel calendarPanel;
 	private GridBagLayout gridbag;
 	private GridBagConstraints gridbagConstraints;
+	private CalendarModel calModel;
 	
 	
 	public MainCalendarPanel(String username){
@@ -42,7 +43,7 @@ public class MainCalendarPanel extends JPanel {
 		user = new Person(username, "","");
 		
 		//Request the users calendar from DB
-		CalendarModel calModel = requestCalendar(username);
+		calModel = requestCalendar(username);
 		
 		//construct the view
 		Dimension dim = new Dimension(1300,900);
@@ -141,5 +142,16 @@ public class MainCalendarPanel extends JPanel {
 		sender.sendPackage(pack);
 		return sender.receivePackage();
 	}
+
+	public CalendarModel getCalModel() {
+		return calModel;
+	}
+
+	public void setCalModel(CalendarModel calModel) {
+		this.calModel = calModel;
+		firePropertyChange("Update", 1, 1);
+	}
+	
+	
 	
 }
