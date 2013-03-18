@@ -66,11 +66,7 @@ public class MainPanel {
 		frame.validate(); 
 		frame.repaint();
 //		frame.setResizable(true);
-<<<<<<< HEAD
 		//Thread t = new Thread(idle());
-=======
-//		Thread t = new Thread(idle());
->>>>>>> Minor changes to MainPanel and added the SwingWorker in attempt to handle backgroundtasks
 	}
 
 	private static Runnable idle() {
