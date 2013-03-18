@@ -25,10 +25,6 @@ public class EventModel {
 		return this.event;
 	}
 	
-	public void deleteEvent(){
-		
-	}
-	
 	public String getStartTime(){
 		return getTimeString(event.getStartTime()); 
 	}
@@ -226,12 +222,12 @@ public class EventModel {
 	
 	
 	public int getNumberOfAttenders(){
-		return 0; 
+		return event.getIsGoing().size(); 
 	}
 	public int getNumberOfNotAnsward(){
-		return 0;
+		return event.getHasNotReplied().size();
 	}
 	public int getNumberOfDeclines(){
-		return 0; 
+		return event.getIsNotGoing().size(); 
 	}
 }

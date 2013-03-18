@@ -60,7 +60,7 @@ public class Event implements java.io.Serializable {
 	public ArrayList<String> getIsNotGoing(){
 		return isNotGoing;
 	}
-	public ArrayList<String> getHasNotGoing(){
+	public ArrayList<String> getHasNotReplied(){
 		return hasNotReplied;
 	}
 	
