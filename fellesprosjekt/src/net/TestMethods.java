@@ -28,7 +28,7 @@ public class TestMethods {
     	//	System.out.println(e.getEventId());
     	//}
     	
-    	System.out.println(dbm.getIsGoing(36));
+    	System.out.println(dbm.getHasNotReplied(38));
     	//Event e = dbm.createEvent("hanskhe", new Timestamp(113,12,2,15,0,0,0), new Timestamp(113,12,2,16,0,0,0), "prosjekt", "jobbe med prosjektet", "", "helle", null, "");
     	db.close();
     	

@@ -83,6 +83,14 @@ public class DBMethods {
 		return resultSet.getInt(1);
 	}
 	
+	public int getHasNotReplied(int eventID) throws SQLException{
+		statement = connection.createStatement();
+		String sql = "SELECT COUNT(*) FROM Invited WHERE eventID = " + eventID + " AND isGoing IS NULL";
+		ResultSet resultSet = statement.executeQuery(sql);
+		resultSet.next();
+		return resultSet.getInt(1);
+	}
+	
 	public void inviteGroup(String invitedGroups, int eventId) throws NumberFormatException, SQLException{
 		for (String g : invitedGroups.split(" ")){
 			String persons = getPersonsFromGroup(Integer.parseInt(g));
