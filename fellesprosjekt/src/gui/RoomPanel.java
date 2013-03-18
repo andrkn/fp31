@@ -64,8 +64,9 @@ public class RoomPanel extends JPanel{
 	private void addPlaceTextField(){
 		placeField = new JTextField();
 		GridBagConstraints grid = new GridBagConstraints(); 
-		grid.gridx = 1; 
-		grid.gridy = 0 ; 
+		grid.gridx = 0; 
+		grid.gridy = 1;
+		grid.fill = GridBagConstraints.BOTH;
 		
 		this.add(placeField, grid);
 	}

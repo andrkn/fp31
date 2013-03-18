@@ -13,7 +13,6 @@ public class RoomListModel extends DefaultListModel{
 		int numberOfAttenders = event.getNumberOfAttenders(); 
 		
 		Collections.sort(roomList);
-		roomList.add(0, new Room("", 0));
 		for (Room room : roomList){
 			if (room.getCapacity()>= numberOfAttenders){
 				addElement(room);

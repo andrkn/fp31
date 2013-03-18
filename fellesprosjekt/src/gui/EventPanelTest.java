@@ -19,7 +19,7 @@ public class EventPanelTest {
 		JFrame frame = new JFrame();
 		
 		Person p = new Person();
-		p.setName("Torstein");
+		p.setName("hanskhe");
 		
 		ArrayList<HaveCalendar> test = new ArrayList<HaveCalendar>();
 //		Person p1 = new Person(); 
@@ -43,10 +43,10 @@ public class EventPanelTest {
 						new Timestamp(System.currentTimeMillis()), 
 						"Name", "Decription", "Place", null, test), p);
 		model.setMapAlarm(p, model.getTimestamp(model.getStartTime() + 10000));
-		EventPanel panel = new EventPanel(model);
+		EventPanel panel = new EventPanel(model, new MainCalendarPanel(p.getName()));
 		
 		mainPanel.add(panel);
-		mainPanel.add(new EventPreview(model));
+		mainPanel.add(new EventPreview(model, new MainCalendarPanel(p.getName())));
 		
 		frame.setContentPane(mainPanel);
 		frame.setSize(500,600); 

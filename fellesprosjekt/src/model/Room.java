@@ -8,7 +8,7 @@ public class Room implements Comparable<Room>, java.io.Serializable{
 	public Room(String roomNr, int capacity){
 		if (roomNr.equals(null)){
 			throw new IllegalArgumentException("roomNr can not be null");
-		}else if (capacity<1){
+		}else if (capacity<0){
 			throw new IllegalArgumentException("capacity must be a positive integer");
 		}
 		this.roomNr = roomNr; 
