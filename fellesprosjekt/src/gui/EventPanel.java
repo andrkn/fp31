@@ -413,6 +413,9 @@ public class EventPanel extends JPanel implements PropertyChangeListener{
 	public void change(){
 		model.setEditeble(false);
 	}
+	public void delete(){
+		model.deleteEvent();
+	}
 	
 	public void launchAlarm() {
 		

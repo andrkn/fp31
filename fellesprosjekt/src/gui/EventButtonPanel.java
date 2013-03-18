@@ -21,7 +21,7 @@ public class EventButtonPanel extends JPanel{
 	
 	private GridBagConstraints grid;
 	private EventPanel panel;
-	private JButton saveButton, abortButton, changeButton;
+	private JButton saveButton, abortButton, changeButton, deleteButton;
 	
 	public EventButtonPanel(EventPanel panel, boolean editeble){
 		
@@ -44,8 +44,12 @@ public class EventButtonPanel extends JPanel{
 		this.add(saveButton, grid); 
 		
 		grid.gridx += 1;
-		createabortButton();
+		createAbortButton();
 		this.add(abortButton, grid); 
+		
+		grid.gridx += 1; 
+		createDeleteButton();
+		this.add(deleteButton, grid);
 		
 	}
 	
@@ -74,7 +78,7 @@ public class EventButtonPanel extends JPanel{
 		});
 	}
 	
-	private void createabortButton(){
+	private void createAbortButton(){
 		abortButton = new JButton("Avbryt");
 		abortButton.addActionListener(new ActionListener() {
 			
@@ -92,6 +96,17 @@ public class EventButtonPanel extends JPanel{
 				panel.change();
 			}
 		});
+	}
+	private void createDeleteButton(){
+		deleteButton = new JButton("Slett");
+		deleteButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				panel.delete();
+			}
+		});
+		
 	}
 
 	
