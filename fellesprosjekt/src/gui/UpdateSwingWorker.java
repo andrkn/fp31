@@ -21,7 +21,8 @@ public class UpdateSwingWorker extends SwingWorker<Void, Void>{
 	public Void doInBackground() {
 		while (true) {
 			System.out.println("it's working!");
-			panel.setModel(((MainCalendarPanel) pane).requestCalendar(((MainCalendarPanel) pane).getPerson().getUsername()));
+			//panel.setModel(((MainCalendarPanel) pane).requestCalendar(((MainCalendarPanel) pane).getPerson().getUsername()));
+			((MainCalendarPanel) pane).setCalModel(((MainCalendarPanel) pane).requestCalendar(((MainCalendarPanel) pane).getPerson().getUsername()));
 			try {
 				Thread.sleep(20000);
 			} catch (InterruptedException e) {
