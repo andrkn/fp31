@@ -60,7 +60,7 @@ public class MainPanel {
 		frame.setLocation(20, 20);
 		pane = new MainCalendarPanel(username);
 		frame.getContentPane().add(pane);
-//		frame.pack();
+		frame.pack();
 		frame.setSize(1600, 900);
 		frame.setVisible(true);
 		frame.validate(); 
