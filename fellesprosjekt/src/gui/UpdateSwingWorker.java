@@ -25,10 +25,12 @@ public class UpdateSwingWorker extends SwingWorker<Void, Void>{
 	@Override
 	public Void doInBackground() {
 		while (true) {
-			System.out.println("it's working!");
+//			System.out.println("it's working!");
 			events = new ArrayList<Event>();
 			events = ((MainCalendarPanel) pane).requestCalendar(((MainCalendarPanel) pane).getPerson().getUsername()).getEventList();
 			panel.getModel().addEvents(events);
+			
+			
 			try {
 				//Sleeping for 20 seconds
 				Thread.sleep(20000);
