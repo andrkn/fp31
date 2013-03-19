@@ -20,6 +20,7 @@ import datapackage.EventPackage;
 import datapackage.HaveCalendarListRequestPackage;
 import datapackage.HaveCalendarPackage;
 import datapackage.InvitePackage;
+import datapackage.NotificationPackage;
 import datapackage.NotificationRequestPackage;
 
 import net.PackageSender;
@@ -132,7 +133,7 @@ public class MainCalendarPanel extends JPanel {
 		return tempcalModel;
 	}
 	
-	public ArrayList<Event> requestNotifications() {
+	public ArrayList<DataPackage> requestNotifications() {
 		sender.sendPackage(new NotificationRequestPackage(1, 1, this.getPerson().getUsername()));
 		response = sender.receivePackageArray();
 		if (response.get(0) instanceof ErrorPackage) {
@@ -141,7 +142,8 @@ public class MainCalendarPanel extends JPanel {
 		}
 		else {
 			//We need to change the ServerPackageHandler to return the events inside the NotificationPackage...
-			return null;
+			//If this works ignore the above comment!
+			return response;
 		}
 	}
 	

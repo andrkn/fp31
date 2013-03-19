@@ -1,5 +1,6 @@
 package datapackage;
 
+
 public class NotificationRequestPackage implements DataPackage{
 
 	private int packageNumber, totalPackages;
@@ -30,6 +31,8 @@ public class NotificationRequestPackage implements DataPackage{
 	public String getUsername() {
 		return username;
 	}
+
+	
 
 	
 }

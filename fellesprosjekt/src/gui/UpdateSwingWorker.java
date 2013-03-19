@@ -7,6 +7,9 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingWorker;
 
+import datapackage.DataPackage;
+import datapackage.NotificationPackage;
+
 import model.Event;
 
 
@@ -16,7 +19,7 @@ public class UpdateSwingWorker extends SwingWorker<Void, Void>{
 	private JPanel pane;
 	private CalendarPanel panel;
 	private ArrayList<Event> events;
-	private ArrayList<Event> notifications;
+	private ArrayList<DataPackage> notifications;
 	
 	public UpdateSwingWorker(JPanel pane, JFrame frame, CalendarPanel panel){
 		this.frame = frame;
@@ -29,14 +32,31 @@ public class UpdateSwingWorker extends SwingWorker<Void, Void>{
 		while (true) {
 //			System.out.println("it's working!");
 			events = new ArrayList<Event>();
-			notifications = new ArrayList<Event>();
+			notifications = new ArrayList<DataPackage>();
 			events = ((MainCalendarPanel) pane).requestCalendar(((MainCalendarPanel) pane).getPerson().getUsername()).getEventList();
 			panel.getModel().addEvents(events);
 			
 			notifications = ((MainCalendarPanel) pane).requestNotifications();
 			if (notifications != null) {
-				//JOptionPane.showConfirmDialog(null, message, title, optionType);
-				//JOptionPane.showMessageDialog(null, "Testing 1..2..3..");
+				for (Event e : events) {
+					for (DataPackage pack : notifications) {
+						if (((NotificationPackage) pack).getEventId() == e.getEventId()) {
+							if (((NotificationPackage) pack).getNotificationType() == 0) {
+								//This will not work properly because the event won't show up in the list of events.
+								//Need to check if the id is not in the events..
+								JOptionPane.showMessageDialog(null, "The event " + e.getName() + " is cancelled. Press OK to continue.");
+							}
+							else if (((NotificationPackage) pack).getNotificationType() == 1) {
+								JOptionPane.showConfirmDialog(null, "The event " + e.getName() + " was updated. Are you still able to join?", "Your event was updated", 2); //2 is for the YES_NO_CANCEL option
+								
+							}
+							else if (((NotificationPackage) pack).getNotificationType() == 2) {
+								JOptionPane.showConfirmDialog(null, "You are invited to the event " + e.getName() + ". Do you want to join?", "Your are invited", 2); //2 is for the YES_NO_CANCEL option
+							
+							}
+						}
+					}
+				}
 			}
 			
 			try {
