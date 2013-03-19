@@ -395,17 +395,30 @@ public class EventPanel extends JPanel implements PropertyChangeListener{
 			model.setAlarm(Integer.parseInt(alarmField.getText()));
 		}
 		
-		Event returnEvent = model.getEvent();
-		EventPackage eventPack = new EventPackage(1, 1, returnEvent);
-		DataPackage returnPack = mainCalendarPanel.sendPackage(eventPack);
-		if (returnPack instanceof EventPackage){
-			model.getEvent().setEventId(((EventPackage) returnPack).getEvent().getEventId());
-			System.out.println(((EventPackage)returnPack).getEvent().getEventId());
+		if (model.getEvent().getEventId() == 0){
+			//If the event does not exist beforehand
+			Event returnEvent = model.getEvent();
+			EventPackage eventPack = new EventPackage(1, 1, returnEvent);
+			DataPackage returnPack = mainCalendarPanel.sendPackage(eventPack);
+			if (returnPack instanceof EventPackage){
+				model.getEvent().setEventId(((EventPackage) returnPack).getEvent().getEventId());
+				System.out.println(((EventPackage)returnPack).getEvent().getEventId());
+			}
+			else if (returnPack instanceof ErrorPackage){
+				System.out.println(((ErrorPackage)returnPack).getDescription());
+			}
 		}
-		else if (returnPack instanceof ErrorPackage){
-			System.out.println(((ErrorPackage)returnPack).getDescription());
+		else {
+			Event returnEvent = model.getEvent();
+			EventUpdatePackage updatePack = new EventUpdatePackage(model.getEvent().getEventId(),"FULL_UPDATE", model.getEvent(), 1,1);
+			DataPackage returnPack = mainCalendarPanel.sendPackage(updatePack);
+			if (returnPack instanceof EventPackage){
+				System.out.println("The sun never sets on the British empire!");
+			}
+			else if (returnPack instanceof ErrorPackage){
+				System.out.println(((ErrorPackage)returnPack).getDescription());
+			}
 		}
-		
 		model.setEditeble(true);
 		
 	}

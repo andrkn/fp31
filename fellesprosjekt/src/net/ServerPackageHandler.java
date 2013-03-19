@@ -231,13 +231,17 @@ public class ServerPackageHandler {
 	}
 	
 	private ArrayList<DataPackage> eventUpdateHandler(EventUpdatePackage pack) throws IOException, SQLException{
+		ArrayList<DataPackage> list = new ArrayList<DataPackage>(); 
 		if (pack.getProperty().equals("Delete")){
 			DBMethods method = connectToDB(); 
 			method.deleteEvent(pack.getEventID());
 			disconnectFromDB();
+			list.add(new ErrorPackage(ErrorType.OK, "Package was deleted", 1, 1));
 		}
-		ArrayList<DataPackage> list = new ArrayList<DataPackage>(); 
-		list.add(new ErrorPackage(ErrorType.OK, "Package was deleted", 1, 1));
+		else if (pack.getProperty().equals("FULL_UPDATE")){
+			Event event = (Event)pack.getNewValue();
+			//Update DB here!
+		}
 		return list;
 	}
 }
