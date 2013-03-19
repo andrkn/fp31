@@ -1,67 +1,108 @@
 package model;
 
+import gui.MainCalendarPanel;
+
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import javax.swing.DefaultListModel;
+import javax.swing.ListModel;
+import javax.swing.event.ListDataListener;
+
 import net.DBMethods;
 
-public class InviteListModel {
+public class InviteListModel implements ListModel{
 	//Her har jeg tenkt at vi handterer grupper og personer pa samme mate, men det er mulig dette b�re l�ses p� en annen m�te.
 	//Dette gjelder da spesifikt sendInvite().	
 	
-	private ArrayList<HaveCalendar> InviteList;
+	private ArrayList<HaveCalendar> inviteList;
 	private PropertyChangeSupport pcs;
 	private int eventId;
-	
-	public InviteListModel(int eventId) {
-		this.setEventId(eventId);
-		InviteList = new ArrayList<HaveCalendar>();
-	}
-	
-	public int getEventId() {
-		return eventId;
-	}
+	private DefaultListModel dlm;
+	private MainCalendarPanel mainPanel;
 
-	public void setEventId(int eventId) {
-		this.eventId = eventId;
+	
+	public InviteListModel(MainCalendarPanel mainPanel, int eventID){
+		this.eventId = eventID;
+		this.mainPanel = mainPanel;
+		inviteList = mainPanel.getInviteList();
 	}
+	
+//	public InviteListModel(int eventId) {
+//		this.setEventId(eventId);
+//		inviteList = new ArrayList<HaveCalendar>();
+//	}
+//	
+//	public int getEventId() {
+//		return eventId;
+//	}
+//
+//	public void setEventId(int eventId) {
+//		this.eventId = eventId;
+//	}
 
 	public void sendInvite(int eventId, ArrayList<HaveCalendar> list, DBMethods invite) throws SQLException {
 		invite.invitePersons(eventId, list);
 	}
-	
-	public void addPropertyChangeListener(PropertyChangeListener listener) {
-		pcs.addPropertyChangeListener(listener);
+	public void sendInvite(HaveCalendar hc){
+		mainPanel.sendInvite(eventId, hc);
 	}
 	
-	public void removePropertyChangeListener(PropertyChangeListener listener) {
-		pcs.removePropertyChangeListener(listener);
-	}
+//	public void addPropertyChangeListener(PropertyChangeListener listener) {
+//		pcs.addPropertyChangeListener(listener);
+//	}
+//	
+//	public void removePropertyChangeListener(PropertyChangeListener listener) {
+//		pcs.removePropertyChangeListener(listener);
+//	}
 	
 	public ArrayList<HaveCalendar> getInviteList() {
-		return InviteList;
+		return inviteList;
 	}
 	
-	public void setInviteList(ArrayList<HaveCalendar> inviteList) {
-		InviteList = inviteList;
+//	public void setInviteList(ArrayList<HaveCalendar> inviteList) {
+//		this.inviteList = inviteList;
+//	}
+	
+	public void add(HaveCalendar hc) {
+		this.inviteList.add(hc);
+		dlm.addElement(hc);
+		sendInvite(hc);
 	}
 	
-	public void addInvite(Person p) {
-		this.InviteList.add(p);
+//	public void addInvite(Group g) {
+//		this.inviteList.add(g);
+//	}
+//	
+//	public PropertyChangeSupport getPcs() {
+//		return pcs;
+//	}
+//	
+//	public void setPcs(PropertyChangeSupport pcs) {
+//		this.pcs = pcs;
+//	}
+
+	@Override
+	public void addListDataListener(ListDataListener arg0) {
+		// TODO Auto-generated method stub
+		dlm.addListDataListener(arg0);
 	}
-	
-	public void addInvite(Group g) {
-		this.InviteList.add(g);
+
+	@Override
+	public Object getElementAt(int arg0) {
+		return inviteList.get(arg0);
 	}
-	
-	public PropertyChangeSupport getPcs() {
-		return pcs;
+
+	@Override
+	public int getSize() {
+		return inviteList.size();
 	}
-	
-	public void setPcs(PropertyChangeSupport pcs) {
-		this.pcs = pcs;
+
+	@Override
+	public void removeListDataListener(ListDataListener arg0) {
+		dlm.removeListDataListener(arg0);
 	}
 	
 	

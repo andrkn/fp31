@@ -156,10 +156,21 @@ public class Event implements java.io.Serializable {
 			attenders = new ArrayList<HaveCalendar>();
 		}
 		attenders.add(haveCalendar); 
+		//TODO 
+		hasNotReplied.add(haveCalendar.getName());
 	}
 	
 	public void removeAttender(HaveCalendar haveCalendar){
-		attenders.remove(haveCalendar); 
+		String name = haveCalendar.toString();
+		if (isNotGoing.contains(name)){
+			isNotGoing.remove(name); 
+		}else if (isGoing.contains(name)){
+			isGoing.remove(name);
+		}else if (hasNotReplied.contains(name)){
+			hasNotReplied.remove(name);
+		}else {
+			System.out.println("Trying to remove an haveCalendar, that dosnt exsist, from string lists (model.event.removeAttender())");
+		}
 	}
 	
 	public int getNumberOfAttenders(){
@@ -190,6 +201,16 @@ public class Event implements java.io.Serializable {
 
         return (mapAlarms == null) ? null:mapAlarms;
 
+	}
+	
+	public ArrayList<String> getAttendingList(){
+		ArrayList<String> attendingList = new ArrayList<String>(); 
+		
+		attendingList.addAll(hasNotReplied); 
+		attendingList.addAll(isGoing); 
+		attendingList.addAll(isNotGoing); 
+		
+		return attendingList; 
 	}
 
 	

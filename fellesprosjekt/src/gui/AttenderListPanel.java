@@ -14,8 +14,10 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.ListSelectionModel;
 
+import model.Event;
 import model.EventModel;
 import model.HaveCalendar;
+import model.InviteListModel;
 import model.Person;
 
 public class AttenderListPanel extends JPanel{
@@ -25,6 +27,7 @@ public class AttenderListPanel extends JPanel{
 	private JButton addButton; 
 	private DefaultListModel listModel; 
 	private EventModel model;
+//	private InviteListModel inviteModel;
 	
 	public AttenderListPanel(EventModel model){
 		this.model = model;
@@ -39,6 +42,12 @@ public class AttenderListPanel extends JPanel{
 		
 		this.setName("AttenderListPanel");
 	}
+	
+//	public AttenderListPanel(InviteListModel model){
+//		this.inviteModel = model; 
+//		list = getJList();
+//		createButton();
+//	}
 
 	private void addComponents() {
 		grid = new GridBagConstraints();
@@ -79,4 +88,12 @@ public class AttenderListPanel extends JPanel{
 		}
 	}
 
+//	private JList getJList(){
+//		JList list = new JList();
+//		listModel = new DefaultListModel();
+//		list.setModel(listModel);
+//		list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+//		
+//		return list;
+//	}
 }

@@ -239,4 +239,7 @@ public class EventModel {
 		}
 		return event.getIsNotGoing().size(); 
 	}
+	public ArrayList<String> getAttenderList(){
+		return event.getAttendingList();
+	}
 }
