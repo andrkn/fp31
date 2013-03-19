@@ -6,11 +6,13 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Properties;
 
 import javax.swing.JOptionPane;
 
 import model.Event;
+import model.HaveCalendar;
 
 import datapackage.*;
 import encryption.PasswordEncryption;
@@ -83,6 +85,26 @@ public class ServerPackageHandler {
 				e.printStackTrace();
 			}
 			
+		}else if (pack instanceof HaveCalendarListRequestPackage){
+			System.out.println("HaveCalendarListRequestPackage Recieved");
+			try {
+				returnPackages = haveCalendarListRequestHandler((HaveCalendarListRequestPackage)pack);
+			} catch (IOException e) {
+				e.printStackTrace();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}else if (pack instanceof InvitePackage){
+			System.out.println("InvitePackage Recieved");
+			try {
+				returnPackages = invitePackageHandeler((InvitePackage)pack);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		return returnPackages;
 	}
@@ -249,4 +271,35 @@ public class ServerPackageHandler {
 		}
 		return list;
 	}
+	
+	private ArrayList<DataPackage> haveCalendarListRequestHandler(
+			HaveCalendarListRequestPackage pack) throws IOException, SQLException {
+		
+		ArrayList<DataPackage> dataPackageList = new ArrayList<DataPackage>();
+		DBMethods method = connectToDB();
+
+		ArrayList<HaveCalendar> hcList = method.getAllInvitable(); 
+		
+		int i = 1;
+		for (HaveCalendar hc : hcList){
+			dataPackageList.add( new HaveCalendarPackage(i, hcList.size(), hc)); 
+			i++;
+		}
+		
+		disconnectFromDB();
+		return dataPackageList;
+	}
+
+	private ArrayList<DataPackage> invitePackageHandeler(InvitePackage pack) throws IOException, SQLException {
+		ArrayList<DataPackage> dataPackageList = new ArrayList<DataPackage>(); 
+		DBMethods method = connectToDB(); 
+		
+		method.invitePersons(pack.getEventID(), pack.getHaveCalendar());
+		
+		disconnectFromDB();
+		
+		return dataPackageList;
+	}
+
+
 }

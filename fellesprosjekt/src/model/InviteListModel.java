@@ -6,6 +6,7 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.swing.DefaultListModel;
 import javax.swing.ListModel;
@@ -47,7 +48,9 @@ public class InviteListModel implements ListModel{
 		invite.invitePersons(eventId, list);
 	}
 	public void sendInvite(HaveCalendar hc){
-		mainPanel.sendInvite(eventId, hc);
+		ArrayList<HaveCalendar> hcList = new ArrayList<HaveCalendar>();
+		hcList.add(hc);
+		mainPanel.sendInvite(eventId, hcList);
 	}
 	
 //	public void addPropertyChangeListener(PropertyChangeListener listener) {

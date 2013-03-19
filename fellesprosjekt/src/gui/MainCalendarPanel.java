@@ -8,13 +8,18 @@ import java.awt.Insets;
 import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import datapackage.CalendarRequestPackage;
 import datapackage.DataPackage;
+import datapackage.ErrorPackage;
 import datapackage.EventPackage;
+import datapackage.HaveCalendarListRequestPackage;
+import datapackage.HaveCalendarPackage;
+import datapackage.InvitePackage;
 
 import net.PackageSender;
 
@@ -181,5 +186,24 @@ public class MainCalendarPanel extends JPanel {
 		return this.user;
 	}
 	
+	public void sendInvite(int eventID, ArrayList<HaveCalendar> hcList){
+		sender.sendPackage(new InvitePackage(eventID, hcList, 1, 1)); 
+		ErrorPackage pack = (ErrorPackage) sender.receivePackage();
+		System.out.println(pack.getErrorType() + " (gui.MainCalenderPanel.sendInvite())");
+	}
 	
+	public ArrayList<HaveCalendar> getInviteList(){
+		sender.sendPackage(new HaveCalendarListRequestPackage(1, 1));
+		ArrayList<DataPackage> dataList = sender.receivePackageArray(); 
+		
+		ArrayList<HaveCalendar> hcList = new ArrayList<HaveCalendar>();
+		
+		for (DataPackage dataPackage : dataList){
+			HaveCalendarPackage hcpackage = (HaveCalendarPackage) dataPackage;
+			hcList.add(hcpackage.getHc());
+			System.out.println(hcpackage.getHc().getName() + " (gui.mainCalenderPanel.getInviteList())");
+		}
+		
+		return hcList;
+	}
 }
