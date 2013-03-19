@@ -44,6 +44,14 @@ public class DBMethods {
 		return new Event(eventId, getPerson(createdBy),startTime,endTime, eventName, description,place,getRoom(roomNr), getInvitedToEvent(eventId));
 	}
 	
+	public void updateEvent(int eventId, Timestamp startTime, Timestamp endTime, String eventName, String description, String place, String roomNr) throws SQLException{
+		statement = connection.createStatement();
+		String sql = "UPDATE Event SET startTime = '" + startTime + "', endTime = '" + endTime + "', eventName = '" +
+		eventName + "', description = '" + description + "', place = '" + place + "', roomNr = '" + roomNr + "' WHERE eventID = " + eventId;
+		System.out.println(sql);
+		statement.executeUpdate(sql);
+	}
+	
 	public void invitePersons(int eventId, String invitedPersons) throws SQLException{
 		for (String person : invitedPersons.split(" ")){
 			updateInvited(person, eventId);
