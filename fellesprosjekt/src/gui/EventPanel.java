@@ -272,6 +272,10 @@ public class EventPanel extends JPanel implements PropertyChangeListener{
 		numberOfDeclinesField.setName("NumberOfDeclinesField");
 		this.add(numberOfDeclinesField, grid);
 		
+		grid.gridy += 1; 
+		JLabel createdByField = new JLabel(model.getEvent().getCreatedBy().getName());
+		createdByField.setName("CreatedByField"); 
+		this.add(createdByField, grid); 
 		
 		endRow = grid.gridy+1;
 	}
@@ -366,6 +370,12 @@ public class EventPanel extends JPanel implements PropertyChangeListener{
 		JLabel numberOfDeclinesLabel = new JLabel("Avsl�tt invitasjon: ");
 		numberOfDeclinesLabel.setName("NumberOfDeclinesLabel");
 		this.add(numberOfDeclinesLabel, grid);
+		
+		grid.gridy += 1; 
+		JLabel createdByLabel = new JLabel("Laget av: "); 
+		createdByLabel.setName("CreatedByLabel"); 
+		this.add(createdByLabel, grid); 
+		
 	}
 
 	private void setupForGridLabel() {
