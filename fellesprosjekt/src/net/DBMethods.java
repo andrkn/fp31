@@ -300,6 +300,17 @@ public class DBMethods {
     	return rooms;
     }
     
+    public HashMap<String, Person> getAllPersons() throws SQLException{
+    	statement = connection.createStatement();
+    	HashMap<String, Person> persons = new HashMap<String, Person>();
+    	String sql = "SELECT * FROM Person";
+    	ResultSet resultSet = statement.executeQuery(sql);
+    	while(resultSet.next()){
+    		persons.put(resultSet.getString(1), getPerson(resultSet.getString(1)));
+    	}
+
+    	return persons;
+    }
+    
     
 }
-
