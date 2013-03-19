@@ -407,6 +407,7 @@ public class EventPanel extends JPanel implements PropertyChangeListener{
 		}
 		
 		model.setEditeble(true);
+		
 	}
 	public void abort(){
 		model.setEditeble(true); 

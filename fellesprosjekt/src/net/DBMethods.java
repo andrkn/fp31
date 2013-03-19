@@ -33,9 +33,9 @@ public class DBMethods {
 		
 		statement = connection.createStatement();
 		String sql = "INSERT INTO Event (createdBy_username, startTime, endTime, eventName, " +
-				"description, place, invitedPersons, invitedGroups, roomNr) VALUES ('"+ createdBy 
+				"description, place, invitedGroups, roomNr) VALUES ('"+ createdBy 
 				+ "', '" + startTime + "', '" + endTime + "', '" + eventName + "', '" + description + "', '" +
-						place + "', '" + invitedPersons + "', '" + invitedGroups + "', '" + roomNr + "')";
+						place + "', '" + invitedGroups + "', '" + roomNr + "')";
 		statement.executeUpdate(sql, Statement.RETURN_GENERATED_KEYS);
 		ResultSet resultSet = statement.getGeneratedKeys();
 		resultSet.beforeFirst();
