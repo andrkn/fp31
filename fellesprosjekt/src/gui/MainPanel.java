@@ -67,7 +67,7 @@ public class MainPanel {
 		frame.repaint();
 //		frame.setResizable(true);
 		UpdateSwingWorker usw = new UpdateSwingWorker(pane, frame, ((MainCalendarPanel) pane).getCalendarPanel());
-		usw.execute();
+//		usw.execute();
 	}
 	
 }
