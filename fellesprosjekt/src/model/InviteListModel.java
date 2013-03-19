@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import net.DBMethods;
 
 public class InviteListModel {
-	//Her har jeg tenkt at vi handterer grupper og personer pa samme mate, men det er mulig dette b¿re l¿ses pŒ en annen mŒte.
+	//Her har jeg tenkt at vi handterer grupper og personer pa samme mate, men det er mulig dette bï¿½re lï¿½ses pï¿½ en annen mï¿½te.
 	//Dette gjelder da spesifikt sendInvite().	
 	
 	private ArrayList<HaveCalendar> InviteList;
@@ -29,7 +29,7 @@ public class InviteListModel {
 	}
 
 	public void sendInvite(int eventId, ArrayList<HaveCalendar> list, DBMethods invite) throws SQLException {
-		invite.invite(eventId, list);
+		invite.invitePersons(eventId, list);
 	}
 	
 	public void addPropertyChangeListener(PropertyChangeListener listener) {
