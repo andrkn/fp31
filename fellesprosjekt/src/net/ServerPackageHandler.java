@@ -197,7 +197,7 @@ public class ServerPackageHandler {
 		System.out.println(event.getRoom());
 		
 		DBMethods method = connectToDB();
-		Event returnEvent = method.createEvent(event.getCreatedBy().getUsername(), event.getStartTime(), event.getEndTime(), event.getName(), event.getDescription(), event.getPlace(), "" /*TODO*/, "" /*TODO*/, event.getRoom().getRoomNr());
+		Event returnEvent = method.createEvent(event.getCreatedBy().getUsername(), event.getStartTime(), event.getEndTime(), event.getName(), event.getDescription(), event.getPlace(), "" /*TODO*/, event.getRoom().getRoomNr());
 		disconnectFromDB();
 		
 		ArrayList<DataPackage> returnPackages = new ArrayList<DataPackage>();
@@ -241,6 +241,7 @@ public class ServerPackageHandler {
 		else if (pack.getProperty().equals("FULL_UPDATE")){
 			Event event = (Event)pack.getNewValue();
 			//Update DB here!
+			
 		}
 		return list;
 	}
