@@ -162,11 +162,6 @@ public class MainCalendarPanel extends JPanel {
 		return calendarPanel;
 	}
 	
-	public void run() {
-		isRunning = true;
-		this.requestCalendar(user.getUsername());
-	}
-	
 	public Person getPerson() {
 		return this.user;
 	}

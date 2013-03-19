@@ -66,24 +66,8 @@ public class MainPanel {
 		frame.validate(); 
 		frame.repaint();
 //		frame.setResizable(true);
-		//Thread t = new Thread(idle());
 		UpdateSwingWorker usw = new UpdateSwingWorker(pane, frame, ((MainCalendarPanel) pane).getCalendarPanel());
-	}
-
-	private static Runnable idle() {
-		while (true) {
-			frame.validate();
-			frame.repaint();
-			pane.validate();
-			pane.repaint();
-			((MainCalendarPanel) pane).run();
-			try {
-				Thread.sleep(3000);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
+		usw.execute();
 	}
 	
 }
