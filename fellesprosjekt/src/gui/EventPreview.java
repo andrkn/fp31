@@ -21,6 +21,7 @@ public class EventPreview extends JPanel implements PropertyChangeListener, Mous
 	private EventModel model;
 	private MainCalendarPanel mainPanel;
 	public static final Color backgroundColor = new Color(190,190,190); 
+	private boolean mouseOver; 
 	
 	public EventPreview(EventModel model, MainCalendarPanel mainPanel){
 		this.model = model;
@@ -60,6 +61,8 @@ public class EventPreview extends JPanel implements PropertyChangeListener, Mous
 		this.setBorder(BorderFactory.createLineBorder(Color.black));
 		this.setBackground(backgroundColor);
 		
+		this.addMouseListener(this);
+		
 		this.validate(); 
 		this.repaint();
 	}
@@ -71,31 +74,26 @@ public class EventPreview extends JPanel implements PropertyChangeListener, Mous
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		// TODO Auto-generated method stub
-		mainPanel.setEvent(model);
+			mainPanel.setEvent(model);
 	}
 
 	@Override
 	public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
 		
 	}
 
