@@ -240,8 +240,12 @@ public class ServerPackageHandler {
 		}
 		else if (pack.getProperty().equals("FULL_UPDATE")){
 			Event event = (Event)pack.getNewValue();
-			//Update DB here!
-			
+			DBMethods method = connectToDB(); 
+			//Updates the eventdetails
+			method.updateEvent(event.getEventId(), event.getStartTime(), event.getEndTime(), event.getName(), event.getDescription(), event.getPlace(), event.getRoom().getRoomNr());
+			//Must also update the invited persons!
+			disconnectFromDB();
+			list.add(new ErrorPackage(ErrorType.OK, "Event was updated", 1, 1));
 		}
 		return list;
 	}
