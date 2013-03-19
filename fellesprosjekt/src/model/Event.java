@@ -163,7 +163,12 @@ public class Event implements java.io.Serializable {
 	}
 	
 	public int getNumberOfAttenders(){
-		return attenders.size();
+		if (attenders != null){
+			return attenders.size();
+		}
+		else{
+			return 0;
+		}
 	}
 
 	public void setAlarm(Person person, int alarm) {
