@@ -11,6 +11,7 @@ import java.util.HashMap;
 
 
 import model.Event;
+import model.Group;
 import model.HaveCalendar;
 import model.Person;
 import model.Room;
@@ -29,7 +30,7 @@ public class DBMethods {
 	}
 	
 	public Event createEvent(String createdBy, Timestamp startTime, Timestamp endTime, String eventName, 
-			String description, String place, String invitedPersons, String invitedGroups, String roomNr) throws SQLException{
+			String description, String place, String invitedGroups, String roomNr) throws SQLException{
 		
 		statement = connection.createStatement();
 		String sql = "INSERT INTO Event (createdBy_username, startTime, endTime, eventName, " +
@@ -52,9 +53,19 @@ public class DBMethods {
 		statement.executeUpdate(sql);
 	}
 	
-	public void invitePersons(int eventId, String invitedPersons) throws SQLException{
-		for (String person : invitedPersons.split(" ")){
-			updateInvited(person, eventId);
+	public void invitePersons(int eventId, ArrayList invitedPersons) throws SQLException{
+		for (Object o : invitedPersons){
+			if (o instanceof Person){
+				updateInvited(((Person) o).getName(), eventId);	
+			}
+			if (o instanceof Group){
+				for (Object g : invitedPersons){
+					String persons = getPersonsFromGroup(Integer.parseInt(((Group) g).getName()));
+					for (String p : persons.split(" ")){
+						updateInvited(p,eventId);
+					}
+				}
+			}
 		}
 	}
 	
@@ -108,14 +119,14 @@ public class DBMethods {
 		return hasNotReplied;
 	}
 	
-	public void inviteGroup(String invitedGroups, int eventId) throws NumberFormatException, SQLException{
-		for (String g : invitedGroups.split(" ")){
-			String persons = getPersonsFromGroup(Integer.parseInt(g));
-			for (String p : persons.split(" ")){
-				updateInvited(p,eventId);
-			}
-		}
-	}
+//	public void inviteGroup(String invitedGroups, int eventId) throws NumberFormatException, SQLException{
+//		for (String g : invitedGroups.split(" ")){
+//			String persons = getPersonsFromGroup(Integer.parseInt(g));
+//			for (String p : persons.split(" ")){
+//				updateInvited(p,eventId);
+//			}
+//		}
+//	}
 	
 	public String getPersonsFromGroup(int groupNr) throws SQLException{
 		statement = connection.createStatement();
