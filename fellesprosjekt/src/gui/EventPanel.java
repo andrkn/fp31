@@ -227,7 +227,7 @@ public class EventPanel extends JPanel implements PropertyChangeListener{
 		grid.gridy += 1; 
 		Component attenderComponent;
 		if(!editeble){
-			attenderComponent = new AttenderListPanel(model);
+			attenderComponent = new AttenderListPanel(model, mainCalendarPanel);
 			
 		}else{
 			

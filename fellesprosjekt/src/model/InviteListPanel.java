@@ -63,12 +63,13 @@ public class InviteListPanel extends JPanel{
 			public void actionPerformed(ActionEvent arg0) {
 				HaveCalendar selected = (HaveCalendar) list.getSelectedValue();
 				model.addAttender(selected);
+				System.out.println(model.getAttenders());
 			}
 		});
 	}
 
 	private void createList(ArrayList<HaveCalendar> hcs) {
-		listModel = new InviteListModel(mainPanel, model.getEvent().getEventId());
+		listModel = new InviteListModel(mainPanel, model, model.getEvent().getEventId());
 		list = new JList(); 
 		list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		list.setModel(listModel);

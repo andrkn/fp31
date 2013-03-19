@@ -7,6 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
@@ -27,12 +28,16 @@ public class AttenderListPanel extends JPanel{
 	private JButton addButton; 
 	private DefaultListModel listModel; 
 	private EventModel model;
-//	private InviteListModel inviteModel;
+	private HashMap<String, HaveCalendar> nameMap;
 	
-	public AttenderListPanel(EventModel model){
+	public AttenderListPanel(EventModel model, MainCalendarPanel mainCalendarPanel){
 		this.model = model;
+		nameMap = new HashMap<String, HaveCalendar>(); 
+		for (HaveCalendar hc : mainCalendarPanel.getInviteList()){
+			nameMap.put(hc.getName(), hc);
+		}
 		
-		ArrayList<HaveCalendar> hcs = model.getAttenders();
+		ArrayList<String> hcs = model.getAttenderList();
 		
 		this.setLayout(new GridBagLayout());
 		createList(hcs);
@@ -69,21 +74,21 @@ public class AttenderListPanel extends JPanel{
 			
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				HaveCalendar selected = (HaveCalendar) list.getSelectedValue();
-				model.removeAttender(selected);
+				String selected = (String) list.getSelectedValue();
+				model.removeAttender(nameMap.get(selected));
 				
 			}
 		});
 	}
 
-	private void createList(ArrayList<HaveCalendar> hcs) {
+	private void createList(ArrayList<String> hcs) {
 		listModel = new DefaultListModel();
 		list = new JList(); 
 		list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		list.setModel(listModel);
 		
 		Collections.sort(hcs);
-		for (HaveCalendar hc : hcs){
+		for (String hc : hcs){
 			listModel.addElement(hc);
 		}
 	}

@@ -1,9 +1,11 @@
 package model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Group implements HaveCalendar {
+public class Group implements HaveCalendar, Serializable {
 	
+	private static final long serialVersionUID = -6645377655563460116L;
 	private int groupId;
 	private String name;
 	private ArrayList<Person> members;

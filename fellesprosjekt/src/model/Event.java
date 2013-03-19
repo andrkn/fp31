@@ -156,11 +156,14 @@ public class Event implements java.io.Serializable {
 			attenders = new ArrayList<HaveCalendar>();
 		}
 		attenders.add(haveCalendar); 
-		//TODO 
+		if (hasNotReplied == null){
+			hasNotReplied = new ArrayList<String>();
+		}
 		hasNotReplied.add(haveCalendar.getName());
 	}
 	
 	public void removeAttender(HaveCalendar haveCalendar){
+		attenders.remove(haveCalendar);
 		String name = haveCalendar.toString();
 		if (isNotGoing.contains(name)){
 			isNotGoing.remove(name); 
@@ -205,6 +208,17 @@ public class Event implements java.io.Serializable {
 	
 	public ArrayList<String> getAttendingList(){
 		ArrayList<String> attendingList = new ArrayList<String>(); 
+		
+		if(hasNotReplied == null){
+			hasNotReplied = new ArrayList<String>();
+		}
+		if (isGoing == null){
+			isGoing = new ArrayList<String>();
+		}
+		if (isNotGoing == null){
+			isNotGoing = new ArrayList<String>();
+		}
+		
 		
 		attendingList.addAll(hasNotReplied); 
 		attendingList.addAll(isGoing); 

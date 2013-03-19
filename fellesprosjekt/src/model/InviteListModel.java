@@ -6,6 +6,7 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 
 import javax.swing.DefaultListModel;
@@ -25,10 +26,18 @@ public class InviteListModel implements ListModel{
 	private MainCalendarPanel mainPanel;
 
 	
-	public InviteListModel(MainCalendarPanel mainPanel, int eventID){
+	public InviteListModel(MainCalendarPanel mainPanel, EventModel model, int eventID){
 		this.eventId = eventID;
 		this.mainPanel = mainPanel;
-		inviteList = mainPanel.getInviteList();
+		dlm = new DefaultListModel();
+		ArrayList<HaveCalendar> allInviteble = mainPanel.getInviteList();
+		inviteList = new ArrayList<HaveCalendar>(); 
+		for (HaveCalendar hc : allInviteble){
+			if (!model.getAttenderList().contains(hc.toString())){
+				inviteList.add(hc);
+			}
+		}
+		Collections.sort(inviteList);
 	}
 	
 //	public InviteListModel(int eventId) {
@@ -89,7 +98,6 @@ public class InviteListModel implements ListModel{
 
 	@Override
 	public void addListDataListener(ListDataListener arg0) {
-		// TODO Auto-generated method stub
 		dlm.addListDataListener(arg0);
 	}
 

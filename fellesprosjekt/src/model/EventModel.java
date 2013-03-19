@@ -208,9 +208,9 @@ public class EventModel {
 		event.addAttender(hc);
 		pcs.firePropertyChange("AddAttender", null, hc);
 	}
-	public void removeAttender(HaveCalendar hc) {
-		event.removeAttender(hc);
-		pcs.firePropertyChange("RemoveAttender", null, hc);
+	public void removeAttender(HaveCalendar selected) {
+		event.removeAttender(selected);
+		pcs.firePropertyChange("RemoveAttender", null, selected);
 	}
 	
 	public void addPropertyChangeListener(PropertyChangeListener listener){
