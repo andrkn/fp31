@@ -53,7 +53,7 @@ public class DBMethods {
 		statement.executeUpdate(sql);
 	}
 	
-	public void invitePersons(int eventId, ArrayList invitedPersons) throws SQLException{
+	public void invitePersons(int eventId, ArrayList<HaveCalendar> invitedPersons) throws SQLException{
 		for (Object o : invitedPersons){
 			if (o instanceof Person){
 				updateInvited(((Person) o).getName(), eventId);	
@@ -66,6 +66,18 @@ public class DBMethods {
 					}
 				}
 			}
+		}
+	}
+	
+	public void updateInvitedToEvent(int eventId, ArrayList<HaveCalendar> invited) throws SQLException{
+		ArrayList<HaveCalendar> prevInvited = getInvitedToEvent(eventId);
+		for (Object o: prevInvited){
+    		if(invited.contains(o)){
+    			invited.remove(o);
+    		}
+    	}
+		for (HaveCalendar s : invited ){
+			updateInvited(s.getName(), eventId);
 		}
 	}
 	
@@ -263,7 +275,7 @@ public class DBMethods {
     }
     
     public Room getRoom(String roomNr) throws SQLException{
-    	if (roomNr == null) return null;
+    	//if (roomNr == null) return null;
     	statement = connection.createStatement();
     	String sql = "SELECT * FROM Room WHERE RoomNr = '" + roomNr + "'";
     	ResultSet resultSet = statement.executeQuery(sql);
