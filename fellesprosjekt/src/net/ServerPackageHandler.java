@@ -282,10 +282,12 @@ public class ServerPackageHandler {
 		
 		int i = 1;
 		for (HaveCalendar hc : hcList){
-			dataPackageList.add( new HaveCalendarPackage(i, hcList.size(), hc)); 
+			dataPackageList.add( new HaveCalendarPackage(i, hcList.size(), hc));
+			System.out.println(hc);
 			i++;
 		}
-		
+		System.out.println(dataPackageList);
+		System.out.println(hcList);
 		disconnectFromDB();
 		return dataPackageList;
 	}
