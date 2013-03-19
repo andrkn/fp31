@@ -33,10 +33,12 @@ public class MainCalendarPanel extends JPanel {
 	private ArrayList<Event> eventList;
 	private ArrayList<DataPackage> response;
 	private CalendarPanel calendarPanel;
+	
 
 	private GridBagLayout gridbag;
 	private GridBagConstraints gridbagConstraints;
 	private CalendarModel calModel;
+	private CalendarModel importCalModel;
 	private Boolean isRunning;
 	
 	
@@ -135,11 +137,24 @@ public class MainCalendarPanel extends JPanel {
 	}
 	
 	public void importEvents(){
-		/*Import antoher contacts events.
+		/*Import another contacts events.
 		 * needs to activate a view that lets the user enter a username
 		 * and then send that username with a CalendarRequestPackage to
 		 * the server.
 		 */
+		String otherUser = (String)JOptionPane.showInputDialog(calendarPanel, "Skriv brukernavn til eieren av kalender du vil importere"
+																,JOptionPane.PLAIN_MESSAGE);
+		if(otherUser == "") return;
+		
+		else {
+			importCalModel = requestCalendar(otherUser);
+			for(Event e : importCalModel.getEventList()) {
+				calModel.addEvent(e);
+				System.out.println(e);
+			}
+		}
+		
+		
 	}
 
 	public DataPackage sendPackage(DataPackage pack) {
