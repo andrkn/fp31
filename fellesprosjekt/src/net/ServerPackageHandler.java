@@ -187,20 +187,40 @@ public class ServerPackageHandler {
 	}
 	
 	private ArrayList<DataPackage> handleNotificationRequestPackage(String username) throws IOException {
+		//Returns one ErrorPackage if there is no new notifications
+		//if there are any it returns a list of NotificationPackages
 		DBMethods method = connectToDB();
+		HashMap<Integer, Integer> hm = new HashMap<Integer, Integer>();
+		ArrayList<DataPackage> responsePackages = new ArrayList<DataPackage>();
+		NotificationPackage response;
 		
 		try {
-			HashMap<Event, Integer> hm = new HashMap<Event, Integer>();
 			hm = method.getNotifications(username);
+		} 
+		catch (SQLException e) {
+			e.printStackTrace();
 		}
 		
 		try {
 			disconnectFromDB();
-		} catch (SQLException e) {
+		} 
+		catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return null;
+		
+		int i = 1;
+		if (! hm.isEmpty()) {
+			for (Integer key : hm.keySet()) {
+				response = new NotificationPackage(i, hm.size(), key, hm.get(key));
+				i++;
+				responsePackages.add(response);
+			}
+			return responsePackages;
+		}
+		responsePackages.add(new ErrorPackage(ErrorType.NO_NOTIFICATIONS, "There are no notifications for you", 1, 1));
+		return responsePackages;
+		
 	}
 	
 	private ArrayList<DataPackage> handleCalendarRequestPackage(DataPackage pack) throws IOException, SQLException {

@@ -357,6 +357,7 @@ public class DBMethods {
     public HashMap<Integer, Integer> getNotifications(String username) throws SQLException{
     	statement = connection.createStatement();
     	String sql = "SELECT * FROM Notifications WHERE username = '" + username + "'";
+    	//<eventId, notificationType>: 0 = Delete, 1 = Update, 2 = Invite
     	HashMap<Integer,Integer> result = new HashMap<Integer, Integer>();
     	ResultSet resultSet = statement.executeQuery(sql);
     	while (resultSet.next()){
