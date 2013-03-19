@@ -1,23 +1,10 @@
 package net;
 
-import java.io.InputStream;
-import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.GregorianCalendar;
-import java.util.HashMap;
-import java.util.Properties;
-import java.util.Date;
-import java.util.Set;
 
-import model.Event;
-import model.Group;
-import model.HaveCalendar;
-import model.Person;
 
 
 public class TestMethods {
 
-    @SuppressWarnings("deprecation")
 	public static void main(String [] args) throws Exception {
     	
     	DBConnection db = new DBConnection("Properties.properties");
@@ -25,7 +12,7 @@ public class TestMethods {
     	DBMethods dbm = new DBMethods();
     	dbm.setConnection(db.getConnection());
     	
-    	
+    	//dbm.setNotification(35, "henrik", 1);
 //    	for (Group g : dbm.getAllGroups()){
 //    		System.out.println(g.getName());
 //    	}

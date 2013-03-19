@@ -354,5 +354,22 @@ public class DBMethods {
     	return invitable;
     }
     
+    public HashMap<Integer, Integer> getNotifications(String username) throws SQLException{
+    	statement = connection.createStatement();
+    	String sql = "SELECT * FROM Notifications WHERE username = '" + username + "'";
+    	HashMap<Integer,Integer> result = new HashMap<Integer, Integer>();
+    	ResultSet resultSet = statement.executeQuery(sql);
+    	while (resultSet.next()){
+    		result.put(resultSet.getInt(1), resultSet.getInt(3));
+    	}
+    	return result;
+    }
+    
+    public void setNotification(int eventId, String username, int notification) throws SQLException{
+    	statement = connection.createStatement();
+    	String sql = "INSERT INTO Notification VALUES (" + eventId + ", '" + username + "', " + notification + ")";
+    	statement.executeUpdate(sql);
+    }
+    
     
 }
