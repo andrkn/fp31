@@ -312,7 +312,7 @@ public class DBMethods {
     	return persons;
     }
     
-    private ArrayList<Person> getAllPersonsList() throws SQLException{
+    public ArrayList<Person> getAllPersonsList() throws SQLException{
     	statement = connection.createStatement();
     	ArrayList<Person> persons = new ArrayList<Person>();
     	String sql = "SELECT * FROM Person";
@@ -325,7 +325,7 @@ public class DBMethods {
     
     public ArrayList<Group> getAllGroups() throws SQLException{
     	statement = connection.createStatement();
-    	String sql = "SELECT * FROM Group";
+    	String sql = "SELECT * FROM `Group`";
     	ArrayList<Group> groups = new ArrayList<Group>();
     	ResultSet resultSet = statement.executeQuery(sql);
     	while(resultSet.next()){
@@ -334,17 +334,16 @@ public class DBMethods {
     		g.setGroupId(resultSet.getInt(1));
     		ArrayList<Person> p = new ArrayList<Person>();
     		for (String s : resultSet.getString(2).split(" ")){
+    			System.out.println(s);
     			p.add(getPerson(s));
     		}
     		g.setMembers(p);
     		groups.add(g);
     	}
-    	
     	return groups;
     }
     
     public ArrayList<HaveCalendar> getAllInvitable() throws SQLException{
-    	statement = connection.createStatement();
     	ArrayList<HaveCalendar> invitable = new ArrayList<HaveCalendar>();
     	for (HaveCalendar hc : getAllGroups()){
     		invitable.add(hc);

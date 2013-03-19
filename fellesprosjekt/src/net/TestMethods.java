@@ -10,6 +10,8 @@ import java.util.Date;
 import java.util.Set;
 
 import model.Event;
+import model.Group;
+import model.HaveCalendar;
 import model.Person;
 
 
@@ -24,9 +26,10 @@ public class TestMethods {
     	dbm.setConnection(db.getConnection());
     	
     	
-    	HashMap<String, Person> hm = dbm.getAllPersons();
-    	
-    	System.out.println(hm.get("hanskhe").getName());
+//    	for (Group g : dbm.getAllGroups()){
+//    		System.out.println(g.getName());
+//    	}
+    	//ArrayList<HaveCalendar> invitable = dbm.getAllInvitable();
     	
     	//dbm.createEvent("hanskhe", new Timestamp(113, 2, 20, 16, 0, 0, 0), new Timestamp(113, 2, 20, 16, 0, 0, 0), "testEvent", "LoloRama", "NY", "", "R1");
     	
