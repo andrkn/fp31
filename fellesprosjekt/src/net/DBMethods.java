@@ -45,7 +45,8 @@ public class DBMethods {
 		return new Event(eventId, getPerson(createdBy),startTime,endTime, eventName, description,place,getRoom(roomNr), getInvitedToEvent(eventId));
 	}
 	
-	public void updateEvent(int eventId, Timestamp startTime, Timestamp endTime, String eventName, String description, String place, String roomNr) throws SQLException{
+	public void updateEvent(int eventId, Timestamp startTime, Timestamp endTime, String eventName, 
+			String description, String place, String roomNr) throws SQLException{
 		statement = connection.createStatement();
 		String sql = "UPDATE Event SET startTime = '" + startTime + "', endTime = '" + endTime + "', eventName = '" +
 		eventName + "', description = '" + description + "', place = '" + place + "', roomNr = '" + roomNr + "' WHERE eventID = " + eventId;
@@ -192,7 +193,6 @@ public class DBMethods {
     	String eventName = resultSet.getString(5);
     	String description = resultSet.getString(6);
     	String place = resultSet.getString(7); 
-    	String invitedGroups = resultSet.getString(8);
     	String roomNr = resultSet.getString(9);
     	System.out.println("Trying to get event created by: " + createdBy);
     	return new Event(id, getPerson(createdBy), start, end, eventName, description, place, getRoom(roomNr), null);
@@ -337,9 +337,10 @@ public class DBMethods {
     			p.add(getPerson(s));
     		}
     		g.setMembers(p);
+    		groups.add(g);
     	}
     	
-    	return null;
+    	return groups;
     }
     
     public ArrayList<HaveCalendar> getAllInvitable() throws SQLException{
