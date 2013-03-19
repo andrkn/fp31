@@ -47,11 +47,11 @@ public class UpdateSwingWorker extends SwingWorker<Void, Void>{
 								JOptionPane.showMessageDialog(null, "The event " + e.getName() + " is cancelled. Press OK to continue.");
 							}
 							else if (((NotificationPackage) pack).getNotificationType() == 1) {
-								JOptionPane.showConfirmDialog(null, "The event " + e.getName() + " was updated. Are you still able to join?", "Your event was updated", 2); //2 is for the YES_NO_CANCEL option
+								JOptionPane.showConfirmDialog(null, "The event " + e.getName() + " was updated. Are you still able to join?", "Your event was updated", JOptionPane.YES_NO_CANCEL_OPTION); 
 								
 							}
 							else if (((NotificationPackage) pack).getNotificationType() == 2) {
-								JOptionPane.showConfirmDialog(null, "You are invited to the event " + e.getName() + ". Do you want to join?", "Your are invited", 2); //2 is for the YES_NO_CANCEL option
+								JOptionPane.showConfirmDialog(null, "You are invited to the event " + e.getName() + ". Do you want to join?", "Your are invited", JOptionPane.YES_NO_CANCEL_OPTION); 
 							
 							}
 						}
