@@ -4,9 +4,18 @@ import java.util.ArrayList;
 
 public class Group implements HaveCalendar {
 	
-	String name;
-	ArrayList<Person> members;
+	private int groupId;
+	private String name;
+	private ArrayList<Person> members;
 
+	public void setGroupId(int groupId){
+		this.groupId = groupId;
+	}
+	
+	public int getGroupId(){
+		return groupId;
+	}
+	
 	public String getName() {
 		return name;
 	}

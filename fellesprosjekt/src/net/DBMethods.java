@@ -312,5 +312,47 @@ public class DBMethods {
     	return persons;
     }
     
+    private ArrayList<Person> getAllPersonsList() throws SQLException{
+    	statement = connection.createStatement();
+    	ArrayList<Person> persons = new ArrayList<Person>();
+    	String sql = "SELECT * FROM Person";
+    	ResultSet resultSet = statement.executeQuery(sql);
+    	while(resultSet.next()){
+    		persons.add(new Person(resultSet.getString(1), resultSet.getString(4), resultSet.getString(5)));
+    	}
+    	return persons;
+    }
+    
+    public ArrayList<Group> getAllGroups() throws SQLException{
+    	statement = connection.createStatement();
+    	String sql = "SELECT * FROM Group";
+    	ArrayList<Group> groups = new ArrayList<Group>();
+    	ResultSet resultSet = statement.executeQuery(sql);
+    	while(resultSet.next()){
+    		Group g = new Group();
+    		g.setName(resultSet.getString(4));
+    		g.setGroupId(resultSet.getInt(1));
+    		ArrayList<Person> p = new ArrayList<Person>();
+    		for (String s : resultSet.getString(2).split(" ")){
+    			p.add(getPerson(s));
+    		}
+    		g.setMembers(p);
+    	}
+    	
+    	return null;
+    }
+    
+    public ArrayList<HaveCalendar> getAllInvitable() throws SQLException{
+    	statement = connection.createStatement();
+    	ArrayList<HaveCalendar> invitable = new ArrayList<HaveCalendar>();
+    	for (HaveCalendar hc : getAllGroups()){
+    		invitable.add(hc);
+    	}
+    	for (HaveCalendar h : getAllPersonsList()){
+    		invitable.add(h);
+    	}
+    	return invitable;
+    }
+    
     
 }
