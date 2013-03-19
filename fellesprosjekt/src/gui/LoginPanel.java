@@ -43,6 +43,9 @@ public class LoginPanel extends JPanel {
 		pass = new JLabel("Password:");
 		password.setName("password");
 		password.setColumns(25);
+		
+		password.addActionListener(new loginAction());
+		
 		add(pass);
 		add(password);
 		
