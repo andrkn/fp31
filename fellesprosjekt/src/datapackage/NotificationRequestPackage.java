@@ -3,10 +3,12 @@ package datapackage;
 public class NotificationRequestPackage implements DataPackage{
 
 	private int packageNumber, totalPackages;
+	private String username;
 	
-	public NotificationRequestPackage(int packageNumber, int totalPackages) {
+	public NotificationRequestPackage(int packageNumber, int totalPackages, String username) {
 		this.packageNumber = packageNumber;
 		this.totalPackages = totalPackages;
+		this.username = username;
 	}
 
 	public int getPackageNumber() {
@@ -23,6 +25,10 @@ public class NotificationRequestPackage implements DataPackage{
 
 	public void setTotalPackages(int totalPackages) {
 		this.totalPackages = totalPackages;
+	}
+
+	public String getUsername() {
+		return username;
 	}
 
 	

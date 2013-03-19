@@ -105,6 +105,15 @@ public class ServerPackageHandler {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+		}else if(pack instanceof NotificationRequestPackage) {
+			System.out.println("NotificationRequestPackage Recieved");
+			try {
+				returnPackages = handleNotificationRequestPackage(((NotificationRequestPackage) pack).getUsername());
+			}
+			//Temporary catch
+			catch(Exception e) {
+				
+			}
 		}
 		return returnPackages;
 	}
@@ -175,6 +184,23 @@ public class ServerPackageHandler {
 			return false;
 		}
 		
+	}
+	
+	private ArrayList<DataPackage> handleNotificationRequestPackage(String username) throws IOException {
+		DBMethods method = connectToDB();
+		
+		try {
+			HashMap<Event, Integer> hm = new HashMap<Event, Integer>();
+			hm = method.getNotifications(username);
+		}
+		
+		try {
+			disconnectFromDB();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
 	}
 	
 	private ArrayList<DataPackage> handleCalendarRequestPackage(DataPackage pack) throws IOException, SQLException {
