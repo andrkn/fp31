@@ -78,6 +78,11 @@ public class CalendarModel implements PropertyChangeListener {
 		pcs.firePropertyChange("addEvent", null, event); 
 	}
 	
+	public void addEvents(ArrayList<Event> events) {
+		pcs.firePropertyChange("UPDATING_EVENTS", this.eventList, events);
+		this.eventList = events;
+	}
+	
 	public void removeEvent(Event event) {
 		eventList.remove(event);
 		pcs.firePropertyChange("removeEvent", null, event);
