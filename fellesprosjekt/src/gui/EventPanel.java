@@ -152,6 +152,7 @@ public class EventPanel extends JPanel implements PropertyChangeListener{
 	
 	public void setModel(EventModel model){
 		this.model = model;
+		model.addPropertyChangeListener(this);
 		setEditeble();
 	}
 	

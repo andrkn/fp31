@@ -39,6 +39,9 @@ public class AttenderListPanel extends JPanel{
 		
 		ArrayList<String> hcs = model.getAttenderList();
 		
+		System.out.println("Creating attendersListPanel: ");
+		System.out.println(model.getAttenderList() + "AttendersListPanel");
+		
 		this.setLayout(new GridBagLayout());
 		createList(hcs);
 		createButton();
@@ -76,7 +79,6 @@ public class AttenderListPanel extends JPanel{
 			public void actionPerformed(ActionEvent arg0) {
 				String selected = (String) list.getSelectedValue();
 				model.removeAttender(nameMap.get(selected));
-				
 			}
 		});
 	}

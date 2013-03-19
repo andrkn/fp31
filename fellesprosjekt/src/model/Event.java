@@ -152,6 +152,9 @@ public class Event implements java.io.Serializable {
 	}
 	
 	public void addAttender(HaveCalendar haveCalendar){
+		if (haveCalendar == null){
+			return;
+		}
 		if (attenders == null){
 			attenders = new ArrayList<HaveCalendar>();
 		}
@@ -159,10 +162,14 @@ public class Event implements java.io.Serializable {
 		if (hasNotReplied == null){
 			hasNotReplied = new ArrayList<String>();
 		}
+		System.out.println("Legger til i hasNotReplied (Event)");
 		hasNotReplied.add(haveCalendar.getName());
 	}
 	
 	public void removeAttender(HaveCalendar haveCalendar){
+		if (haveCalendar == null){
+			return;
+		}
 		attenders.remove(haveCalendar);
 		String name = haveCalendar.toString();
 		if (isNotGoing.contains(name)){
@@ -218,6 +225,8 @@ public class Event implements java.io.Serializable {
 		if (isNotGoing == null){
 			isNotGoing = new ArrayList<String>();
 		}
+		
+		System.out.println(hasNotReplied);
 		
 		
 		attendingList.addAll(hasNotReplied); 
