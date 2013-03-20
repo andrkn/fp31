@@ -137,7 +137,7 @@ public class MainCalendarPanel extends JPanel {
 		sender.sendPackage(new NotificationRequestPackage(1, 1, this.getPerson().getUsername()));
 		response = sender.receivePackageArray();
 		if (response.get(0) instanceof ErrorPackage) {
-			System.out.println("There is no new notifications!");
+			System.out.println("There are no new notifications!");
 			return null;
 		}
 		else {
