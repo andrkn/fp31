@@ -13,6 +13,7 @@ import javax.swing.JOptionPane;
 
 import model.Event;
 import model.HaveCalendar;
+import model.Room;
 
 import datapackage.*;
 import encryption.PasswordEncryption;
@@ -130,12 +131,20 @@ public class ServerPackageHandler {
 				e.printStackTrace();
 			}
 			
+		}else if (pack instanceof RoomListRequestPackage){
+			try {
+				returnPackages = handleRoomListRequestPackage();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		return returnPackages;
 	}
 
-
-	
 
 	private DBMethods connectToDB() throws IOException{
 				//load properties
@@ -373,6 +382,24 @@ public class ServerPackageHandler {
 		method.invitePersons(pack.getEventID(), pack.getHaveCalendar());
 		
 		disconnectFromDB();
+		
+		return dataPackageList;
+	}
+
+
+
+
+	private ArrayList<DataPackage> handleRoomListRequestPackage() throws IOException, SQLException {
+		ArrayList<DataPackage> dataPackageList = new ArrayList<DataPackage>(); 
+		DBMethods method = connectToDB(); 
+		
+		ArrayList<Room> roomList = method.getAllRooms(); 
+		
+		int i = 1; 
+		for (Room room : roomList){
+			dataPackageList.add(new RoomPackage(i, roomList.size(), room)); 
+			i++;
+		}
 		
 		return dataPackageList;
 	}
