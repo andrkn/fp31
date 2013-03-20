@@ -63,7 +63,7 @@ public class DBMethods {
 			}
 			if (o instanceof Group){
 				for (Object g : invitedPersons){
-					String persons = getPersonsFromGroup((((Group) g).getGroupId()));
+					String persons = getPersonsFromGroup(Integer.parseInt(((Group) g).getName()));
 					for (String p : persons.split(" ")){
 						updateInvited(p,eventId);
 					}
@@ -381,6 +381,7 @@ public class DBMethods {
     }
     
     public HashMap<Integer, Integer> getNotifications(String username) throws SQLException{
+    	
     	statement = connection.createStatement();
     	String sql = "SELECT * FROM Notification WHERE username = '" + username + "'";
     	HashMap<Integer,Integer> result = new HashMap<Integer, Integer>();
@@ -391,5 +392,5 @@ public class DBMethods {
     	return result;
     }
     
-    
+
 }

@@ -109,15 +109,33 @@ public class ServerPackageHandler {
 			System.out.println("NotificationRequestPackage Recieved");
 			try {
 				returnPackages = handleNotificationRequestPackage(((NotificationRequestPackage) pack).getUsername());
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
-			//Temporary catch
-			catch(Exception e) {
-				
+			
+			
+		}
+		else if (pack instanceof RSVPPackage){
+			try {
+				returnPackages = handleRSVPPackage((RSVPPackage)pack);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
+			
 		}
 		return returnPackages;
 	}
 
+
+	
 
 	private DBMethods connectToDB() throws IOException{
 				//load properties
@@ -186,7 +204,7 @@ public class ServerPackageHandler {
 		
 	}
 	
-	private ArrayList<DataPackage> handleNotificationRequestPackage(String username) throws IOException {
+	private ArrayList<DataPackage> handleNotificationRequestPackage(String username) throws IOException, SQLException {
 		//Returns one ErrorPackage if there is no new notifications
 		//if there are any it returns a list of NotificationPackages
 		System.out.println("Debugpoint #7 " + username);
@@ -195,25 +213,14 @@ public class ServerPackageHandler {
 		ArrayList<DataPackage> responsePackages = new ArrayList<DataPackage>();
 		NotificationPackage response;
 		
-		try {
-			hm = method.getNotifications(username);
-		} 
-		catch (SQLException e) {
-			e.printStackTrace();
-		}
+		hm = method.getNotifications(username);
 		
-		try {
-			disconnectFromDB();
-		} 
-		catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		disconnectFromDB();
 		
 		int i = 1;
 		if (! hm.isEmpty()) {
 			for (Integer key : hm.keySet()) {
-				response = new NotificationPackage(i, hm.size(), key, hm.get(key));
+				response = new NotificationPackage(i, hm.size(), key, hm.get(key), "some event");
 				i++;
 				//Here we must use the method.getEvent(int eventId) to get the event.
 				//On the other hand the reference will not be to the object allready in the callendar.
@@ -342,6 +349,23 @@ public class ServerPackageHandler {
 		return dataPackageList;
 	}
 
+	private ArrayList<DataPackage> handleRSVPPackage(RSVPPackage pack) throws IOException, SQLException {
+		ArrayList<DataPackage> returnList = new ArrayList<DataPackage>();
+		int eventID = pack.getEventId();
+		boolean answer = pack.getRsvp();
+		
+		DBMethods method = connectToDB();
+		if (answer){
+			method.answerInvite(pack.getUsername(), eventID, 1);
+		}
+		else if (!answer){
+			method.answerInvite(pack.getUsername(), eventID, 0);
+		}
+		returnList.add(new ErrorPackage(ErrorType.OK, "The eventresponse was recorded", 1, 1));
+		return returnList;
+	}
+
+	
 	private ArrayList<DataPackage> invitePackageHandeler(InvitePackage pack) throws IOException, SQLException {
 		ArrayList<DataPackage> dataPackageList = new ArrayList<DataPackage>(); 
 		DBMethods method = connectToDB(); 
