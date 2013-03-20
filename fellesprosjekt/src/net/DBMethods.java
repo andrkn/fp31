@@ -436,7 +436,7 @@ public class DBMethods {
 	public void updateRemoveInvite(ArrayList<HaveCalendar> hc, Event event) throws SQLException {
 		// TODO Auto-generated method stub
 		statement = connection.createStatement(); 
-		
+		String sql = "SELECT * FROM ";
 	}
     
 

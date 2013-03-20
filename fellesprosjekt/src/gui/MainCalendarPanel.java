@@ -51,6 +51,11 @@ public class MainCalendarPanel extends JPanel {
 	private CalendarModel importCalModel;
 	private Boolean isRunning;
 	
+	private ArrayList<HaveCalendar> inviteList; 
+	private Timestamp inviteListTimestamp; 
+	private ArrayList<Room> roomList; 
+	private Timestamp roomListTimestamp; 
+	
 	
 	public MainCalendarPanel(String username){
 		//Set the current user. ATM does not care about anything but username
@@ -213,6 +218,12 @@ public class MainCalendarPanel extends JPanel {
 
 
 	public ArrayList<HaveCalendar> getInviteList(){
+		
+		if ( inviteList != null && (System.currentTimeMillis() - inviteListTimestamp.getTime())>1000*60*5){
+			inviteListTimestamp = new Timestamp(System.currentTimeMillis()); 
+			return inviteList;
+		}
+		
 		sender.sendPackage(new HaveCalendarListRequestPackage(1, 1));
 		ArrayList<DataPackage> dataList = sender.receivePackageArray(); 
 		
@@ -228,6 +239,11 @@ public class MainCalendarPanel extends JPanel {
 	}
 	
 	public ArrayList<Room> getRoomList(){
+		
+		if ( roomList != null && (System.currentTimeMillis() - roomListTimestamp.getTime())>1000*60*5){
+			roomListTimestamp = new Timestamp(System.currentTimeMillis()); 
+			return roomList;
+		}
 		
 		DataPackage dataPackage = new RoomListRequestPackage(1, 1, 1); 
 		sender.sendPackage(dataPackage); 
