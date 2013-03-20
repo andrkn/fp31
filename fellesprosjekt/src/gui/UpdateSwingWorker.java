@@ -33,7 +33,9 @@ public class UpdateSwingWorker extends SwingWorker<Void, Void>{
 			//			System.out.println("it's working!");
 			events = new ArrayList<Event>();
 			notifications = new ArrayList<DataPackage>();
-			events = ((MainCalendarPanel) pane).requestCalendar(((MainCalendarPanel) pane).getPerson().getUsername()).getEventList();
+			for (String user : ((MainCalendarPanel)pane).getCalendarUsers()) {
+				events.addAll(((MainCalendarPanel) pane).requestCalendar(user).getEventList());
+			}
 			panel.getModel().addEvents(events);
 
 			notifications = ((MainCalendarPanel) pane).requestNotifications();

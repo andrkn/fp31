@@ -210,6 +210,15 @@ public class MainCalendarPanel extends JPanel {
 	public void addUsername(String username) {
 		this.getCalendarUsers().add(username);
 	}
+	
+	public void removeUsername(String username) {
+		this.getCalendarUsers().remove(username);
+	}
+	
+	public void resetUsersList() {
+		this.getCalendarUsers().clear();
+		this.getCalendarUsers().add(getPerson().getUsername());
+	}
 
 
 	//Is this supposed to be done here????
