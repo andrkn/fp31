@@ -8,8 +8,6 @@ import java.sql.Statement;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
-
-
 import model.Event;
 import model.Group;
 import model.HaveCalendar;
@@ -20,11 +18,15 @@ public class DBMethods {
 	
 	private Connection connection = null;
 	private Statement statement = null;
+	private static final int DELETE_NOTIFICATION = 0;
+	private static final int UPDATE_NOTIFICATION = 1;
+	private static final int INVITE_NOTIFICATION = 2;
+
 	
 	public void setConnection(Connection con){
 		connection = con;
 	}
-	
+
 	public void setStatement(Statement statm){
 		statement = statm;
 	}
@@ -50,8 +52,8 @@ public class DBMethods {
 		statement = connection.createStatement();
 		String sql = "UPDATE Event SET startTime = '" + startTime + "', endTime = '" + endTime + "', eventName = '" +
 		eventName + "', description = '" + description + "', place = '" + place + "', roomNr = '" + roomNr + "' WHERE eventID = " + eventId;
-		System.out.println(sql);
 		statement.executeUpdate(sql);
+		sendNotification(eventId, UPDATE_NOTIFICATION);
 	}
 	
 	public void invitePersons(int eventId, ArrayList<HaveCalendar> invitedPersons) throws SQLException{
@@ -257,7 +259,7 @@ public class DBMethods {
     		e.setHasNotReplied(getHasNotReplied(eventId));
     		events.add(e);
     	}
-    	String sql2 = "SELECT * FROM Invited WHERE username = '" + username + "'";
+    	String sql2 = "SELECT * FROM Invited WHERE username = '" + username + "' AND isGoing = 1";
     	resultSet = statement.executeQuery(sql2);
     	while(resultSet.next()){
     		int eventId = resultSet.getInt("eventID");
@@ -286,6 +288,30 @@ public class DBMethods {
     public void deleteEvent(int eventId) throws SQLException{
     	statement = connection.createStatement();
     	String sql = "DELETE FROM Event WHERE eventID = " + eventId;
+    	statement.executeUpdate(sql);
+    	sendNotification(eventId, DELETE_NOTIFICATION);
+    }
+    
+    public void sendNotification(int eventId, int notification) throws SQLException{
+    	statement = connection.createStatement();
+    	if (!getInvitedToEvent(eventId).isEmpty()){
+    		for (HaveCalendar hc : getInvitedToEvent(eventId)){
+    			if (notification == DELETE_NOTIFICATION){
+    				setNotification(eventId, hc.getName(), DELETE_NOTIFICATION);
+    			}
+    			if(notification == UPDATE_NOTIFICATION){
+    				setNotification(eventId, hc.getName(), UPDATE_NOTIFICATION);
+    			}
+    			if(notification == INVITE_NOTIFICATION){
+    				setNotification(eventId, hc.getName(), INVITE_NOTIFICATION);
+    			}
+    		}
+    	}
+    }
+    
+    public void setNotification(int eventId, String username, int notification) throws SQLException{
+    	statement = connection.createStatement();
+    	String sql = "INSERT INTO Notification VALUES (" + eventId + ", '" + username + "', " + notification + ")";
     	statement.executeUpdate(sql);
     }
     
@@ -357,19 +383,16 @@ public class DBMethods {
     public HashMap<Integer, Integer> getNotifications(String username) throws SQLException{
     	statement = connection.createStatement();
     	String sql = "SELECT * FROM Notification WHERE username = '" + username + "'";
+<<<<<<< HEAD
     	//<eventId, notificationType>: 0 = Delete, 1 = Update, 2 = Invite
+=======
+>>>>>>> added sendNotification()
     	HashMap<Integer,Integer> result = new HashMap<Integer, Integer>();
     	ResultSet resultSet = statement.executeQuery(sql);
     	while (resultSet.next()){
     		result.put(resultSet.getInt(1), resultSet.getInt(3));
     	}
     	return result;
-    }
-    
-    public void setNotification(int eventId, String username, int notification) throws SQLException{
-    	statement = connection.createStatement();
-    	String sql = "INSERT INTO Notification VALUES (" + eventId + ", '" + username + "', " + notification + ")";
-    	statement.executeUpdate(sql);
     }
     
     
