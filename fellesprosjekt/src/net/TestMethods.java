@@ -1,5 +1,7 @@
 package net;
 
+import java.util.HashMap;
+
 
 
 
@@ -11,8 +13,8 @@ public class TestMethods {
     	db.connect();
     	DBMethods dbm = new DBMethods();
     	dbm.setConnection(db.getConnection());
-    	
-    	//dbm.setNotification(35, "henrik", 1);
+    
+    
 //    	for (Group g : dbm.getAllGroups()){
 //    		System.out.println(g.getName());
 //    	}

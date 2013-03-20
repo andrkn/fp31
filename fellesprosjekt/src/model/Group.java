@@ -48,5 +48,9 @@ public class Group implements HaveCalendar, Serializable {
 		}
 		return 0;
 	}
+	
+	public String itString(){
+		return name;
+	}
 
 }
