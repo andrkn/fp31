@@ -22,6 +22,7 @@ import datapackage.HaveCalendarPackage;
 import datapackage.InvitePackage;
 import datapackage.NotificationPackage;
 import datapackage.NotificationRequestPackage;
+import datapackage.RemoveAttenderPackage;
 import datapackage.RoomListRequestPackage;
 import datapackage.RoomPackage;
 
@@ -51,6 +52,10 @@ public class MainCalendarPanel extends JPanel {
 	private Boolean isRunning;
 	
 	private ArrayList<String> calendarUsers;
+	private ArrayList<HaveCalendar> inviteList; 
+	private Timestamp inviteListTimestamp; 
+	private ArrayList<Room> roomList; 
+	private Timestamp roomListTimestamp; 
 	
 	
 	public MainCalendarPanel(String username){
@@ -225,12 +230,21 @@ public class MainCalendarPanel extends JPanel {
 
 
 	public ArrayList<HaveCalendar> getInviteList(){
+		
+		if ( inviteList != null && (System.currentTimeMillis() - inviteListTimestamp.getTime())<1000*60*5){
+			inviteListTimestamp = new Timestamp(System.currentTimeMillis()); 
+			return inviteList;
+		}
+		
 		sender.sendPackage(new HaveCalendarListRequestPackage(1, 1));
 		ArrayList<DataPackage> dataList = sender.receivePackageArray(); 
 		
 		ArrayList<HaveCalendar> hcList = new ArrayList<HaveCalendar>();
 		
 		for (DataPackage dataPackage : dataList){
+			if (dataPackage instanceof ErrorPackage){
+				System.out.println(((ErrorPackage)dataPackage).getDescription());
+			}
 			HaveCalendarPackage hcpackage = (HaveCalendarPackage) dataPackage;
 			hcList.add(hcpackage.getHc());
 			System.out.println(hcpackage.getHc().getName() + " (gui.mainCalenderPanel.getInviteList())");
@@ -240,6 +254,11 @@ public class MainCalendarPanel extends JPanel {
 	}
 	
 	public ArrayList<Room> getRoomList(){
+		
+		if ( roomList != null && (System.currentTimeMillis() - roomListTimestamp.getTime())<1000*60*5){
+			roomListTimestamp = new Timestamp(System.currentTimeMillis()); 
+			return roomList;
+		}
 		
 		DataPackage dataPackage = new RoomListRequestPackage(1, 1, 1); 
 		sender.sendPackage(dataPackage); 
@@ -252,6 +271,24 @@ public class MainCalendarPanel extends JPanel {
 		}
 		
 		return roomList;
+	}
+
+
+	public void removeAttender(String selected, Event event) {
+		ArrayList<HaveCalendar> inviteList = getInviteList(); 
+		ArrayList<HaveCalendar> removeHC = new ArrayList<HaveCalendar>(); 
+		
+		for (HaveCalendar hc : inviteList){
+			if (hc.getName().equals(selected)){
+				removeHC.add(hc); 
+				break;
+			}
+		}
+		
+		DataPackage dataPackage = new RemoveAttenderPackage(1, 1, removeHC, event);
+//		sender.sendPackage(dataPackage);
+		sender.receivePackage();
+		System.out.println("Have removed attender (mainCalenderPanel)");
 	}
 }
 

@@ -133,8 +133,20 @@ public class ServerPackageHandler {
 			}
 			
 		}else if (pack instanceof RoomListRequestPackage){
+			System.out.println("RoomListRequestPackage Recieved");
 			try {
 				returnPackages = handleRoomListRequestPackage();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}else if (pack instanceof RemoveAttenderPackage){
+			System.out.println("RemoveAttenderPackage Recieved");
+			try {
+				returnPackages = removeAttenderPackageHandeler((RemoveAttenderPackage)pack);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -358,7 +370,7 @@ public class ServerPackageHandler {
 		int i = 1;
 		for (HaveCalendar hc : hcList){
 			dataPackageList.add( new HaveCalendarPackage(i, hcList.size(), hc));
-			System.out.println(hc);
+			System.out.println(hc + "(serverpackage)");
 			i++;
 		}
 		System.out.println(dataPackageList);
@@ -422,6 +434,19 @@ public class ServerPackageHandler {
 			i++;
 		}
 		
+		return dataPackageList;
+	}
+
+
+	private ArrayList<DataPackage> removeAttenderPackageHandeler(RemoveAttenderPackage pack) throws IOException, SQLException {
+		ArrayList<DataPackage> dataPackageList = new ArrayList<DataPackage>(); 
+		DBMethods method = connectToDB(); 
+		
+		method.updateRemoveInvite(pack.getHc(), pack.getEvent());
+		
+		disconnectFromDB(); 
+		
+		dataPackageList.add(new ErrorPackage(ErrorType.OK, "have removed attenders from event", 1, 1));
 		return dataPackageList;
 	}
 

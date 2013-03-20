@@ -436,6 +436,15 @@ public class DBMethods {
     	}
     	return result;
     }
-    
+
+	public void updateRemoveInvite(ArrayList<HaveCalendar> hcList, Event event) throws SQLException {
+		// TODO Auto-generated method stub
+		System.out.println("Removing in invite in DB");
+		for (HaveCalendar hc : hcList) {
+			statement = connection.createStatement();
+			String sql = "DELETE FROM Invited WHERE username = '" + hc.getName() + "' AND eventID = " + event.getEventId();
+			statement.executeUpdate(sql);
+		}
+	}
 
 }

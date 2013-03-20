@@ -5,6 +5,7 @@ import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
+import java.io.StreamCorruptedException;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
@@ -93,6 +94,9 @@ public class PackageSender {
 			//Pack now contains the package that was received.
 			return returnList;
 
+		} catch (StreamCorruptedException e){
+			System.out.println("noe virker ikke...");
+			e.printStackTrace();
 		} catch (UnknownHostException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
