@@ -7,6 +7,8 @@ import java.io.InputStream;
 import java.sql.*;
 import java.util.Properties;
 
+import javax.swing.JOptionPane;
+
 
 public class DBConnection {
 
@@ -43,6 +45,7 @@ public class DBConnection {
 			}
 		} catch (Exception e) {
 			System.out.println("Connection failed: " + e.getMessage());
+			JOptionPane.showMessageDialog(null, "An error occured during the attempt to connect to the database. Please try again later!");
 		}
 		return false; 
 	}

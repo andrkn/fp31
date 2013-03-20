@@ -412,11 +412,15 @@ public class DBMethods {
     
     public ArrayList<HaveCalendar> getAllInvitable() throws SQLException{
     	ArrayList<HaveCalendar> invitable = new ArrayList<HaveCalendar>();
-    	for (HaveCalendar hc : getAllGroups()){
-    		invitable.add(hc);
+    	if (getAllGroups() != null) {
+    		for (HaveCalendar hc : getAllGroups()){
+    			invitable.add(hc);
+    		}
     	}
-    	for (HaveCalendar h : getAllPersonsList()){
-    		invitable.add(h);
+    	if (getAllPersonsList() != null) {
+    		for (HaveCalendar h : getAllPersonsList()){
+    			invitable.add(h);
+    		}
     	}
     	return invitable;
     }
