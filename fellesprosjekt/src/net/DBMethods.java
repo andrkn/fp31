@@ -271,11 +271,19 @@ public class DBMethods {
     		e.setHasNotReplied(getHasNotReplied(eventId));
     		events.add(e);
     	}
-    	String sql2 = "SELECT * FROM Invited WHERE username = '" + username + "' AND isGoing = 1";
+    	String sql2 = "SELECT * FROM Invited WHERE username = '" + username + "'";// AND isGoing = 1 OR isGoing = null";
     	resultSet = statement.executeQuery(sql2);
     	while(resultSet.next()){
     		int eventId = resultSet.getInt("eventID");
-    		events.add(getEvent(eventId));
+    		//System.out.println(getEvent(eventId).getName());
+    		Event event = getEvent(eventId);
+    		try {
+    			if (! event.getIsNotGoing().contains(event.getEventId())) {
+    				events.add(event);
+    			}
+    		} catch(NullPointerException e) {
+    			events.add(event);
+    		}
     	}
     	return events;
     }

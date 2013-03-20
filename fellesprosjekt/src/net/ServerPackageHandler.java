@@ -229,7 +229,7 @@ public class ServerPackageHandler {
 	private ArrayList<DataPackage> handleNotificationRequestPackage(String username) throws IOException, SQLException {
 		//Returns one ErrorPackage if there is no new notifications
 		//if there are any it returns a list of NotificationPackages
-		System.out.println("Debugpoint #7 " + username);
+		//System.out.println("Debugpoint #7 " + username);
 		DBMethods method = connectToDB();
 		HashMap<Integer, Integer> hm = new HashMap<Integer, Integer>();
 		ArrayList<DataPackage> responsePackages = new ArrayList<DataPackage>();
@@ -244,6 +244,7 @@ public class ServerPackageHandler {
 			for (Integer key : hm.keySet()) {
 				response = new NotificationPackage(i, hm.size(), key, hm.get(key), "some event");
 				i++;
+				System.out.println(key + " : " + hm.get(key));
 				//Here we must use the method.getEvent(int eventId) to get the event.
 				//On the other hand the reference will not be to the object allready in the callendar.
 				//This might not be necessery, see the UpdateSwingWorker!

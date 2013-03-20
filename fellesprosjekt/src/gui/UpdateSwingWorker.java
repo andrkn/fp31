@@ -39,6 +39,7 @@ public class UpdateSwingWorker extends SwingWorker<Void, Void>{
 			panel.getModel().addEvents(events);
 
 			notifications = ((MainCalendarPanel) pane).requestNotifications();
+			//System.out.println(notifications);
 			if (notifications != null) {
 				for (DataPackage pack : notifications) {
 					if (((NotificationPackage) pack).getNotificationType() == 0) {
@@ -50,6 +51,7 @@ public class UpdateSwingWorker extends SwingWorker<Void, Void>{
 				}
 				for (Event e : events) {
 					for (DataPackage pack : notifications) {
+						System.out.println("Recieved notification with; eventid : type " + e.getEventId() + " : " + ((NotificationPackage)pack).getEventId());
 						if (((NotificationPackage) pack).getEventId() == e.getEventId()) {
 							if (((NotificationPackage) pack).getNotificationType() == 1) {
 								//Do like this to retrive the answer from the user.

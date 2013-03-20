@@ -207,7 +207,7 @@ public class EventPanel extends JPanel implements PropertyChangeListener{
 
 		grid.gridy += 1;
 		if (!editeble) {
-			JPanel roomPanel = new RoomPanel(model.getRoomListModel());
+			JPanel roomPanel = new RoomPanel(new RoomListModel( mainCalendarPanel.getRoomList(), model.getEvent()));
 			this.add(roomPanel, grid);
 			//TODO 
 
