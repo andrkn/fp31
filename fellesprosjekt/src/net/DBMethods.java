@@ -297,7 +297,7 @@ public class DBMethods {
     }
     
     public Room getRoom(String roomNr) throws SQLException{
-    	System.out.println(roomNr);
+//    	System.out.println(roomNr);
     	if (roomNr == null){
     		return null;
     	}else if (roomNr.equals("")) {
@@ -309,7 +309,7 @@ public class DBMethods {
     	String sql = "SELECT * FROM Room WHERE RoomNr = '" + roomNr + "'";
     	ResultSet resultSet = statement.executeQuery(sql);
     	resultSet.next();
-    	System.out.println(resultSet.getString(2));
+//    	System.out.println(resultSet.getString(2));
     	return new Room(resultSet.getString(1), resultSet.getInt(2));
     }
     

@@ -49,7 +49,7 @@ public class ServerPackageHandler {
 			}
 		}
 		else if(pack instanceof CalendarRequestPackage){
-			System.out.println("CalReqPack Received");
+			System.out.println("CalendarRequestPackage Received");
 			try {
 				returnPackages = handleCalendarRequestPackage(pack);
 			} catch (IOException e) {
@@ -229,7 +229,7 @@ public class ServerPackageHandler {
 	private ArrayList<DataPackage> handleNotificationRequestPackage(String username) throws IOException, SQLException {
 		//Returns one ErrorPackage if there is no new notifications
 		//if there are any it returns a list of NotificationPackages
-		//System.out.println("Debugpoint #7 " + username);
+		System.out.println("Debugpoint #7 " + username);
 		DBMethods method = connectToDB();
 		HashMap<Integer, Integer> hm = new HashMap<Integer, Integer>();
 		ArrayList<DataPackage> responsePackages = new ArrayList<DataPackage>();
@@ -244,7 +244,7 @@ public class ServerPackageHandler {
 			for (Integer key : hm.keySet()) {
 				response = new NotificationPackage(i, hm.size(), key, hm.get(key), "some event");
 				i++;
-				System.out.println(key + " : " + hm.get(key));
+				//System.out.println(key + " : " + hm.get(key));
 				//Here we must use the method.getEvent(int eventId) to get the event.
 				//On the other hand the reference will not be to the object allready in the callendar.
 				//This might not be necessery, see the UpdateSwingWorker!
@@ -278,8 +278,8 @@ public class ServerPackageHandler {
 			return null;
 		}
 		else{
-			System.out.println("MalformatedCalReqPack");
-			JOptionPane.showMessageDialog(null, "Malformated CalReqPackage");
+			System.out.println("MalformatedCalendarRequestPackage Recieved");
+			JOptionPane.showMessageDialog(null, "Malformated CalendarRequestPackage");
 			return null;
 		}
 	}
@@ -288,15 +288,15 @@ public class ServerPackageHandler {
 		EventPackage eventPack = (EventPackage)pack;
 		Event event = eventPack.getEvent();
 		//Eventprintout
-		System.out.println("Received an eventPack with the following content:");
-		System.out.println(event.getEventId());
-		System.out.println(event.getCreatedBy().getUsername());
-		System.out.println(event.getStartTime());
-		System.out.println(event.getEndTime());
-		System.out.println(event.getName());
-		System.out.println(event.getDescription());
-		System.out.println(event.getPlace());
-		System.out.println(event.getRoom());
+//		System.out.println("Received an eventPack with the following content:");
+//		System.out.println(event.getEventId());
+//		System.out.println(event.getCreatedBy().getUsername());
+//		System.out.println(event.getStartTime());
+//		System.out.println(event.getEndTime());
+//		System.out.println(event.getName());
+//		System.out.println(event.getDescription());
+//		System.out.println(event.getPlace());
+//		System.out.println(event.getRoom());
 		
 		DBMethods method = connectToDB();
 		String roomNr = null;
@@ -386,11 +386,11 @@ public class ServerPackageHandler {
 		Boolean answer = pack.getRsvp();
 		
 		System.out.println("RSVP for: " + eventID);
-		System.out.println(answer);
+//		System.out.println(answer);
 		
 		DBMethods method = connectToDB();
 		if (answer == null){
-			System.out.println("#ANSWER was NULL");
+//			System.out.println("#ANSWER was NULL");
 			method.deleteNotification(eventID, pack.getUsername());
 		}
 		else if (answer == true){
