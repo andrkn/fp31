@@ -83,7 +83,7 @@ public class UpdateSwingWorker extends SwingWorker<Void, Void>{
 
 			try {
 				//Sleeping for 20 seconds
-				Thread.sleep(2000);
+				Thread.sleep(20000);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
