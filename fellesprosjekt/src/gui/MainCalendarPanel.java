@@ -50,10 +50,14 @@ public class MainCalendarPanel extends JPanel {
 	private CalendarModel importCalModel;
 	private Boolean isRunning;
 	
+	private ArrayList<String> calendarUsers;
+	
 	
 	public MainCalendarPanel(String username){
 		//Set the current user. ATM does not care about anything but username
 		user = new Person(username, "","");
+		
+		calendarUsers.add(username);
 		
 		//Request the users calendar from DB
 		try {
@@ -165,8 +169,7 @@ public class MainCalendarPanel extends JPanel {
 		 * and then send that username with a CalendarRequestPackage to
 		 * the server.
 		 */
-		String otherUser = (String)JOptionPane.showInputDialog(calendarPanel, "Skriv brukernavn til eieren av kalender du vil importere"
-																,JOptionPane.PLAIN_MESSAGE);
+		String otherUser = (String)JOptionPane.showInputDialog(calendarPanel, "Skriv brukernavn til eieren av kalender du vil importere");
 		if(otherUser == "") return;
 		
 		else {
@@ -185,6 +188,15 @@ public class MainCalendarPanel extends JPanel {
 		return sender.receivePackage();
 	}
 	
+	public ArrayList<String> getCalendarUsers() {
+		return calendarUsers;
+	}
+	
+	public void addUsername(String username) {
+		this.getCalendarUsers().add(username);
+	}
+
+
 	//Is this supposed to be done here????
 	public CalendarModel getCalModel() {
 		return calModel;
