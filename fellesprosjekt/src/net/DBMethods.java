@@ -8,6 +8,9 @@ import java.sql.Statement;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
+
+import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
+
 import model.Event;
 import model.Group;
 import model.HaveCalendar;
@@ -166,7 +169,12 @@ public class DBMethods {
 	private void updateInvited(String username, int eventId) throws SQLException{
 		statement = connection.createStatement();
 		String sql = "INSERT INTO Invited (username, eventId) VALUES ('" + username + "', " + eventId + ")" ;
-		statement.executeUpdate(sql);
+		try {
+			statement.executeUpdate(sql);
+			
+		}catch (MySQLIntegrityConstraintViolationException e){
+			return;
+		}
 	}
 	
     public void createUser (String username, String email, String name,
@@ -281,7 +289,14 @@ public class DBMethods {
     }
     
     public Room getRoom(String roomNr) throws SQLException{
-    	//if (roomNr == null) return null;
+    	System.out.println(roomNr);
+    	if (roomNr == null){
+    		return null;
+    	}else if (roomNr.equals("")) {
+    		return null; 
+    	}else if (roomNr.equals("null")){
+    		return null;
+    	}
     	statement = connection.createStatement();
     	String sql = "SELECT * FROM Room WHERE RoomNr = '" + roomNr + "'";
     	ResultSet resultSet = statement.executeQuery(sql);
@@ -321,13 +336,21 @@ public class DBMethods {
     public void newNotification(int eventId, String username, int notification) throws SQLException{
     	statement = connection.createStatement();
     	String sql = "INSERT INTO Notification VALUES (" + eventId + ",'" + username + "', " + notification + ")";
-    	statement.executeUpdate(sql);
+    	try {
+    		statement.executeUpdate(sql);
+    	}catch (MySQLIntegrityConstraintViolationException e){
+    		return; 
+    	}
     }
     
     public void setNotification(int eventId, String username, int notification) throws SQLException{
     	statement = connection.createStatement();
     	String sql = "INSERT INTO Notification VALUES (" + eventId + ", '" + username + "', " + notification + ")";
-    	statement.executeUpdate(sql);
+    	try {
+    		statement.executeUpdate(sql);
+    	} catch (MySQLIntegrityConstraintViolationException e){
+    		return;
+    	}
     }
     
     public ArrayList<Room> getAllRooms() throws SQLException{

@@ -58,7 +58,8 @@ public class PackageSender {
 	public DataPackage receivePackage(){
 
 		try {
-			DataPackage pack = (DataPackage)ois.readObject();
+			Object o = ois.readObject();
+			DataPackage pack = (DataPackage)o;
 			
 			//Pack now contains the package that was received.
 			return pack;
@@ -80,7 +81,8 @@ public class PackageSender {
 
 		try {
 			ArrayList<DataPackage> returnList = new ArrayList<DataPackage>();
-			DataPackage pack = (DataPackage)ois.readObject();
+			Object o = ois.readObject();
+			DataPackage pack = (DataPackage)o;
 			if (pack.getTotalPackages() != 1){
 				for (int i = 1; i<pack.getTotalPackages();i++){
 					returnList.add(pack);
