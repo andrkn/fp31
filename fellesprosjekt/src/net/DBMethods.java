@@ -229,17 +229,13 @@ public class DBMethods {
     }
     
     public HashMap<String, Timestamp> getAlarms() throws SQLException {
-		
     	HashMap<String, Timestamp> map = new HashMap<String, Timestamp>();
     	statement = connection.createStatement();
-    	
     	String sql = "SELECT time, username FROM Alarm;";
     	ResultSet  rs = statement.executeQuery(sql);
-    	
     	while(rs.next()) {
     		map.put(rs.getString("username"), rs.getTimestamp("time"));
     	}
-    	
     	return map;
     }
     
@@ -302,14 +298,19 @@ public class DBMethods {
     	statement = connection.createStatement();
     	if (!getInvitedToEvent(eventId).isEmpty()){
     		for (HaveCalendar hc : getInvitedToEvent(eventId)){
+    			String username = ((Person) hc).getUsername();;
+    			if(hc instanceof Group){
+    				username = ((Group)hc).getName();
+    			}
+    			
     			if (notification == DELETE_NOTIFICATION){
-    				setNotification(eventId, hc.getName(), DELETE_NOTIFICATION);
+    				setNotification(eventId, username, DELETE_NOTIFICATION);
     			}
     			if(notification == UPDATE_NOTIFICATION){
-    				setNotification(eventId, hc.getName(), UPDATE_NOTIFICATION);
+    				setNotification(eventId, username, UPDATE_NOTIFICATION);
     			}
     			if(notification == INVITE_NOTIFICATION){
-    				setNotification(eventId, hc.getName(), INVITE_NOTIFICATION);
+    				setNotification(eventId, username, INVITE_NOTIFICATION);
     			}
     		}
     	}
