@@ -120,6 +120,7 @@ public class ServerPackageHandler {
 			
 		}
 		else if (pack instanceof RSVPPackage){
+			System.out.println("Received a RSVPPackage");
 			try {
 				returnPackages = handleRSVPPackage((RSVPPackage)pack);
 			} catch (IOException e) {
@@ -353,6 +354,9 @@ public class ServerPackageHandler {
 		ArrayList<DataPackage> returnList = new ArrayList<DataPackage>();
 		int eventID = pack.getEventId();
 		boolean answer = pack.getRsvp();
+		
+		System.out.println("RSVP for: " + eventID);
+		System.out.println(answer);
 		
 		DBMethods method = connectToDB();
 		if (answer){
