@@ -213,7 +213,7 @@ public class ServerPackageHandler {
 		int i = 1;
 		if (! hm.isEmpty()) {
 			for (Integer key : hm.keySet()) {
-				response = new NotificationPackage(i, hm.size(), key, hm.get(key));
+				response = new NotificationPackage(i, hm.size(), key, hm.get(key), "some event");
 				i++;
 				//Here we must use the method.getEvent(int eventId) to get the event.
 				//On the other hand the reference will not be to the object allready in the callendar.

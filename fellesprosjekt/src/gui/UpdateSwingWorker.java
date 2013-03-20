@@ -8,7 +8,9 @@ import javax.swing.JPanel;
 import javax.swing.SwingWorker;
 
 import datapackage.DataPackage;
+import datapackage.ErrorPackage;
 import datapackage.NotificationPackage;
+import datapackage.RSVPPackage;
 
 import model.Event;
 
@@ -37,25 +39,40 @@ public class UpdateSwingWorker extends SwingWorker<Void, Void>{
 			panel.getModel().addEvents(events);
 			
 			notifications = ((MainCalendarPanel) pane).requestNotifications();
+			for (DataPackage pack : notifications) {
+				if (((NotificationPackage) pack).getNotificationType() == 0) {
+					//I think this works now, but needs testing.
+					JOptionPane.showMessageDialog(null, "The event " + ((NotificationPackage) pack).getEventName() + " is cancelled. Press OK to continue.");
+				}
+			}
 			if (notifications != null) {
 				for (Event e : events) {
 					for (DataPackage pack : notifications) {
 						if (((NotificationPackage) pack).getEventId() == e.getEventId()) {
-							if (((NotificationPackage) pack).getNotificationType() == 0) {
-								//This will not work properly because the event won't show up in the list of events.
-								//Need to check if the id is not in the events..
-								JOptionPane.showMessageDialog(null, "The event " + e.getName() + " is cancelled. Press OK to continue.");
-							}
-							else if (((NotificationPackage) pack).getNotificationType() == 1) {
-								int answer = JOptionPane.showConfirmDialog(null, "The event " + e.getName() + " was updated. Are you still able to join?", "Your event was updated", JOptionPane.YES_NO_CANCEL_OPTION); 
+							if (((NotificationPackage) pack).getNotificationType() == 1) {
 								//Do like this to retrive the answer from the user.
+								int answer = JOptionPane.showConfirmDialog(null, "The event " + e.getName() + " was updated. Are you still able to join?", "Your event was updated", JOptionPane.YES_NO_CANCEL_OPTION); 
+								
 								if (answer == JOptionPane.YES_OPTION) {
-									
+									DataPackage response = ((MainCalendarPanel) pane).sendPackage(new RSVPPackage(1,1,e.getEventId(),true, ((MainCalendarPanel) pane).getPerson().getUsername()));
+									System.out.println(((ErrorPackage)response).getDescription());
+								}
+								else if (answer == JOptionPane.NO_OPTION) {
+									DataPackage response = ((MainCalendarPanel) pane).sendPackage(new RSVPPackage(1,1,e.getEventId(),false, ((MainCalendarPanel) pane).getPerson().getUsername()));
+									System.out.println(((ErrorPackage)response).getDescription());
 								}
 							}
 							else if (((NotificationPackage) pack).getNotificationType() == 2) {
 								int answer = JOptionPane.showConfirmDialog(null, "You are invited to the event " + e.getName() + ". Do you want to join?", "Your are invited", JOptionPane.YES_NO_CANCEL_OPTION); 
 							
+								if(answer == JOptionPane.YES_OPTION) {
+									DataPackage response = ((MainCalendarPanel) pane).sendPackage(new RSVPPackage(1,1,e.getEventId(),true, ((MainCalendarPanel) pane).getPerson().getUsername()));
+									System.out.println(((ErrorPackage)response).getDescription());
+								}
+								else if (answer == JOptionPane.NO_OPTION) {
+									DataPackage response = ((MainCalendarPanel) pane).sendPackage(new RSVPPackage(1,1,e.getEventId(),false, ((MainCalendarPanel) pane).getPerson().getUsername()));
+									System.out.println(((ErrorPackage)response).getDescription());
+								}
 							}
 						}
 					}

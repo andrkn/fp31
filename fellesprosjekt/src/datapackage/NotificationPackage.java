@@ -3,12 +3,14 @@ package datapackage;
 public class NotificationPackage implements DataPackage {
 
 	private int packageNumber, totalPackages, eventId, notificationType;
+	private String eventName;
 
-	public NotificationPackage(int packageNumber, int totalPackages, int eventId, int notificationType) {
+	public NotificationPackage(int packageNumber, int totalPackages, int eventId, int notificationType, String evnentName) {
 		this.packageNumber = packageNumber;
 		this.totalPackages = totalPackages;
 		this.eventId = eventId;
 		this.notificationType = notificationType;
+		this.eventName = eventName;
 	}
 	
 	
@@ -37,6 +39,10 @@ public class NotificationPackage implements DataPackage {
 
 	public void setEventId(int eventId) {
 		this.eventId = eventId;
+	}
+	
+	public String getEventName() {
+		return this.eventName;
 	}
 
 }
