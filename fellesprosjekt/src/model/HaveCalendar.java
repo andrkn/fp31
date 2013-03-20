@@ -1,6 +1,8 @@
 package model;
 
-public interface HaveCalendar extends Comparable<HaveCalendar>{
+import java.io.Serializable;
+
+public interface HaveCalendar extends Comparable<HaveCalendar>, Serializable{
 
 	CalendarModel getCalendar();
 	String getName();

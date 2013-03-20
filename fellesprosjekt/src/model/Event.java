@@ -3,11 +3,6 @@ package model;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
-
-import com.sun.corba.se.impl.encoding.OSFCodeSetRegistry.Entry;
-
-import net.DBMethods;
 
 import model.HaveCalendar;
 import model.Person;
@@ -15,6 +10,7 @@ import model.Room;
 
 public class Event implements java.io.Serializable {
 	
+	private static final long serialVersionUID = 3290363940622950179L;
 	private String name, description, place;
 	private Person createdBy;
 	private int eventId;

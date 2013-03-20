@@ -450,8 +450,10 @@ public class DBMethods {
 		System.out.println("Removing in invite in DB");
 		for (HaveCalendar hc : hcList) {
 			statement = connection.createStatement();
-			String sql = "DELETE FROM Invited WHERE username = '" + hc.getName() + "' AND eventID = " + event.getEventId();
+			String sql = "DELETE FROM Invited WHERE username = '" + ((Person)hc).getUsername() + "' AND eventID = " + event.getEventId();
 			statement.executeUpdate(sql);
+			System.out.println(((Person)hc).getUsername());
+			System.out.println(event.getEventId());
 		}
 	}
 
