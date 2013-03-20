@@ -362,20 +362,25 @@ public class ServerPackageHandler {
 	private ArrayList<DataPackage> handleRSVPPackage(RSVPPackage pack) throws IOException, SQLException {
 		ArrayList<DataPackage> returnList = new ArrayList<DataPackage>();
 		int eventID = pack.getEventId();
-		boolean answer = pack.getRsvp();
+		Boolean answer = pack.getRsvp();
 		
 		System.out.println("RSVP for: " + eventID);
 		System.out.println(answer);
 		
 		DBMethods method = connectToDB();
-		if (answer){
+		if (answer == true){
 			method.answerInvite(pack.getUsername(), eventID, 1);
 			method.deleteNotification(eventID, pack.getUsername());
 		}
-		else if (!answer){
+		else if (answer == false){
 			method.answerInvite(pack.getUsername(), eventID, 0);
 			method.deleteNotification(eventID, pack.getUsername());
 		}
+		else if (answer == null){
+			System.out.println("#ANSWER was NULL");
+			method.deleteNotification(eventID, pack.getUsername());
+		}
+		disconnectFromDB();
 		returnList.add(new ErrorPackage(ErrorType.OK, "The eventresponse was recorded", 1, 1));
 		return returnList;
 	}
