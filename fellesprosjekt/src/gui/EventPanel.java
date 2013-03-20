@@ -33,6 +33,8 @@ import model.EventModel;
 import model.HaveCalendar;
 import model.InviteListPanel;
 import model.Person;
+import model.Room;
+import model.RoomListModel;
 
 public class EventPanel extends JPanel implements PropertyChangeListener{
 	
@@ -207,6 +209,7 @@ public class EventPanel extends JPanel implements PropertyChangeListener{
 		if (!editeble) {
 			JPanel roomPanel = new RoomPanel(model.getRoomListModel());
 			this.add(roomPanel, grid);
+			//TODO 
 
 		} else {
 			placeField = new JTextField();
@@ -454,6 +457,13 @@ public class EventPanel extends JPanel implements PropertyChangeListener{
 				
 		
 				
+	}
+	
+	private RoomListModel getRoomListModel(){
+		
+		ArrayList<Room> roomList = mainCalendarPanel.getRoomList();
+		
+		return new RoomListModel(roomList, model.getEvent()); 
 	}
 
 }

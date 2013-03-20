@@ -22,6 +22,8 @@ import datapackage.HaveCalendarPackage;
 import datapackage.InvitePackage;
 import datapackage.NotificationPackage;
 import datapackage.NotificationRequestPackage;
+import datapackage.RoomListRequestPackage;
+import datapackage.RoomPackage;
 
 import net.PackageSender;
 
@@ -222,6 +224,21 @@ public class MainCalendarPanel extends JPanel {
 		}
 		
 		return hcList;
+	}
+	
+	public ArrayList<Room> getRoomList(){
+		
+		DataPackage dataPackage = new RoomListRequestPackage(1, 1, 1); 
+		sender.sendPackage(dataPackage); 
+		ArrayList<DataPackage> dataArray = sender.receivePackageArray();
+		
+		ArrayList<Room> roomList = new ArrayList<Room>(); 
+		
+		for (DataPackage pack : dataArray){
+			roomList.add(((RoomPackage)pack).getRoom());
+		}
+		
+		return roomList;
 	}
 }
 
