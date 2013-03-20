@@ -370,9 +370,11 @@ public class ServerPackageHandler {
 		DBMethods method = connectToDB();
 		if (answer){
 			method.answerInvite(pack.getUsername(), eventID, 1);
+			method.deleteNotification(eventID, pack.getUsername());
 		}
 		else if (!answer){
 			method.answerInvite(pack.getUsername(), eventID, 0);
+			method.deleteNotification(eventID, pack.getUsername());
 		}
 		returnList.add(new ErrorPackage(ErrorType.OK, "The eventresponse was recorded", 1, 1));
 		return returnList;
