@@ -180,6 +180,8 @@ public class MainCalendarPanel extends JPanel {
 		
 		else {
 			importCalModel = requestCalendar(otherUser);
+			this.addUsername(otherUser);
+			System.out.println(this.getCalendarUsers());
 			for(Event e : importCalModel.getEventList()) {
 				calModel.addEvent(e);
 				System.out.println(e);
