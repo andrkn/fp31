@@ -383,10 +383,6 @@ public class DBMethods {
     public HashMap<Integer, Integer> getNotifications(String username) throws SQLException{
     	statement = connection.createStatement();
     	String sql = "SELECT * FROM Notification WHERE username = '" + username + "'";
-<<<<<<< HEAD
-    	//<eventId, notificationType>: 0 = Delete, 1 = Update, 2 = Invite
-=======
->>>>>>> added sendNotification()
     	HashMap<Integer,Integer> result = new HashMap<Integer, Integer>();
     	ResultSet resultSet = statement.executeQuery(sql);
     	while (resultSet.next()){
