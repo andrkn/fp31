@@ -12,6 +12,7 @@ import java.util.HashMap;
 
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.SwingWorker;
 
 import datapackage.CalendarRequestPackage;
 import datapackage.DataPackage;
@@ -56,6 +57,7 @@ public class MainCalendarPanel extends JPanel {
 	private Timestamp inviteListTimestamp; 
 	private ArrayList<Room> roomList; 
 	private Timestamp roomListTimestamp; 
+	private UpdateSwingWorker usw;
 	
 	
 	public MainCalendarPanel(String username){
@@ -160,8 +162,10 @@ public class MainCalendarPanel extends JPanel {
 	}
 	
 	public void newEvent(){
+//		stopUSW();
 		Event event = new Event(0,this.user,new Timestamp(0), new Timestamp(0),"","","",null,new ArrayList<HaveCalendar>());
 		this.eventPanel.setModel(new EventModel(event, this.user));
+//		startUSW();
 	}
 	
 	public void setEvent(EventModel model){
@@ -174,6 +178,9 @@ public class MainCalendarPanel extends JPanel {
 		 * needs to activate a view that lets the user enter a username
 		 * and then send that username with a CalendarRequestPackage to
 		 * the server.
+		 * 
+		 * skal starte og stoppe swing worker 
+		 * 
 		 */
 		String otherUser = (String)JOptionPane.showInputDialog(calendarPanel, "Skriv brukernavn til eieren av kalender du vil importere");
 		if(otherUser == "") return;
@@ -225,13 +232,17 @@ public class MainCalendarPanel extends JPanel {
 	}
 	
 	public void sendInvite(int eventID, ArrayList<HaveCalendar> hcList){
+//		stopUSW();
 		sender.sendPackage(new InvitePackage(eventID, hcList, 1, 1)); 
 		ErrorPackage pack = (ErrorPackage) sender.receivePackage();
 		System.out.println(pack);
+//		startUSW();
 	}
 
 
 	public ArrayList<HaveCalendar> getInviteList(){
+		
+//		stopUSW();
 		
 		if ( inviteList != null && (System.currentTimeMillis() - inviteListTimestamp.getTime())<1000*60*5){
 			inviteListTimestamp = new Timestamp(System.currentTimeMillis()); 
@@ -254,10 +265,14 @@ public class MainCalendarPanel extends JPanel {
 		
 		this.inviteList = hcList;
 		inviteListTimestamp = new Timestamp(System.currentTimeMillis());
+		
+//		startUSW();
+		
 		return hcList;
 	}
 	
 	public ArrayList<Room> getRoomList(){
+//		stopUSW();
 		
 		if ( roomList != null && (System.currentTimeMillis() - roomListTimestamp.getTime())<1000*60*5){
 			roomListTimestamp = new Timestamp(System.currentTimeMillis()); 
@@ -275,11 +290,14 @@ public class MainCalendarPanel extends JPanel {
 		}
 		this.roomList = roomList;
 		roomListTimestamp = new Timestamp(System.currentTimeMillis());
+		
+//		startUSW();
 		return roomList;
 	}
 
 
 	public void removeAttender(String selected, Event event) {
+//		stopUSW();
 		ArrayList<HaveCalendar> inviteList = getInviteList(); 
 		ArrayList<HaveCalendar> removeHC = new ArrayList<HaveCalendar>(); 
 		
@@ -294,6 +312,24 @@ public class MainCalendarPanel extends JPanel {
 		sender.sendPackage(dataPackage);
 		sender.receivePackage();
 		System.out.println("Have removed attender (mainCalenderPanel)");
+//		startUSW();
+	}
+	
+	public void setSwingWorker(UpdateSwingWorker usw){
+		this.usw = usw;
+	}
+	
+	public void restartUSW(){
+		usw.cancel(true); 
+		usw = new UpdateSwingWorker(this,((MainCalendarPanel)this).getCalendarPanel());
+		usw.execute();
+	}
+	public void stopUSW(){
+		usw.cancel(true);
+	}
+	public void startUSW(){
+		usw = new UpdateSwingWorker(this,((MainCalendarPanel)this).getCalendarPanel());
+		usw.execute();
 	}
 }
 

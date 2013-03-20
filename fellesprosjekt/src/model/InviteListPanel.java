@@ -64,6 +64,7 @@ public class InviteListPanel extends JPanel{
 				HaveCalendar selected = (HaveCalendar) list.getSelectedValue();
 				listModel.add(selected);
 				model.addAttender(selected);
+//				mainPanel.restartUSW();
 			}
 		});
 	}

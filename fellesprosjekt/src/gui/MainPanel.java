@@ -66,8 +66,9 @@ public class MainPanel {
 		frame.validate(); 
 		frame.repaint();
 //		frame.setResizable(true);
-		UpdateSwingWorker usw = new UpdateSwingWorker(pane, frame, ((MainCalendarPanel) pane).getCalendarPanel());
+		UpdateSwingWorker usw = new UpdateSwingWorker(pane, ((MainCalendarPanel) pane).getCalendarPanel());
 		usw.execute();
+		((MainCalendarPanel) pane).setSwingWorker(usw);
 		//To stop the new background task simply write this:
 //		usw.cancel(true);
 	}

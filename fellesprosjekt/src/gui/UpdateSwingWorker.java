@@ -17,14 +17,12 @@ import model.Event;
 
 public class UpdateSwingWorker extends SwingWorker<Void, Void>{
 
-	private JFrame frame;
 	private JPanel pane;
 	private CalendarPanel panel;
 	private ArrayList<Event> events;
 	private ArrayList<DataPackage> notifications;
 
-	public UpdateSwingWorker(JPanel pane, JFrame frame, CalendarPanel panel){
-		this.frame = frame;
+	public UpdateSwingWorker(JPanel pane, CalendarPanel panel){
 		this.pane = pane;
 		this.panel = panel;
 	}
@@ -86,6 +84,7 @@ public class UpdateSwingWorker extends SwingWorker<Void, Void>{
 			try {
 				//Sleeping for 20 seconds
 				Thread.sleep(20000);
+				
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
