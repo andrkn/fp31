@@ -43,6 +43,8 @@ public class UpdateSwingWorker extends SwingWorker<Void, Void>{
 				if (((NotificationPackage) pack).getNotificationType() == 0) {
 					//I think this works now, but needs testing. The event name shows up as null... WHY???
 					JOptionPane.showMessageDialog(null, "The event " + ((NotificationPackage) pack).getEventName() + " is cancelled. Press OK to continue.");
+					DataPackage response = ((MainCalendarPanel) pane).sendPackage(new RSVPPackage(1,1,((NotificationPackage)pack).getEventId(),null, ((MainCalendarPanel) pane).getPerson().getUsername()));
+					System.out.println(((ErrorPackage)response).getDescription());
 				}
 			}
 			if (notifications != null) {
