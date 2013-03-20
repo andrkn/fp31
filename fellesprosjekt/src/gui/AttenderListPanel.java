@@ -29,9 +29,11 @@ public class AttenderListPanel extends JPanel{
 	private DefaultListModel listModel; 
 	private EventModel model;
 	private HashMap<String, HaveCalendar> nameMap;
+	private MainCalendarPanel mainPanel; 
 	
 	public AttenderListPanel(EventModel model, MainCalendarPanel mainCalendarPanel){
 		this.model = model;
+		this.mainPanel = mainCalendarPanel; 
 		nameMap = new HashMap<String, HaveCalendar>(); 
 		for (HaveCalendar hc : mainCalendarPanel.getInviteList()){
 			nameMap.put(hc.getName(), hc);
@@ -79,6 +81,7 @@ public class AttenderListPanel extends JPanel{
 			public void actionPerformed(ActionEvent arg0) {
 				String selected = (String) list.getSelectedValue();
 				model.removeAttender(nameMap.get(selected));
+				mainPanel.removeAttender(selected, model.getEvent());
 			}
 		});
 	}

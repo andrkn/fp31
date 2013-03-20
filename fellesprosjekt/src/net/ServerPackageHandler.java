@@ -142,6 +142,16 @@ public class ServerPackageHandler {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+		}else if (pack instanceof RemoveAttenderPackage){
+			try {
+				returnPackages = removeAttenderPackageHandeler((RemoveAttenderPackage)pack);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		return returnPackages;
 	}
@@ -422,6 +432,19 @@ public class ServerPackageHandler {
 			i++;
 		}
 		
+		return dataPackageList;
+	}
+
+
+	private ArrayList<DataPackage> removeAttenderPackageHandeler(RemoveAttenderPackage pack) throws IOException, SQLException {
+		ArrayList<DataPackage> dataPackageList = new ArrayList<DataPackage>(); 
+		DBMethods method = connectToDB(); 
+		
+		method.updateRemoveInvite(pack.getHc(), pack.getEvent());
+		
+		disconnectFromDB(); 
+		
+		dataPackageList.add(new ErrorPackage(ErrorType.OK, "have removed attenders from event", 1, 1));
 		return dataPackageList;
 	}
 

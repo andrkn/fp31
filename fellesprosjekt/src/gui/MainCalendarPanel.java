@@ -22,6 +22,7 @@ import datapackage.HaveCalendarPackage;
 import datapackage.InvitePackage;
 import datapackage.NotificationPackage;
 import datapackage.NotificationRequestPackage;
+import datapackage.RemoveAttenderPackage;
 import datapackage.RoomListRequestPackage;
 import datapackage.RoomPackage;
 
@@ -239,6 +240,22 @@ public class MainCalendarPanel extends JPanel {
 		}
 		
 		return roomList;
+	}
+
+
+	public void removeAttender(String selected, Event event) {
+		ArrayList<HaveCalendar> inviteList = getInviteList(); 
+		ArrayList<HaveCalendar> removeHC = new ArrayList<HaveCalendar>(); 
+		
+		for (HaveCalendar hc : inviteList){
+			if (hc.getName().equals(selected)){
+				removeHC.add(hc); 
+				break;
+			}
+		}
+		
+		DataPackage dataPackage = new RemoveAttenderPackage(1, 1, removeHC, event);
+		sender.sendPackage(dataPackage);
 	}
 }
 

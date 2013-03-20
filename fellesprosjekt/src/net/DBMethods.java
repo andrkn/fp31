@@ -432,6 +432,12 @@ public class DBMethods {
     	}
     	return result;
     }
+
+	public void updateRemoveInvite(ArrayList<HaveCalendar> hc, Event event) throws SQLException {
+		// TODO Auto-generated method stub
+		statement = connection.createStatement(); 
+		
+	}
     
 
 }
