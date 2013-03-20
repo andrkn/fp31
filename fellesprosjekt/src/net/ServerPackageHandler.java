@@ -133,6 +133,7 @@ public class ServerPackageHandler {
 			}
 			
 		}else if (pack instanceof RoomListRequestPackage){
+			System.out.println("RoomListRequestPackage Recieved");
 			try {
 				returnPackages = handleRoomListRequestPackage();
 			} catch (IOException e) {
@@ -143,6 +144,7 @@ public class ServerPackageHandler {
 				e.printStackTrace();
 			}
 		}else if (pack instanceof RemoveAttenderPackage){
+			System.out.println("RemoveAttenderPackage Recieved");
 			try {
 				returnPackages = removeAttenderPackageHandeler((RemoveAttenderPackage)pack);
 			} catch (IOException e) {
@@ -368,7 +370,7 @@ public class ServerPackageHandler {
 		int i = 1;
 		for (HaveCalendar hc : hcList){
 			dataPackageList.add( new HaveCalendarPackage(i, hcList.size(), hc));
-			System.out.println(hc);
+			System.out.println(hc + "(serverpackage)");
 			i++;
 		}
 		System.out.println(dataPackageList);
