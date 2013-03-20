@@ -59,13 +59,15 @@ public class DBMethods {
 	public void invitePersons(int eventId, ArrayList<HaveCalendar> invitedPersons) throws SQLException{
 		for (Object o : invitedPersons){
 			if (o instanceof Person){
-				updateInvited(((Person) o).getName(), eventId);	
+				updateInvited(((Person) o).getUsername(), eventId);
+				newNotification(eventId, ((Person) o).getUsername(), INVITE_NOTIFICATION);
 			}
 			if (o instanceof Group){
 				for (Object g : invitedPersons){
 					String persons = getPersonsFromGroup(Integer.parseInt(((Group) g).getName()));
 					for (String p : persons.split(" ")){
 						updateInvited(p,eventId);
+						newNotification(eventId, p, INVITE_NOTIFICATION);
 					}
 				}
 			}
@@ -314,6 +316,12 @@ public class DBMethods {
     			}
     		}
     	}
+    }
+    
+    public void newNotification(int eventId, String username, int notification) throws SQLException{
+    	statement = connection.createStatement();
+    	String sql = "INSERT INTO Notification VALUES (" + eventId + ",'" + username + "', " + notification + ")";
+    	statement.executeUpdate(sql);
     }
     
     public void setNotification(int eventId, String username, int notification) throws SQLException{
