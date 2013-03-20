@@ -170,6 +170,9 @@ public class Event implements java.io.Serializable {
 		if (haveCalendar == null){
 			return;
 		}
+		if (attenders == null){
+			attenders = new ArrayList<HaveCalendar>();
+		}
 		attenders.remove(haveCalendar);
 		String name = haveCalendar.toString();
 		if (isNotGoing.contains(name)){
