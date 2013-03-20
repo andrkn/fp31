@@ -387,6 +387,8 @@ public class ServerPackageHandler {
 		
 		disconnectFromDB();
 		
+		dataPackageList.add(new ErrorPackage(ErrorType.OK, "Have sent invite", 1, 1));
+		
 		return dataPackageList;
 	}
 
