@@ -30,7 +30,9 @@ public class UpdateSwingWorker extends SwingWorker<Void, Void>{
 	@Override
 	public Void doInBackground() {
 		while (true) {
-			//			System.out.println("it's working!");
+			//If we want to start and stop this 
+			//we should remove the while(true)!
+			//System.out.println("it's working!");
 			events = new ArrayList<Event>();
 			notifications = new ArrayList<DataPackage>();
 			for (String user : ((MainCalendarPanel)pane).getCalendarUsers()) {
