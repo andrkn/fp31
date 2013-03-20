@@ -22,7 +22,7 @@ public class TestMethods {
     	dbm.setConnection(db.getConnection());
     	
     	
-    	dbm.deleteEvent(57);
+    	dbm.deleteEvent(50);
     	//dbm.getRoom(null);
     	//byte [] salt = dbm.getStoredHash("hanskhe", "password");
     	//byte [] hashedPassword = dbm.getStoredHash("gardmf", "password");

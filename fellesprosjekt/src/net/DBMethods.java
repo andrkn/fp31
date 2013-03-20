@@ -309,9 +309,9 @@ public class DBMethods {
     	statement = connection.createStatement();
     	String sql = "DELETE FROM Event WHERE eventID = " + eventId;
     	statement.executeUpdate(sql);
+    	sendNotification(eventId, DELETE_NOTIFICATION);
     	String sql2 = "DELETE FROM Invited WHERE eventID = " + eventId;
     	statement.executeUpdate(sql2);
-    	sendNotification(eventId, DELETE_NOTIFICATION);
     }
     
     public void sendNotification(int eventId, int notification) throws SQLException{
