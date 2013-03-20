@@ -4,10 +4,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class ButtonPanel extends JPanel {
 	private JButton addEvent, addExternalCal, nextWeek, prevWeek;
+	private JLabel weekNumber;
 	private MainCalendarPanel mainPanel;
 	
 	public ButtonPanel(MainCalendarPanel mainPanel){
@@ -18,6 +20,10 @@ public class ButtonPanel extends JPanel {
 		prevWeek.setName("PrevWeek");
 		prevWeek.addActionListener(new ButtonPanelAction());
 		add(prevWeek);
+		
+		weekNumber = new JLabel();
+		weekNumber.setText(Integer.toString(mainPanel.getCalModel().getWeekNr()));
+		add(weekNumber);
 		
 		nextWeek = new JButton(">>");
 		nextWeek.setName("NextWeek");
@@ -34,6 +40,11 @@ public class ButtonPanel extends JPanel {
 		addExternalCal.addActionListener(new ButtonPanelAction());
 		add(addExternalCal);
 	}
+	
+	public void UpdateWeekNumber(){
+		weekNumber.setText(Integer.toString(mainPanel.getCalModel().getWeekNr()));
+	}
+	
 	public class ButtonPanelAction implements ActionListener {
 
 		@Override
@@ -52,10 +63,12 @@ public class ButtonPanel extends JPanel {
 			else if(sourceButton.getName().equals("NextWeek")){
 				System.out.println("Going to next week");
 				mainPanel.getCalModel().incrementWeek();
+				UpdateWeekNumber();
 			}
 			else if(sourceButton.getName().equals("PrevWeek")){
 				System.out.println("Going to prev week");
 				mainPanel.getCalModel().decrementWeek();
+				UpdateWeekNumber();
 			}
 		}
 

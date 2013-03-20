@@ -65,7 +65,7 @@ public class CalendarModel implements PropertyChangeListener {
 		pcs = new PropertyChangeSupport(this);
 		Calendar cal = Calendar.getInstance();
 		this.year = 1900 + cal.getTime().getYear();
-		this.weekNr = cal.WEEK_OF_YEAR;
+		this.weekNr = cal.WEEK_OF_YEAR + 9;
 	}
 	
 	public void addEvent(int eventId, Person createdBy, Timestamp startTime, Timestamp endTime, String name, String description, String place, Room room, ArrayList<HaveCalendar> attenders) {
