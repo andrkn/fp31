@@ -59,6 +59,7 @@ public class ButtonPanel extends JPanel {
 			else if (sourceButton.getName().equals("AddExternal")){
 				System.out.println("Adding External Calendar");
 				mainPanel.importEvents();
+				
 			}
 			else if(sourceButton.getName().equals("NextWeek")){
 				System.out.println("Going to next week");

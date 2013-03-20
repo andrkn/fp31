@@ -57,6 +57,7 @@ public class MainCalendarPanel extends JPanel {
 		//Set the current user. ATM does not care about anything but username
 		user = new Person(username, "","");
 		
+		calendarUsers = new ArrayList<String>();
 		calendarUsers.add(username);
 		
 		//Request the users calendar from DB
