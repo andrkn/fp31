@@ -22,13 +22,19 @@ public class TestMethods {
     	dbm.setConnection(db.getConnection());
     	
     	
+    	dbm.deleteEvent(57);
+    	//dbm.getRoom(null);
+    	//byte [] salt = dbm.getStoredHash("hanskhe", "password");
+    	//byte [] hashedPassword = dbm.getStoredHash("gardmf", "password");
+    	//System.out.println(PasswordEncryption.checkPassword("1234", hashedPassword, salt));
+    	
 //    	for (Group g : dbm.getAllGroups()){
 //    		System.out.println(g.getName());
 //    	}
     	//ArrayList<HaveCalendar> invitable = dbm.getAllInvitable();
-    	ArrayList<HaveCalendar> list = new ArrayList<HaveCalendar>();
-    	list.add(new Person("torstein", "Torstein", "torstein@torstein.no"));
-    	dbm.invitePersons(50, list);
+    	//ArrayList<HaveCalendar> list = new ArrayList<HaveCalendar>();
+    	//list.add(new Person("torstein", "Torstein", "torstein@torstein.no"));
+    	//dbm.invitePersons(50, list);
     	//dbm.createEvent("helle", new Timestamp(113, 2, 20, 15, 0, 0, 0), new Timestamp(113, 2, 20, 17, 0, 0, 0), "helle", "o-0", "NY", "", "100");
     	//dbm.createEvent("torstein", new Timestamp(113, 2, 20, 14, 0, 0, 0), new Timestamp(113, 2, 20, 17, 0, 0, 0), "torstein", "kake", "NY", "", "100");
     	
