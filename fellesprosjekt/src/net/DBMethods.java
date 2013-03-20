@@ -112,6 +112,12 @@ public class DBMethods {
 		return isGoing;
 	}
 	
+	public void deleteNotification(int eventId, String username) throws SQLException{
+		statement = connection.createStatement();
+		String sql = "DELETE FROM Notification WHERE eventID = " + eventId + " AND username = '" + username + "'";
+		statement.executeUpdate(sql);
+	}
+	
 	public ArrayList<String> getIsNotGoing(int eventID) throws SQLException{
 		statement = connection.createStatement();
 		String sql = "SELECT username FROM Invited WHERE eventID  = " + eventID + " AND isGoing = 0";
