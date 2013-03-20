@@ -301,6 +301,7 @@ public class DBMethods {
     	String sql = "SELECT * FROM Room WHERE RoomNr = '" + roomNr + "'";
     	ResultSet resultSet = statement.executeQuery(sql);
     	resultSet.next();
+    	System.out.println(resultSet.getString(2));
     	return new Room(resultSet.getString(1), resultSet.getInt(2));
     }
     
@@ -308,6 +309,8 @@ public class DBMethods {
     	statement = connection.createStatement();
     	String sql = "DELETE FROM Event WHERE eventID = " + eventId;
     	statement.executeUpdate(sql);
+    	String sql2 = "DELETE FROM Invited WHERE eventID = " + eventId;
+    	statement.executeUpdate(sql2);
     	sendNotification(eventId, DELETE_NOTIFICATION);
     }
     
