@@ -376,16 +376,16 @@ public class ServerPackageHandler {
 		System.out.println(answer);
 		
 		DBMethods method = connectToDB();
-		if (answer == true){
+		if (answer == null){
+			System.out.println("#ANSWER was NULL");
+			method.deleteNotification(eventID, pack.getUsername());
+		}
+		else if (answer == true){
 			method.answerInvite(pack.getUsername(), eventID, 1);
 			method.deleteNotification(eventID, pack.getUsername());
 		}
 		else if (answer == false){
 			method.answerInvite(pack.getUsername(), eventID, 0);
-			method.deleteNotification(eventID, pack.getUsername());
-		}
-		else if (answer == null){
-			System.out.println("#ANSWER was NULL");
 			method.deleteNotification(eventID, pack.getUsername());
 		}
 		disconnectFromDB();
