@@ -206,7 +206,6 @@ public class EventModel {
 	
 	public void addAttender(HaveCalendar hc){
 		event.addAttender(hc);
-		System.out.println("FirePropertyChange!!! (eventModel)");
 		pcs.firePropertyChange("AddAttender", null, hc);
 	}
 	public void removeAttender(HaveCalendar selected) {

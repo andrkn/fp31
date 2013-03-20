@@ -207,7 +207,8 @@ public class MainCalendarPanel extends JPanel {
 		ErrorPackage pack = (ErrorPackage) sender.receivePackage();
 		System.out.println(pack.getErrorType() + " (gui.MainCalenderPanel.sendInvite())");
 	}
-	
+
+
 	public ArrayList<HaveCalendar> getInviteList(){
 		sender.sendPackage(new HaveCalendarListRequestPackage(1, 1));
 		ArrayList<DataPackage> dataList = sender.receivePackageArray(); 

@@ -62,6 +62,7 @@ public class InviteListPanel extends JPanel{
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				HaveCalendar selected = (HaveCalendar) list.getSelectedValue();
+				listModel.add(selected);
 				model.addAttender(selected);
 			}
 		});
