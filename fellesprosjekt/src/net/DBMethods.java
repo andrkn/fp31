@@ -63,7 +63,7 @@ public class DBMethods {
 			}
 			if (o instanceof Group){
 				for (Object g : invitedPersons){
-					String persons = getPersonsFromGroup(Integer.parseInt(((Group) g).getName()));
+					String persons = getPersonsFromGroup((((Group) g).getGroupId()));
 					for (String p : persons.split(" ")){
 						updateInvited(p,eventId);
 					}
