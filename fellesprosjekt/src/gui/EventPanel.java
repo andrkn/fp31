@@ -453,6 +453,7 @@ public class EventPanel extends JPanel implements PropertyChangeListener{
 				}
 			}
 			model.setEditeble(true);
+			mainCalendarPanel.updateCalendar();
 //		mainCalendarPanel.restartUSW();
 			
 		}else {
@@ -472,6 +473,7 @@ public class EventPanel extends JPanel implements PropertyChangeListener{
 			EventUpdatePackage pack = new EventUpdatePackage(model.getEvent().getEventId(), "Delete", null, 1, 1);
 			
 			mainCalendarPanel.sendPackage(pack);
+			mainCalendarPanel.updateCalendar();
 		}else {
 			JOptionPane.showMessageDialog(null, "You can not delete an event created by another user");
 		}
