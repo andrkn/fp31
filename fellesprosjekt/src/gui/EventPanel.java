@@ -195,30 +195,32 @@ public class EventPanel extends JPanel implements PropertyChangeListener{
 		startTimeField.setText(model.getStartTime());
 		startTimeField.setName("StartTimeField");
 		startTimeField.setColumns(15);
-		setEditebleTextField(startTimeField, editeble);
+		setEditebleTextField(startTimeField, editeble );
 		this.add(startTimeField, grid);
 
 		grid.gridy += 1;
 		endTimeField = new JTextField();
 		endTimeField.setText(model.getEndTime());
 		endTimeField.setColumns(15);
-		setEditebleTextField(endTimeField, editeble);
+		setEditebleTextField(endTimeField, editeble );
 		this.add(endTimeField, grid);
 
 		grid.gridy += 1;
-		if (!editeble) {
-			JPanel roomPanel = new RoomPanel(new RoomListModel( mainCalendarPanel.getRoomList(), model.getEvent()));
+		if (!editeble
+				&& mainCalendarPanel.getPerson().getUsername()
+						.equals(model.getEvent().getCreatedBy().getUsername())) {
+			JPanel roomPanel = new RoomPanel(new RoomListModel(
+					mainCalendarPanel.getRoomList(), model.getEvent()));
 			this.add(roomPanel, grid);
-			//TODO 
+		} else {// TODO
 
-		} else {
 			placeField = new JTextField();
 			placeField.setText(model.getPlace());
 			placeField.setName("PlaceField");
-			setEditebleTextField(placeField, editeble);
+			setEditebleTextField(placeField, true);
 			this.add(placeField, grid);
 		}
-
+		
 		grid.gridy += 1;
 		descriptionField = new JTextField();
 		descriptionField.setText(model.getDescription());
@@ -230,7 +232,7 @@ public class EventPanel extends JPanel implements PropertyChangeListener{
 		//Vise deltagere, ikke implimentert 
 		grid.gridy += 1; 
 		Component attenderComponent;
-		if(!editeble){
+		if(!editeble && mainCalendarPanel.getPerson().getUsername().equals(model.getEvent().getCreatedBy().getUsername())){
 			attenderComponent = new AttenderListPanel(model, mainCalendarPanel);
 			
 		}else{
@@ -247,7 +249,7 @@ public class EventPanel extends JPanel implements PropertyChangeListener{
 		
 		//inviteRow
 		grid.gridy += 1;
-		if(!editeble){
+		if(!editeble && mainCalendarPanel.getPerson().getUsername().equals(model.getEvent().getCreatedBy().getUsername())){
 			JPanel invitePanel = new InviteListPanel(model, mainCalendarPanel); 
 			this.add(invitePanel, grid);
 		}
@@ -348,7 +350,7 @@ public class EventPanel extends JPanel implements PropertyChangeListener{
 		
 		//Row for invite list
 		grid.gridy += 1; 
-		if (!editeble){
+		if (!editeble && mainCalendarPanel.getPerson().getUsername().equals(model.getEvent().getCreatedBy().getUsername())){
 			JLabel inviteLabel = new JLabel("Inviter"); 
 			inviteLabel.setName("inviteLabel");
 			this.add(inviteLabel,grid);
@@ -399,42 +401,48 @@ public class EventPanel extends JPanel implements PropertyChangeListener{
 	
 	public void save(){
 		
-		model.setName(nameField.getText()); 
-		model.setDescription(descriptionField.getText());
-		model.setStartTime(startTimeField.getText()); 
-		model.setEndTime(endTimeField.getText());
-		if (alarmField.getText().equals("")){
-			model.setAlarm(0);
-		}else{
-			model.setAlarm(Integer.parseInt(alarmField.getText()));
+		if (mainCalendarPanel.getPerson().getUsername().equals(model.getEvent().getCreatedBy().getUsername())){
+			model.setName(nameField.getText()); 
+			model.setDescription(descriptionField.getText());
+			model.setStartTime(startTimeField.getText()); 
+			model.setEndTime(endTimeField.getText());
+			if (alarmField.getText().equals("")){
+				model.setAlarm(0);
+			}else{
+				model.setAlarm(Integer.parseInt(alarmField.getText()));
+			}
+			
+			if (model.getEvent().getEventId() == 0){
+				//If the event does not exist beforehand
+				Event returnEvent = model.getEvent();
+				EventPackage eventPack = new EventPackage(1, 1, returnEvent);
+				DataPackage returnPack = mainCalendarPanel.sendPackage(eventPack);
+				if (returnPack instanceof EventPackage){
+					model.getEvent().setEventId(((EventPackage) returnPack).getEvent().getEventId());
+					System.out.println(((EventPackage)returnPack).getEvent().getEventId());
+				}
+				else if (returnPack instanceof ErrorPackage){
+					System.out.println(((ErrorPackage)returnPack).getDescription());
+				}
+			}
+			else {
+				Event returnEvent = model.getEvent();
+				EventUpdatePackage updatePack = new EventUpdatePackage(model.getEvent().getEventId(),"FULL_UPDATE", model.getEvent(), 1,1);
+				DataPackage returnPack = mainCalendarPanel.sendPackage(updatePack);
+				if (returnPack instanceof EventPackage){
+					System.out.println("The sun never sets on the British empire!");
+				}
+				else if (returnPack instanceof ErrorPackage){
+					System.out.println(((ErrorPackage)returnPack).getDescription());
+				}
+			}
+			model.setEditeble(true);
+//		mainCalendarPanel.restartUSW();
+			
+		}else {
+			JOptionPane.showMessageDialog(null, "You can not change an event created by another user");
 		}
 		
-		if (model.getEvent().getEventId() == 0){
-			//If the event does not exist beforehand
-			Event returnEvent = model.getEvent();
-			EventPackage eventPack = new EventPackage(1, 1, returnEvent);
-			DataPackage returnPack = mainCalendarPanel.sendPackage(eventPack);
-			if (returnPack instanceof EventPackage){
-				model.getEvent().setEventId(((EventPackage) returnPack).getEvent().getEventId());
-				System.out.println(((EventPackage)returnPack).getEvent().getEventId());
-			}
-			else if (returnPack instanceof ErrorPackage){
-				System.out.println(((ErrorPackage)returnPack).getDescription());
-			}
-		}
-		else {
-			Event returnEvent = model.getEvent();
-			EventUpdatePackage updatePack = new EventUpdatePackage(model.getEvent().getEventId(),"FULL_UPDATE", model.getEvent(), 1,1);
-			DataPackage returnPack = mainCalendarPanel.sendPackage(updatePack);
-			if (returnPack instanceof EventPackage){
-				System.out.println("The sun never sets on the British empire!");
-			}
-			else if (returnPack instanceof ErrorPackage){
-				System.out.println(((ErrorPackage)returnPack).getDescription());
-			}
-		}
-		model.setEditeble(true);
-//		mainCalendarPanel.restartUSW();
 		
 	}
 	public void abort(){
@@ -444,9 +452,13 @@ public class EventPanel extends JPanel implements PropertyChangeListener{
 		model.setEditeble(false);
 	}
 	public void delete(){
-		EventUpdatePackage pack = new EventUpdatePackage(model.getEvent().getEventId(), "Delete", null, 1, 1);
-		
-		mainCalendarPanel.sendPackage(pack);
+		if (mainCalendarPanel.getPerson().getUsername().equals(model.getEvent().getCreatedBy().getUsername())){
+			EventUpdatePackage pack = new EventUpdatePackage(model.getEvent().getEventId(), "Delete", null, 1, 1);
+			
+			mainCalendarPanel.sendPackage(pack);
+		}else {
+			JOptionPane.showMessageDialog(null, "You can not delete an event created by another user");
+		}
 	}
 	
 	public void launchAlarm(Event e) {

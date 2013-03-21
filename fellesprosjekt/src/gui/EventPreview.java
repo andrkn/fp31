@@ -55,7 +55,7 @@ public class EventPreview extends JPanel implements PropertyChangeListener, Mous
 		this.add(roomLabel, grid);
 
 		grid.gridy += 1;
-		JLabel numberOfAttendersLabel = new JLabel("Deltagere: " + model.getAttenders().size());
+		JLabel numberOfAttendersLabel = new JLabel("Deltagere: " + model.getNumberOfAttenders());
 		this.add(numberOfAttendersLabel, grid);
 		
 		this.setBorder(BorderFactory.createLineBorder(Color.black));
