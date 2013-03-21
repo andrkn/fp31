@@ -452,6 +452,7 @@ public class DBMethods {
 			statement = connection.createStatement();
 			String sql = "DELETE FROM Invited WHERE username = '" + ((Person)hc).getUsername() + "' AND eventID = " + event.getEventId();
 			statement.executeUpdate(sql);
+			deleteNotification(event.getEventId(), ((Person)hc).getUsername());
 			System.out.println(((Person)hc).getUsername());
 			System.out.println(event.getEventId());
 		}
