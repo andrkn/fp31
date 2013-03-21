@@ -44,6 +44,7 @@ public class MainCalendarPanel extends JPanel {
 	private ArrayList<Event> eventList;
 	private ArrayList<DataPackage> response;
 	private CalendarPanel calendarPanel;
+	private ArrayList<Event> updateList;
 	
 
 	private GridBagLayout gridbag;
@@ -339,6 +340,14 @@ public class MainCalendarPanel extends JPanel {
 	public void startUSW(){
 		usw = new UpdateSwingWorker(this,((MainCalendarPanel)this).getCalendarPanel());
 		usw.execute();
+	}
+	
+	public void updateCalendar() {
+		updateList = new ArrayList<Event>();
+		for (String user : (this).getCalendarUsers()) {
+			updateList.addAll((this).requestCalendar(user).getEventList());
+		}
+		this.getCalendarPanel().getModel().addEvents(updateList);
 	}
 }
 
