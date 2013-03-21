@@ -165,7 +165,11 @@ public class EventPanel extends JPanel implements PropertyChangeListener{
 		nameField.setText(model.getName());
 		nameField.setName("NameField");
 		nameField.setColumns(15);
-		setEditebleTextField(nameField, editeble);
+		if (!editeble && mainCalendarPanel.getPerson().getUsername().equals(model.getEvent().getCreatedBy().getUsername())){
+			setEditebleTextField(nameField, editeble);
+		} else {
+			setEditebleTextField(nameField, true);
+		}
 //		nameField.setEditable(model.getEditable()); 
 //		nameField.setBorder(javax.swing.BorderFactory.createEmptyBorder());
 		this.add(nameField, grid);
@@ -195,14 +199,22 @@ public class EventPanel extends JPanel implements PropertyChangeListener{
 		startTimeField.setText(model.getStartTime());
 		startTimeField.setName("StartTimeField");
 		startTimeField.setColumns(15);
-		setEditebleTextField(startTimeField, editeble );
+		if (!editeble && mainCalendarPanel.getPerson().getUsername().equals(model.getEvent().getCreatedBy().getUsername())){
+			setEditebleTextField(startTimeField, editeble );
+		} else {
+			setEditebleTextField(startTimeField, true);
+		}
 		this.add(startTimeField, grid);
 
 		grid.gridy += 1;
 		endTimeField = new JTextField();
 		endTimeField.setText(model.getEndTime());
 		endTimeField.setColumns(15);
-		setEditebleTextField(endTimeField, editeble );
+		if (!editeble && mainCalendarPanel.getPerson().getUsername().equals(model.getEvent().getCreatedBy().getUsername())){
+			setEditebleTextField(endTimeField, editeble );
+		} else {
+			setEditebleTextField(endTimeField, true);
+		}
 		this.add(endTimeField, grid);
 
 		grid.gridy += 1;
@@ -226,7 +238,11 @@ public class EventPanel extends JPanel implements PropertyChangeListener{
 		descriptionField.setText(model.getDescription());
 		descriptionField.setName("DescriptionField");
 		descriptionField.setPreferredSize(new Dimension(120,60));
-		setEditebleTextField(descriptionField, editeble);
+		if (!editeble && mainCalendarPanel.getPerson().getUsername().equals(model.getEvent().getCreatedBy().getUsername())){
+			setEditebleTextField(descriptionField, editeble);
+		} else {
+			setEditebleTextField(descriptionField, true);
+		}
 		this.add(descriptionField, grid); 
 		
 		//Vise deltagere, ikke implimentert 
